@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Windows on Byte Prince</title>
+    <link>https://byteprince.com/tags/windows/</link>
+    <description>Recent content in Windows on Byte Prince</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 15 May 2021 22:45:42 +0800</lastBuildDate><atom:link href="https://byteprince.com/tags/windows/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>删除 Windows 下被占用的文件</title>
+      <link>https://byteprince.com/posts/40fef465/</link>
+      <pubDate>Sat, 15 May 2021 22:45:42 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/40fef465/</guid>
+      <description></description>
+      <content:encoded><![CDATA[<h2 id="查询并结束文件关联的进程">查询并结束文件关联的进程</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">tasklist /m D:<span style="color:#ae81ff">\t</span>ask.txt</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">taskkill /f /im 进程ID</code></pre></div>
+<h2 id="删除文件">删除文件</h2>
+
+<p>递归删除文件夹a1</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">rd /s 文件夹路径</code></pre></div>
+<p>强制删除文件</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">del /s 文件路径</code></pre></div>]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>

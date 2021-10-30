@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Pycharm配置使用Github版本控制 | Byte Prince</title>
+<meta name="keywords" content="Pycharm, Github" />
+<meta name="description" content="Pycharm配置使用Github版本控制 - Byte Prince">
+<meta name="author" content="">
+<link rel="canonical" href="https://byteprince.com/posts/d29a2fe5/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.0cd5cbf0c0807aeda73e5a15f7b28f93f68339431a8e1cced88af9e6db6b4e3b.css" integrity="sha256-DNXL8MCAeu2nPloV97KPk/aDOUMajhzO2Ir55ttrTjs=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
+<link rel="apple-touch-icon" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
+<link rel="mask-icon" href="https://byteprince.com/%3Clink%20/%20abs%20url%3E">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.83.1" />
+
+<meta property="og:title" content="Pycharm配置使用Github版本控制" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://byteprince.com/posts/d29a2fe5/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-04-04T17:17:58&#43;08:00" />
+<meta property="article:modified_time" content="2021-04-04T17:17:58&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Pycharm配置使用Github版本控制"/>
+<meta name="twitter:description" content=""/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://byteprince.com/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Pycharm配置使用Github版本控制",
+      "item": "https://byteprince.com/posts/d29a2fe5/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Pycharm配置使用Github版本控制",
+  "name": "Pycharm配置使用Github版本控制",
+  "description": "",
+  "keywords": [
+    "Pycharm", "Github"
+  ],
+  "articleBody": "准备工作 1.关于GitHub的基本用法 参考：https://pwner.cn/posts/16fb9e75.html\n2.关于Pycharm的安装 官网下载安装即可：https://www.jetbrains.com/Pycharm/\n3.关于Git的安装 官网下载安装即可：https://Git-scm.com/download/win\n安装好 Git 后可以在本地检查\nPycharm中配置GitHub的方法 1.在Pycharm中检查Git环境是否安装完毕 检测显示Git版本说明Git环境已经成功配置，若未配置好Git环境请自行百度安装（安装过程比较简单，下载好安装包后一路下一步即可）\n一般都可以自动检测到Git的安装路径，如果没有自动检测到，请手动选择Git的安装路径\n2.在Pycharm中配置GitHub账号信息 这样就完成了Pycharm和GitHub的账号关联，接下来就可以在Pycharm中使用GitHub进行项目的管理了\n3.本地项目文件夹和GitHub远程仓库的关联 建立一个本地项目文件夹 假设这是本次需要进行版本管理的项目根目录\n使用\ngit init 命令初始化项目\n创建GitHub远程仓库 在GitHub创建同名仓库便于管理\n将本地文件夹和远程仓库关联 git remote add origin Git@github.com:PwnerZhang/local2021.Git 将项目文件托管到GitHub ",
+  "wordCount" : "32",
+  "inLanguage": "en",
+  "datePublished": "2021-04-04T17:17:58+08:00",
+  "dateModified": "2021-04-04T17:17:58+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://byteprince.com/posts/d29a2fe5/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Byte Prince",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: #1d1e20;
+                --entry: #2e2e33;
+                --primary: rgba(255, 255, 255, 0.84);
+                --secondary: rgba(255, 255, 255, 0.56);
+                --tertiary: rgba(255, 255, 255, 0.16);
+                --content: rgba(255, 255, 255, 0.74);
+                --hljs-bg: #2e2e33;
+                --code-bg: #37383e;
+                --border: #333;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://byteprince.com/" accesskey="h" title="Byte Prince (Alt + H)">Byte Prince</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://byteprince.com/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://byteprince.com/categories/" title="Categories">
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://byteprince.com/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://byteprince.com/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://byteprince.com/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      Pycharm配置使用Github版本控制
+    </h1>
+    <div class="post-meta">April 4, 2021
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <div class="details">Table of Contents</div>
+        </summary>
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e5%87%86%e5%a4%87%e5%b7%a5%e4%bd%9c" aria-label="准备工作">准备工作</a><ul>
+                        
+                <li>
+                    <a href="#1-%e5%85%b3%e4%ba%8egithub%e7%9a%84%e5%9f%ba%e6%9c%ac%e7%94%a8%e6%b3%95" aria-label="1.关于GitHub的基本用法">1.关于GitHub的基本用法</a></li>
+                <li>
+                    <a href="#2-%e5%85%b3%e4%ba%8epycharm%e7%9a%84%e5%ae%89%e8%a3%85" aria-label="2.关于Pycharm的安装">2.关于Pycharm的安装</a></li>
+                <li>
+                    <a href="#3-%e5%85%b3%e4%ba%8egit%e7%9a%84%e5%ae%89%e8%a3%85" aria-label="3.关于Git的安装">3.关于Git的安装</a></li></ul>
+                </li>
+                <li>
+                    <a href="#pycharm%e4%b8%ad%e9%85%8d%e7%bd%aegithub%e7%9a%84%e6%96%b9%e6%b3%95" aria-label="Pycharm中配置GitHub的方法">Pycharm中配置GitHub的方法</a><ul>
+                        
+                <li>
+                    <a href="#1-%e5%9c%a8pycharm%e4%b8%ad%e6%a3%80%e6%9f%a5git%e7%8e%af%e5%a2%83%e6%98%af%e5%90%a6%e5%ae%89%e8%a3%85%e5%ae%8c%e6%af%95" aria-label="1.在Pycharm中检查Git环境是否安装完毕">1.在Pycharm中检查Git环境是否安装完毕</a></li>
+                <li>
+                    <a href="#2-%e5%9c%a8pycharm%e4%b8%ad%e9%85%8d%e7%bd%aegithub%e8%b4%a6%e5%8f%b7%e4%bf%a1%e6%81%af" aria-label="2.在Pycharm中配置GitHub账号信息">2.在Pycharm中配置GitHub账号信息</a></li>
+                <li>
+                    <a href="#3-%e6%9c%ac%e5%9c%b0%e9%a1%b9%e7%9b%ae%e6%96%87%e4%bb%b6%e5%a4%b9%e5%92%8cgithub%e8%bf%9c%e7%a8%8b%e4%bb%93%e5%ba%93%e7%9a%84%e5%85%b3%e8%81%94" aria-label="3.本地项目文件夹和GitHub远程仓库的关联">3.本地项目文件夹和GitHub远程仓库的关联</a><ul>
+                        
+                <li>
+                    <a href="#%e5%bb%ba%e7%ab%8b%e4%b8%80%e4%b8%aa%e6%9c%ac%e5%9c%b0%e9%a1%b9%e7%9b%ae%e6%96%87%e4%bb%b6%e5%a4%b9" aria-label="建立一个本地项目文件夹">建立一个本地项目文件夹</a></li>
+                <li>
+                    <a href="#%e5%88%9b%e5%bb%bagithub%e8%bf%9c%e7%a8%8b%e4%bb%93%e5%ba%93" aria-label="创建GitHub远程仓库">创建GitHub远程仓库</a></li>
+                <li>
+                    <a href="#%e5%b0%86%e6%9c%ac%e5%9c%b0%e6%96%87%e4%bb%b6%e5%a4%b9%e5%92%8c%e8%bf%9c%e7%a8%8b%e4%bb%93%e5%ba%93%e5%85%b3%e8%81%94" aria-label="将本地文件夹和远程仓库关联">将本地文件夹和远程仓库关联</a></li>
+                <li>
+                    <a href="#%e5%b0%86%e9%a1%b9%e7%9b%ae%e6%96%87%e4%bb%b6%e6%89%98%e7%ae%a1%e5%88%b0github" aria-label="将项目文件托管到GitHub">将项目文件托管到GitHub</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="准备工作">准备工作<a hidden class="anchor" aria-hidden="true" href="#准备工作">#</a></h1>
+
+<h2 id="1-关于github的基本用法">1.关于GitHub的基本用法<a hidden class="anchor" aria-hidden="true" href="#1-关于github的基本用法">#</a></h2>
+
+<p>参考：<a href="https://pwner.cn/posts/16fb9e75.html">https://pwner.cn/posts/16fb9e75.html</a></p>
+
+<h2 id="2-关于pycharm的安装">2.关于Pycharm的安装<a hidden class="anchor" aria-hidden="true" href="#2-关于pycharm的安装">#</a></h2>
+
+<p>官网下载安装即可：<a href="https://www.jetbrains.com/Pycharm/">https://www.jetbrains.com/Pycharm/</a></p>
+
+<h2 id="3-关于git的安装">3.关于Git的安装<a hidden class="anchor" aria-hidden="true" href="#3-关于git的安装">#</a></h2>
+
+<p>官网下载安装即可：<a href="https://Git-scm.com/download/win">https://Git-scm.com/download/win</a></p>
+
+<p>安装好 <code>Git</code> 后可以在本地检查</p>
+
+<h1 id="pycharm中配置github的方法">Pycharm中配置GitHub的方法<a hidden class="anchor" aria-hidden="true" href="#pycharm中配置github的方法">#</a></h1>
+
+<h2 id="1-在pycharm中检查git环境是否安装完毕">1.在Pycharm中检查Git环境是否安装完毕<a hidden class="anchor" aria-hidden="true" href="#1-在pycharm中检查git环境是否安装完毕">#</a></h2>
+
+<p>检测显示Git版本说明<code>Git</code>环境已经成功配置，若未配置好Git环境请自行百度安装（安装过程比较简单，下载好安装包后一路下一步即可）</p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210404173145.png" alt="使用Pycharm检测Git环境" style="zoom:80%;" /></p>
+
+<p>一般都可以自动检测到<code>Git</code>的安装路径，如果没有自动检测到，请手动选择<code>Git</code>的安装路径</p>
+
+<h2 id="2-在pycharm中配置github账号信息">2.在Pycharm中配置GitHub账号信息<a hidden class="anchor" aria-hidden="true" href="#2-在pycharm中配置github账号信息">#</a></h2>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210404173326.png" alt="image-20210404173326578" style="zoom:80%;" /></p>
+
+<p>这样就完成了Pycharm和GitHub的账号关联，接下来就可以在Pycharm中使用GitHub进行项目的管理了</p>
+
+<h2 id="3-本地项目文件夹和github远程仓库的关联">3.本地项目文件夹和GitHub远程仓库的关联<a hidden class="anchor" aria-hidden="true" href="#3-本地项目文件夹和github远程仓库的关联">#</a></h2>
+
+<h3 id="建立一个本地项目文件夹">建立一个本地项目文件夹<a hidden class="anchor" aria-hidden="true" href="#建立一个本地项目文件夹">#</a></h3>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210404173450.png" alt="image-20210404173449923" style="zoom:80%;" /></p>
+
+<p>假设这是本次需要进行版本管理的项目根目录</p>
+
+<p>使用</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git init</code></pre></div>
+<p>命令初始化项目</p>
+
+<h3 id="创建github远程仓库">创建GitHub远程仓库<a hidden class="anchor" aria-hidden="true" href="#创建github远程仓库">#</a></h3>
+
+<p>在GitHub创建同名仓库便于管理</p>
+
+<h3 id="将本地文件夹和远程仓库关联">将本地文件夹和远程仓库关联<a hidden class="anchor" aria-hidden="true" href="#将本地文件夹和远程仓库关联">#</a></h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git remote add origin Git@github.com:PwnerZhang/local2021.Git</code></pre></div>
+<h3 id="将项目文件托管到github">将项目文件托管到GitHub<a hidden class="anchor" aria-hidden="true" href="#将项目文件托管到github">#</a></h3>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210426131950.png#center" alt="" /></p>
+</div>
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://byteprince.com/tags/pycharm/">Pycharm</a></li>
+      <li><a href="https://byteprince.com/tags/github/">Github</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://byteprince.com/posts/cdbe8ab7/">
+    <span class="title">« Prev Page</span>
+    <br>
+    <span>MySQL进阶：关于MySQL</span>
+  </a>
+  <a class="next" href="https://byteprince.com/posts/a5648380/">
+    <span class="title">Next Page »</span>
+    <br>
+    <span>Python基础知识提纲</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    <footer class="footer">
+    <span>&copy; 2021 <a href="https://byteprince.com/">Byte Prince</a></span>
+    <span>
+    Powered by
+    <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+    <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <div id="poem_sentence"></div>
+    <div id="poem_info"></div>
+    <script type="text/javascript">
+        jinrishici.load(function(result) {
+        var sentence = document.querySelector("#poem_sentence")
+        var info = document.querySelector("#poem_info")
+        sentence.innerHTML = result.data.content
+        });
+    </script>
+
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)">
+    <button class="top-link" id="top-link" type="button" accesskey="g">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+            <path d="M12 6H0l6-6z" />
+        </svg>
+    </button>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+    menu.onscroll = function () {
+        localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

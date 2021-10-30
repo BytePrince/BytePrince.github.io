@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Word on Byte Prince</title>
+    <link>https://byteprince.com/tags/word/</link>
+    <description>Recent content in Word on Byte Prince</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 28 Jul 2020 17:29:12 +0800</lastBuildDate><atom:link href="https://byteprince.com/tags/word/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>论文排版常用技巧</title>
+      <link>https://byteprince.com/posts/360145af/</link>
+      <pubDate>Tue, 28 Jul 2020 17:29:12 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/360145af/</guid>
+      <description>一些比较实用的Word排版技巧</description>
+      <content:encoded><![CDATA[
+
+<h3 id="标题和正文样式">标题和正文样式</h3>
+
+<h4 id="创建样式">创建样式</h4>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20200728175329.jpg" style="zoom:80%;" /></p>
+
+<p><strong>最主要的三个设置内容：</strong>后续段落样式、字体和段落。</p>
+
+<h4 id="重新定义样式">重新定义样式</h4>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20200728180312.jpg" style="zoom:80%;" /></p>
+
+<h4 id="定义多级列表">定义多级列表</h4>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20200728180722.jpg" style="zoom:80%;" /></p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20200728180733.jpg" style="zoom:80%;" /></p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20200728180750.jpg" style="zoom:80%;" /></p>
+
+<h3 id="图片表格自动编号">图片表格自动编号</h3>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20200728181233.jpg" style="zoom:80%;" /></p>
+
+<p>效果：</p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20200728181343.jpg#center" alt="" /></p>
+
+<h3 id="参考文献">参考文献</h3>
+
+<h4 id="如何插入参考文献">如何插入参考文献？</h4>
+
+<p>​       将光标定格在需要插入文献标记的位置，然后点击<code>引用</code>-&gt;<code>插入尾注</code>，就可以了。</p>
+
+<p>要记得选中所有的尾注，使用<code>查找和替换</code>功能，寻找所有<code>^e</code>的字符，替换成 <code>[^&amp;]</code>。</p>
+
+<h4 id="如何给尾注编号加上方括号">如何给尾注编号加上方括号？</h4>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20200728181918.jpg#center" alt="" /></p>
+
+<p>方法：直接在将光标移到正文尾注前，切换“上标”，就可以直接添加方括号了。</p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20200728181942.jpg#center" alt="" /></p>
+
+<h4 id="尾注上方的横线怎么删">尾注上方的横线怎么删？</h4>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20200728182043.jpg" style="zoom:80%;" /></p>
+
+<h4 id="尾注后一页的页眉横线怎么删">尾注后一页的页眉横线怎么删？</h4>
+
+<p>把光标移到尾注之前，然后<code>插入</code>——<code>分隔符</code>——<code>分节符-下一页</code>，然后全选中尾注的内容，右击选择<code>便签选项</code>，设置为<code>尾注——节的结尾</code>！就OK了！</p>
+]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>

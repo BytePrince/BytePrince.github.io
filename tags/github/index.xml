@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Github on Byte Prince</title>
+    <link>https://byteprince.com/tags/github/</link>
+    <description>Recent content in Github on Byte Prince</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 10 Jun 2021 10:29:43 +0800</lastBuildDate><atom:link href="https://byteprince.com/tags/github/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>一次 Git 的失败记录</title>
+      <link>https://byteprince.com/posts/b61c3883/</link>
+      <pubDate>Thu, 10 Jun 2021 10:29:43 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/b61c3883/</guid>
+      <description></description>
+      <content:encoded><![CDATA[<p><img src="https://img.xiehestudio.com/pic_go/20210610125143.png" alt="" /></p>
+
+<p>遇到这种情况先检查是否是网络问题。</p>
+
+<h2 id="第一个报错">第一个报错</h2>
+
+<blockquote>
+<p>ssh_exchange_identification: read: Connection reset by peer</p>
+</blockquote>
+
+<p>先是更新博客的时候发现 github 仓库失联了，在 Terminal 中尝试连接我的几个服务器，也出现<code>kex_exchange_identification: read: Connection reset</code>的问题，之前是配置了 SSH 密钥连接服务器的。综上，判断是 SSH 公钥有问题。</p>
+
+<h3 id="解决方案">解决方案</h3>
+
+<p><strong>1.重置本地公钥</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ssh-keygen -t rsa -C <span style="color:#e6db74">&#34;zzzain46@gmail.com&#34;</span></code></pre></div>
+<p>之后会有几次信息确认，默认的话按回车就可以顺利完成了。</p>
+
+<p><strong>2.配置Github的密钥</strong></p>
+
+<h2 id="第二个报错">第二个报错</h2>
+
+<blockquote>
+<p>fatal: refusing to merge unrelated histories</p>
+</blockquote>
+
+<p>这是在<code>git push</code> 和 <code>git pull</code>的时候会遇到的问题，原因是本地和远程分支没有取得关系。</p>
+
+<h3 id="解决方法">解决方法</h3>
+
+<p>在操作命令后面加<code>--allow-unrelated-histories</code>可以解决。例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git merge master --allow-unrelated-histories</code></pre></div>
+<p>或者</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git pull origin master --allow-unrelated-histories</code></pre></div>
+<h2 id="附">附</h2>
+
+<p>检查本地和 Github 的 SSH 连接是否正常</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ssh -T git@github.com</code></pre></div>
+<p>查看 push 的方式</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git remote -v</code></pre></div>
+<p>移除原有的 push 方式</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git remote rm origin</code></pre></div>
+<p>添加新的 push 方式</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git remote add origin git@github.com:BytePrince/BytePrince.github.io.git</code></pre></div>]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Github 基本使用方法</title>
+      <link>https://byteprince.com/posts/4daf64c3/</link>
+      <pubDate>Wed, 19 Feb 2020 17:07:29 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/4daf64c3/</guid>
+      <description></description>
+      <content:encoded><![CDATA[<p>本地环境要求：<code>Git</code></p>
+
+<h1 id="上传">上传</h1>
+
+<h2 id="1-新建远程仓库">1.新建远程仓库</h2>
+
+<p><em>创建仓库的注意点：</em></p>
+
+<p><strong>gitignore:</strong> 不需要进行版本管理的仓库类型，对应生成文件<code>.gitignore</code></p>
+
+<p><strong>license:</strong> 证书类型，对应生成文件 LICENSE</p>
+
+<h2 id="2-使用命令上传">2.使用命令上传</h2>
+
+<p>①右击待上传的项目文件夹，选择<code>Git bash here</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git init</code></pre></div>
+<p>随后项目文件路径下会多出一个<code>.git</code>文件夹，用来保存 git 传输的一些信息</p>
+
+<p>②将项目上所有的文件添加到仓库中。</p>
+
+<p>如果想添加某个特定的文件，只需把<code>.</code>换成这个特定的文件名即可，中间以空格隔开。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git add .</code></pre></div>
+<p>③填写对本次 commit（提交）的注释</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git commit -m <span style="color:#e6db74">&#34;xxxxxx&#34;</span></code></pre></div>
+<p>④本地的仓库关联到 Github 上</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git remote add origin https://github.com/BytePrince/xxxxxxx.git</code></pre></div>
+<p>⑤代码上传到 Github 仓库</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git push -u origin master</code></pre></div>
+<p>执行完后，输入账号密码确认身份即可。</p>
+
+<h1 id="更新">更新</h1>
+
+<p>1.选中项目文件夹，进入 bash。如果想更新某个特定的文件，只需把<code>.</code>换成这个特定的文件名即可。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git add .</code></pre></div>
+<p>2.填写对本次 commit（提交）的注释</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git commit -m <span style="color:#e6db74">&#39;xxxxxxxxxx&#39;</span></code></pre></div>
+<p>3.提交到原始的 master 分支</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git push origin master</code></pre></div>
+<h1 id="回滚">回滚</h1>
+
+<h2 id="本地项目回滚到-github-仓库内的某个版本">本地项目回滚到 Github 仓库内的某个版本</h2>
+
+<p>1.选中项目文件夹，进入 bash</p>
+
+<p>2.查看提交日志</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git log</code></pre></div>
+<p>3.选择需要回滚的版本，并记录其 hash</p>
+
+<p>4.按<code>Q</code>返回命令行模式，使用命令，将本地项目回滚到仓库里指定的版本</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git reset --hard xxxxxx<span style="color:#f92672">(</span>hash<span style="color:#f92672">)</span></code></pre></div>
+<h2 id="github仓库内的项目回滚">Github仓库内的项目回滚</h2>
+
+<p>一般有两种思路，①新建分支，从分支回滚到 master；②回滚项目到本地，从本地重新 Pull。</p>
+
+<p>这边采用后者。</p>
+
+<p>按照上述，将历史版本回滚到本地，随后推送到仓库。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"> git push -f -u origin master </code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"> git Pull</code></pre></div>]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>

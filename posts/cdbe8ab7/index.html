@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<head><meta charset="utf-8">
+<meta name="referrer" content="same-origin">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>MySQL进阶：关于MySQL | Byte Prince</title>
+<meta name="keywords" content="MySQL" />
+<meta name="description" content="MySQL进阶：关于MySQL - Byte Prince">
+<meta name="author" content="">
+<link rel="canonical" href="https://byteprince.com/posts/cdbe8ab7/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.958cca03466d194813628cfe285c53349da8d10a1ffa4cc386a93ac3d1b3ee04.css" integrity="sha256-lYzKA0ZtGUgTYoz&#43;KFxTNJ2o0Qof&#43;kzDhqk6w9Gz7gQ=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
+<link rel="apple-touch-icon" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
+<link rel="mask-icon" href="https://byteprince.com/%3Clink%20/%20abs%20url%3E">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.88.1" />
+
+<meta property="og:title" content="MySQL进阶：关于MySQL" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://byteprince.com/posts/cdbe8ab7/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-04-27T20:52:23&#43;08:00" />
+<meta property="article:modified_time" content="2021-04-27T20:52:23&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MySQL进阶：关于MySQL"/>
+<meta name="twitter:description" content=""/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://byteprince.com/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "MySQL进阶：关于MySQL",
+      "item": "https://byteprince.com/posts/cdbe8ab7/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "MySQL进阶：关于MySQL",
+  "name": "MySQL进阶：关于MySQL",
+  "description": "",
+  "keywords": [
+    "MySQL"
+  ],
+  "articleBody": "1.1MySQL总览  采用C/S架构，用户通过客户端程序发送增删查改请求，服务器程序收到请求后处理，并把处理结果返回给客户端。 MySQL安装目录的bin目录下存放着两类可执行文件：服务器程序（例如mysqld、mysql_safe），客户端程序（例如mysql、mysqladmin）  1.2MySQL启动 服务端的启动 以类unix系统为例\nmysql.server start/stop 客户端的启动 mysql -h主机名 -u用户名 -p密码  一般更建议采用非显式输入密码\nmysql -h主机名 -u用户名 -p 客户端和服务端的三种连接方式 TCP/IP MySQL词采用TCP作为服务i其和客户端之间的网络通信协议。MySQL服务器默认监听3306端口，也可以在启动MySQL服务器的时候指定端口：\nmysqld -P3307 命名管道和共享内存  适合在Windows使用。\n 使用共享内存进行通信的服务器进程和客户端进程必须位于同一台Windows主机中。\nUNIX域套接字  适合类服务器进程和客户端进程都运行在同一台类UNIX系统机器上。\n 1.3SQL的执行过程  连接器处理连接 查询缓存看是否命中 分析器分析语法 优化器生成执行计划（可以使用EXPLAIN语句来查看某个语句的执行计划） 执行器调用存储引擎的API执行，返回执行结果到客户端（存储引擎提供数据存储和提取API）   存储引擎\n 存储引擎是表级别的，不同存储引擎管理的表可能有不同的数据结构，采用的存取算法也不同。\n 常用的存储引擎有InnoDB（支持事务，行级锁，外键），MyISAM（主要的非事务处理存储引擎），MEMORY（数据只存在内存，不存储在磁盘，多用于临时表）等。\n 存储引擎的查看和设置语句\n  ",
+  "wordCount" : "38",
+  "inLanguage": "en",
+  "datePublished": "2021-04-27T20:52:23+08:00",
+  "dateModified": "2021-04-27T20:52:23+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://byteprince.com/posts/cdbe8ab7/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Byte Prince",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: #1d1e20;
+                --entry: #2e2e33;
+                --primary: rgba(255, 255, 255, 0.84);
+                --secondary: rgba(255, 255, 255, 0.56);
+                --tertiary: rgba(255, 255, 255, 0.16);
+                --content: rgba(255, 255, 255, 0.74);
+                --hljs-bg: #2e2e33;
+                --code-bg: #37383e;
+                --border: #333;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://byteprince.com/" accesskey="h" title="Byte Prince (Alt + H)">Byte Prince</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://byteprince.com/movies/" title="Movies">
+                    <span>Movies</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://byteprince.com/books/" title="Books">
+                    <span>Books</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://byteprince.com/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://byteprince.com/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://byteprince.com/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  
+  <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [['$','$'], ['\\(','\\)']],
+          processEscapes: true
+        }
+      });
+  </script>
+  <script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script>
+  
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      MySQL进阶：关于MySQL
+    </h1>
+    <div class="post-meta">April 27, 2021
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <div class="details">Table of Contents</div>
+        </summary>
+        <div class="inner"><ul>
+                <li>
+                    <a href="#1-1mysql%e6%80%bb%e8%a7%88" aria-label="1.1MySQL总览">1.1MySQL总览</a></li>
+                <li>
+                    <a href="#1-2mysql%e5%90%af%e5%8a%a8" aria-label="1.2MySQL启动">1.2MySQL启动</a><ul>
+                        
+                <li>
+                    <a href="#%e6%9c%8d%e5%8a%a1%e7%ab%af%e7%9a%84%e5%90%af%e5%8a%a8" aria-label="服务端的启动">服务端的启动</a></li>
+                <li>
+                    <a href="#%e5%ae%a2%e6%88%b7%e7%ab%af%e7%9a%84%e5%90%af%e5%8a%a8" aria-label="客户端的启动">客户端的启动</a></li>
+                <li>
+                    <a href="#%e5%ae%a2%e6%88%b7%e7%ab%af%e5%92%8c%e6%9c%8d%e5%8a%a1%e7%ab%af%e7%9a%84%e4%b8%89%e7%a7%8d%e8%bf%9e%e6%8e%a5%e6%96%b9%e5%bc%8f" aria-label="客户端和服务端的三种连接方式">客户端和服务端的三种连接方式</a><ul>
+                        
+                <li>
+                    <a href="#tcp-ip" aria-label="TCP/IP">TCP/IP</a></li>
+                <li>
+                    <a href="#%e5%91%bd%e5%90%8d%e7%ae%a1%e9%81%93%e5%92%8c%e5%85%b1%e4%ba%ab%e5%86%85%e5%ad%98" aria-label="命名管道和共享内存">命名管道和共享内存</a></li>
+                <li>
+                    <a href="#unix%e5%9f%9f%e5%a5%97%e6%8e%a5%e5%ad%97" aria-label="UNIX域套接字">UNIX域套接字</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#1-3sql%e7%9a%84%e6%89%a7%e8%a1%8c%e8%bf%87%e7%a8%8b" aria-label="1.3SQL的执行过程">1.3SQL的执行过程</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="1-1mysql总览">1.1MySQL总览<a hidden class="anchor" aria-hidden="true" href="#1-1mysql总览">#</a></h2>
+
+<ul>
+<li>采用<code>C/S</code>架构，用户通过客户端程序发送增删查改请求，服务器程序收到请求后处理，并把处理结果返回给客户端。</li>
+<li>MySQL安装目录的bin目录下存放着两类可执行文件：服务器程序（例如<code>mysqld</code>、<code>mysql_safe</code>），客户端程序（例如<code>mysql</code>、<code>mysqladmin</code>）</li>
+</ul>
+
+<h2 id="1-2mysql启动">1.2MySQL启动<a hidden class="anchor" aria-hidden="true" href="#1-2mysql启动">#</a></h2>
+
+<h3 id="服务端的启动">服务端的启动<a hidden class="anchor" aria-hidden="true" href="#服务端的启动">#</a></h3>
+
+<p>以类unix系统为例</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql.server start<span style="color:#f92672">/</span>stop</code></pre></div>
+<h3 id="客户端的启动">客户端的启动<a hidden class="anchor" aria-hidden="true" href="#客户端的启动">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql <span style="color:#f92672">-</span>h主机名 <span style="color:#f92672">-</span>u用户名 <span style="color:#f92672">-</span>p密码 </code></pre></div>
+<p>一般更建议采用非显式输入密码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql <span style="color:#f92672">-</span>h主机名 <span style="color:#f92672">-</span>u用户名 <span style="color:#f92672">-</span>p</code></pre></div>
+<h3 id="客户端和服务端的三种连接方式">客户端和服务端的三种连接方式<a hidden class="anchor" aria-hidden="true" href="#客户端和服务端的三种连接方式">#</a></h3>
+
+<h4 id="tcp-ip">TCP/IP<a hidden class="anchor" aria-hidden="true" href="#tcp-ip">#</a></h4>
+
+<p>MySQL词采用<code>TCP</code>作为服务i其和客户端之间的网络通信协议。MySQL服务器默认监听<code>3306</code>端口，也可以在启动MySQL服务器的时候指定端口：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysqld <span style="color:#f92672">-</span>P3307</code></pre></div>
+<h4 id="命名管道和共享内存">命名管道和共享内存<a hidden class="anchor" aria-hidden="true" href="#命名管道和共享内存">#</a></h4>
+
+<blockquote>
+<p>适合在Windows使用。</p>
+</blockquote>
+
+<p>使用共享内存进行通信的服务器进程和客户端进程必须位于同一台Windows主机中。</p>
+
+<h4 id="unix域套接字">UNIX域套接字<a hidden class="anchor" aria-hidden="true" href="#unix域套接字">#</a></h4>
+
+<blockquote>
+<p>适合类服务器进程和客户端进程都运行在同一台类UNIX系统机器上。</p>
+</blockquote>
+
+<h2 id="1-3sql的执行过程">1.3SQL的执行过程<a hidden class="anchor" aria-hidden="true" href="#1-3sql的执行过程">#</a></h2>
+
+<ol>
+<li>连接器处理连接</li>
+<li>查询缓存看是否命中</li>
+<li>分析器分析语法</li>
+<li>优化器生成执行计划（可以使用<code>EXPLAIN</code>语句来查看某个语句的执行计划）</li>
+<li>执行器调用存储引擎的API执行，返回执行结果到客户端（存储引擎提供数据<code>存储</code>和<code>提取</code>API）</li>
+</ol>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210506181547.png#center" alt="" /></p>
+
+<blockquote>
+<p><strong>存储引擎</strong></p>
+
+<ul>
+<li><p>存储引擎是表级别的，不同存储引擎管理的表可能有不同的数据结构，采用的存取算法也不同。</p></li>
+
+<li><p>常用的存储引擎有<code>InnoDB</code>（支持事务，行级锁，外键），<code>MyISAM</code>（主要的非事务处理存储引擎），<code>MEMORY</code>（数据只存在内存，不存储在磁盘，多用于临时表）等。</p></li>
+
+<li><p>存储引擎的<code>查看</code>和<code>设置</code>语句</p></li>
+</ul>
+</blockquote>
+</div>
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://byteprince.com/tags/mysql/">🏷️MySQL</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://byteprince.com/posts/ecd7a7b7/">
+    <span class="title">« Prev Page</span>
+    <br>
+    <span>CentOS 7 防火墙配置</span>
+  </a>
+  <a class="next" href="https://byteprince.com/posts/a5648380/">
+    <span class="title">Next Page »</span>
+    <br>
+    <span>Python 基础知识提纲</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    <footer class="footer">
+    
+    <span>&copy; 2018-2021 Byte Prince.</a></span>
+    <span>
+    All rights reserved.
+    
+    
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <div id="poem_sentence"></div>
+    <div id="poem_info"></div>
+    <script type="text/javascript">
+        jinrishici.load(function(result) {
+        var sentence = document.querySelector("#poem_sentence")
+        var info = document.querySelector("#poem_info")
+        sentence.innerHTML = result.data.content
+        });
+    </script>
+
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)">
+    <button class="top-link" id="top-link" type="button" accesskey="g">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+            <path d="M12 6H0l6-6z" />
+        </svg>
+    </button>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+    menu.onscroll = function () {
+        localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

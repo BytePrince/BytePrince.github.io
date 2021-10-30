@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>图 on Byte Prince</title>
+    <link>https://byteprince.com/tags/%E5%9B%BE/</link>
+    <description>Recent content in 图 on Byte Prince</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 22 Dec 2020 19:17:46 +0800</lastBuildDate><atom:link href="https://byteprince.com/tags/%E5%9B%BE/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>数据结构 之 图</title>
+      <link>https://byteprince.com/posts/538075fd/</link>
+      <pubDate>Tue, 22 Dec 2020 19:17:46 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/538075fd/</guid>
+      <description>在数据结构中，图的综合性还是比较强的</description>
+      <content:encoded><![CDATA[
+
+<h2 id="图的基本概念">图的基本概念</h2>
+
+<ol>
+<li>图</li>
+<li>有向图</li>
+<li>无向图</li>
+<li>简单图</li>
+<li>多重图</li>
+<li>完全图（亦称 简单完全图）</li>
+<li>子图</li>
+<li>连通图，连通分量</li>
+<li>强连通图，强连通分量</li>
+<li>生成树，生成森林</li>
+<li>顶点的度（入度，出度）</li>
+<li>边的权和网</li>
+<li>稠密图，稀疏图</li>
+<li>路径，路径长度，回路</li>
+<li>简单路径，简单回路</li>
+<li>距离</li>
+<li>有向树</li>
+</ol>
+
+<h2 id="图的存储">图的存储</h2>
+
+<h3 id="邻接矩阵法">👉🏻邻接矩阵法</h3>
+
+<p>一维数组存储顶点信息（将顶点编号），二维数组存储顶点间关系（二维数组存储边的信息）</p>
+
+<h4 id="邻接矩阵">邻接矩阵</h4>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20201222193158.png" alt="" /></p>
+
+<h4 id="网-带权图-的邻接矩阵">网（带权图）的邻接矩阵</h4>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20201222202439.png" style="zoom: 67%;" /></p>
+
+<h4 id="存储结构定义">存储结构定义：</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#define MaxVertexNum 100
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">char</span> VertexType;
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">int</span> EdgeType;
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span>{
+    VertexType Vex[MaxVertexNum];<span style="color:#75715e">///顶点表（一维表）
+</span><span style="color:#75715e"></span>    EdgeType Edge[MaxVertexNum][MaxVertexNum];<span style="color:#75715e">///顶点关系表（二维表）
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> vexnum,arcnum;     
+}MGraph;</code></pre></div>
+<h3 id="邻接表法">👉🏻邻接表法</h3>
+
+<p><code>邻接表</code>是在稀疏图的情况下对<code>邻接矩阵</code>的一种改进，<strong>是实际中广泛采用的一种存储结构</strong>。</p>
+
+<h4 id="结点结构">结点结构</h4>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20201222202051.png" style="zoom:80%;" /></p>
+
+<h4 id="有向图和无向图的邻接表">有向图和无向图的邻接表</h4>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20201222202302.png" alt="有向图" style="zoom: 80%;" /></p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20201222202341.png" alt="无向图" style="zoom:80%;" /></p>
+
+<h4 id="存储结构定义-1">存储结构定义</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#define  MAX_VERTEX_NUM 20</span><span style="color:#75715e">//最大顶点个数
+</span><span style="color:#75715e"></span><span style="color:#75715e">#define  VertexType int</span><span style="color:#75715e">//顶点数据的类型
+</span><span style="color:#75715e"></span><span style="color:#75715e">#define  InfoType int</span><span style="color:#75715e">//图中弧或者边包含的信息的类型
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ArcNode</span>{
+    <span style="color:#66d9ef">int</span> adjvex;<span style="color:#75715e">//邻接点在数组中的位置下标
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ArcNode</span> <span style="color:#f92672">*</span> nextarc;<span style="color:#75715e">//指向下一个邻接点的指针
+</span><span style="color:#75715e"></span>    InfoType <span style="color:#f92672">*</span> info;<span style="color:#75715e">//信息域
+</span><span style="color:#75715e"></span>}ArcNode;
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">VNode</span>{
+    VertexType data;<span style="color:#75715e">//顶点的数据域
+</span><span style="color:#75715e"></span>    ArcNode <span style="color:#f92672">*</span> firstarc;<span style="color:#75715e">//指向邻接点的指针
+</span><span style="color:#75715e"></span>}VNode,AdjList[MAX_VERTEX_NUM];<span style="color:#75715e">//存储各链表头结点的数组
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> {
+    AdjList vertices;<span style="color:#75715e">//图中顶点的数组
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> vexnum,arcnum;<span style="color:#75715e">//记录图中顶点数和边或弧数
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> kind;<span style="color:#75715e">//记录图的种类
+</span><span style="color:#75715e"></span>}ALGraph</code></pre></div>
+<h3 id="十字链表">👉🏻十字链表</h3>
+
+<p><code>有向图</code>的另一种链式存储结构。可看是将<code>有向图</code>的<strong>邻接表</strong>和<strong>逆邻接表</strong>结合得到的一种存储方法。对应于有向图中的每一条弧有一个结点，对应于每个顶点也有一个结点。图的十字链表不唯一，但是一个十字链表确定一个图。</p>
+
+<p><strong>好处：</strong>既容易找以 <strong>V<sub>i</sub></strong> 为尾的弧，又容易找到以 <strong>V<sub>i</sub></strong> 为头的弧==&gt;容易求得顶点的<code>入度</code>和<code>出度</code>。</p>
+
+<h4 id="结点结构-1">结点结构</h4>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20201222202903.png" alt="弧结点" style="zoom:80%;" /></p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20201222202924.png" alt="顶点结点" style="zoom:80%;" /></p>
+
+<h4 id="存储结构定义-2">存储结构定义</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ArcNode</span>
+{   
+    <span style="color:#66d9ef">int</span> tailvex, headvex;      <span style="color:#75715e">//弧尾、弧头在表头数组中位置
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ArcNode</span> <span style="color:#f92672">*</span>hlink;     <span style="color:#75715e">//指向弧头相同的下一条弧
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ArcNode</span> <span style="color:#f92672">*</span>tlink;     <span style="color:#75715e">//指向弧尾相同的下一条弧
+</span><span style="color:#75715e"></span>    InfoType <span style="color:#f92672">*</span>info;            <span style="color:#75715e">//弧相关信息指针
+</span><span style="color:#75715e"></span>}ArcNode;
+
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">VexNode</span>
+{   
+     VertexType data;           <span style="color:#75715e">//存与顶点有关信息
+</span><span style="color:#75715e"></span>     <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">arcnode</span> <span style="color:#f92672">*</span>firstin;   <span style="color:#75715e">//指向以该顶点为弧头的第一个弧结点
+</span><span style="color:#75715e"></span>     <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">arcnode</span> <span style="color:#f92672">*</span>firstout;  <span style="color:#75715e">//指向以该顶点为弧尾的第一个弧结点
+</span><span style="color:#75715e"></span>}VexNode;
+
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span>  
+{   VerNode xlist[MAX_VERTEX_NUM ] ;  <span style="color:#75715e">//表头向量
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> vexnum, arcnum<span style="color:#960050;background-color:#1e0010">；</span>
+}OLGraph;</code></pre></div>
+<h4 id="图示">图示</h4>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20201222210303.gif" alt="十字链表" /></p>
+
+<h3 id="邻接多重表">👉🏻邻接多重表</h3>
+
+<p><code>无向图</code>的另一种链式存储结构。 <strong>是为了解决在邻接表中对同一条边存储两个结点而引入的一种结构。</strong></p>
+
+<h4 id="结点结构-2">结点结构</h4>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20201222211308.png" alt="边结点" style="zoom:80%;" /></p>
+
+<p>其中：</p>
+
+<p><code>mark</code>为标志域，可用于标记该边是否被搜索过。</p>
+
+<p><code>ivex</code> 和 <code>jvex</code>记录依附于该边的两个顶点；</p>
+
+<p><code>ilink</code>指示依附于ivex的下一条边。</p>
+
+<p><code>jlin</code>指示依附于jvex的下一条边。</p>
+
+<p><code>info</code> 与边相关的信息。</p>
+
+<p><center><img src="https://img.xiehestudio.com/pic_go/20201222211336.png" alt="顶点结点" style="zoom:80%;" /></center></p>
+
+<p>其中：</p>
+
+<p><code>data</code>存储顶点的相关信息；</p>
+
+<p><code>firstedge</code>指示第一条依附于该顶点的边</p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20201222211034.gif" alt="邻接多重表" /></p>
+
+<h2 id="图的遍历">图的遍历</h2>
+
+<h3 id="深度优先遍历-dfs">👉🏻深度优先遍历(DFS）</h3>
+
+<h4 id="算法思路">算法思路</h4>
+
+<h4 id="性能分析">性能分析</h4>
+
+<h4 id="深度优先生成树">深度优先生成树</h4>
+
+<h3 id="广度优先遍历-bfs">👉🏻广度优先遍历(BFS)</h3>
+
+<h4 id="算法思路-1">算法思路</h4>
+
+<h4 id="性能分析-1">性能分析</h4>
+
+<h4 id="广度优先生成树">广度优先生成树</h4>
+
+<h3 id="应用">👉🏻应用</h3>
+
+<p>图的遍历可以用来判断图的连通性。</p>
+
+<h2 id="图的应用">图的应用</h2>
+
+<ol>
+<li>图的遍历——连通性判断</li>
+<li>有向无环图——拓扑排序</li>
+<li>带权有向图——最短路径，Dijkstra算法</li>
+</ol>
+]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>

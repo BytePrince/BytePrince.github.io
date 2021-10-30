@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>防火墙配置 on Byte Prince</title>
+    <link>https://byteprince.com/tags/%E9%98%B2%E7%81%AB%E5%A2%99%E9%85%8D%E7%BD%AE/</link>
+    <description>Recent content in 防火墙配置 on Byte Prince</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 11 May 2021 21:45:20 +0800</lastBuildDate><atom:link href="https://byteprince.com/tags/%E9%98%B2%E7%81%AB%E5%A2%99%E9%85%8D%E7%BD%AE/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CentOS 7 防火墙配置</title>
+      <link>https://byteprince.com/posts/ecd7a7b7/</link>
+      <pubDate>Tue, 11 May 2021 21:45:20 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/ecd7a7b7/</guid>
+      <description>firewall常用命令</description>
+      <content:encoded><![CDATA[
+
+<h2 id="查看firewall服务状态">查看firewall服务状态</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">systemctl status firewalld</code></pre></div>
+<h2 id="查看firewall状态">查看firewall状态</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">firewall-cmd --state</code></pre></div>
+<h2 id="开启-关闭-重启firewalld服务">开启、关闭、重启firewalld服务</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 开启</span>
+service firewalld start
+<span style="color:#75715e"># 重启</span>
+service firewalld restart
+<span style="color:#75715e"># 关闭</span>
+service firewalld stop</code></pre></div>
+<h2 id="查看防火墙规则">查看防火墙规则</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">firewall-cmd --list-all</code></pre></div>
+<h2 id="查询-开放-关闭端口">查询、开放、关闭端口</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 查询端口是否开放</span>
+firewall-cmd --query-port<span style="color:#f92672">=</span>8080/tcp
+<span style="color:#75715e"># 开放80端口</span>
+firewall-cmd --permanent --add-port<span style="color:#f92672">=</span>80/tcp
+firewall-cmd --permanent --add-port<span style="color:#f92672">=</span>8080-8085/tcp
+<span style="color:#75715e"># 移除端口</span>
+firewall-cmd --permanent --remove-port<span style="color:#f92672">=</span>8080/tcp
+查看防火墙的开放的端口
+firewall-cmd --permanent --list-ports
+
+<span style="color:#75715e">#重启防火墙(修改配置后要重启防火墙)</span>
+firewall-cmd --reload
+
+
+<span style="color:#75715e"># 参数解释</span>
+1、firwall-cmd：是Linux提供的操作firewall的一个工具；
+2、--permanent：表示设置为持久；
+3、--add-port：标识添加的端口；</code></pre></div>]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>

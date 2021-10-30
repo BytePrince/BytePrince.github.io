@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>PicGo on Byte Prince</title>
+    <link>https://byteprince.com/tags/picgo/</link>
+    <description>Recent content in PicGo on Byte Prince</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 20 Apr 2020 16:56:23 +0800</lastBuildDate><atom:link href="https://byteprince.com/tags/picgo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Typora &#43; PicGo 实现图片自动上传图床</title>
+      <link>https://byteprince.com/posts/e3b03f1d/</link>
+      <pubDate>Mon, 20 Apr 2020 16:56:23 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/e3b03f1d/</guid>
+      <description>推荐一款很好用的图床管理工具</description>
+      <content:encoded><![CDATA[
+
+<p>Typora 是一款很优秀的 Markdown 编辑器，在更新版本<code>0.9.84</code>后，可以结合 PicGo 实现图片自动上传到图床，节约手动上传图片到图床的时间。</p>
+
+<h3 id="环境">环境</h3>
+
+<ul>
+<li><a href="https://typora.io">Typora</a>版本不低于<code>0.9.84</code></li>
+<li><a href="https://github.com/Molunerfinn/PicGo/releases">PicGo</a></li>
+</ul>
+
+<h3 id="使用方法">使用方法</h3>
+
+<p>1.PicGo -&gt; <code>图床设置</code>，选择对应的图床服务商，并填写存储桶，秘钥等信息。</p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210507125619.png#center" alt="" /></p>
+
+<p>2.设置 PicSever 并开启。</p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210507125721.png#center" alt="" /></p>
+
+<p>3.打开 Typora - <code>文件</code> —&gt; <code>偏好设置</code>，完成以下设置。</p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210507125822.png#center" alt="" /></p>
+
+<p>4.在 Typora 中愉快地写作~</p>
+
+<ul>
+<li>方法一：使用快捷键<code>Ctrl</code>+<code>Shift</code>+<code>I</code>,选择图片插入</li>
+<li>方法二：直接将图片拖入编辑器区域</li>
+</ul>
+
+<p>使用以上两种方法，图片直接被上传到图床并以外链的形式插入到文档中</p>
+
+<p>Perfect！👍</p>
+]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>

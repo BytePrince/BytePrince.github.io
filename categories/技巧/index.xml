@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>技巧 on Byte Prince</title>
+    <link>https://byteprince.com/categories/%E6%8A%80%E5%B7%A7/</link>
+    <description>Recent content in 技巧 on Byte Prince</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 15 May 2021 22:45:42 +0800</lastBuildDate><atom:link href="https://byteprince.com/categories/%E6%8A%80%E5%B7%A7/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>删除 Windows 下被占用的文件</title>
+      <link>https://byteprince.com/posts/40fef465/</link>
+      <pubDate>Sat, 15 May 2021 22:45:42 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/40fef465/</guid>
+      <description></description>
+      <content:encoded><![CDATA[<h2 id="查询并结束文件关联的进程">查询并结束文件关联的进程</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">tasklist /m D:<span style="color:#ae81ff">\t</span>ask.txt</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">taskkill /f /im 进程ID</code></pre></div>
+<h2 id="删除文件">删除文件</h2>
+
+<p>递归删除文件夹a1</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">rd /s 文件夹路径</code></pre></div>
+<p>强制删除文件</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">del /s 文件路径</code></pre></div>]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>今日校园自动打卡</title>
+      <link>https://byteprince.com/posts/b530bd3e/</link>
+      <pubDate>Sun, 24 Jan 2021 13:01:12 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/b530bd3e/</guid>
+      <description>懒人懒办法</description>
+      <content:encoded><![CDATA[
+
+<h2 id="说明">说明</h2>
+
+<p>项目地址：<a href="https://github.com/BytePrince/Auto_Sign_For_NBU">BytePrince/Auto_Sign_For_NBU</a></p>
+
+<p>本项目<strong>2020.05.03</strong>前所有代码均为本人原创，自<strong>2021.01.24</strong>后更新的代码参考子墨大佬的<a href="https://github.com/ZimoLoveShuang/auto-submit">ZimoLoveShuang/auto-submit</a>。至于为何不再重构自己去年写的代码，文末会提到。</p>
+
+<p><strong>本人修复了Bug，移除了不必要的代码并适配了宁波大学的每日信息填报打卡（理论上适配宁波大学所有学院）。</strong></p>
+
+<p>如果对你有帮助，请给<a href="https://github.com/BytePrince/Auto_Sign_For_NBU">BytePrince/Auto_Sign_For_NBU</a>点上一个Star⭐。</p>
+
+<h2 id="使用方法">使用方法</h2>
+
+<h3 id="准备">准备</h3>
+
+<p>Clone本项目</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git clone https://github.com/BytePrince/Auto_Sign_For_NBU.git </code></pre></div>
+<h3 id="信息填写">信息填写</h3>
+
+<ol>
+<li>在<code>config.yml</code>中填写自己的<strong>个人信息</strong></li>
+</ol>
+
+<p>示例如下：</p>
+<pre tabindex="0"><code>users:
+   - user:
+         #此字段填写你的学号
+         username: &#39;17600****&#39;
+         #此字段填写你的今日校园登录密码
+         password: &#39;******&#39;
+         #此字段填写你的地址，即定位信息，如下图
+         address: 中国浙江省xx市xx区xx路
+         #email 接受通知消息的邮箱
+         email: xxxxxxxxxx@qq.com
+         #school 学校全称
+         school: 宁波大学</code></pre>
+<p><img src="https://img.xiehestudio.com/pic_go/20210124134349.png#center" alt="位置信息" style="zoom:80%;" /></p>
+
+<ol>
+<li>在<code>config.yml</code>中填写<strong>表单信息</strong></li>
+</ol>
+
+<p>表单内容可能会发生变化，<del>后期如果表单内容更新频繁的话可能会写一个表单内容自动更新API</del>，示例如下：</p>
+<pre tabindex="0"><code>cpdaily:
+  #表单组默认选项配置，按照说明填写即可。
+  defaults:
+    #表单默认选项配置，按顺序，注意，只有标必填项的才处理
+    - default:
+        #表单项类型，对应今日校园接口返回的fieldType字段，1代表文本，2代表单选，3代表多选，4代表图片
+        type: 2
+        #表单项标题
+        title: 1. 今日您的健康情况是?（如有发热等呼吸道症状，请第一时间报备辅导员）
+        #表单项默认值
+        value: 健康
+    - default:
+        type: 2
+        title: 今日您的甬行码颜色是？
+        value: 绿色
+    - default:
+        type: 2
+        title: 今日您是否存在其他异常情况？
+        value: 无
+    - default:
+        type: 2
+        title: 明日你是否有出行计划（离开居住地所在市）
+        value: 否</code></pre>
+<ol>
+<li>在<code>config.yml</code>中填写<strong>通知接口信息</strong></li>
+</ol>
+
+<p>此处用于每天自动打卡后发送通知。由于QQ或者邮件通知配置过程对小白来说会复杂一些，将这两种通知方式移除，仅仅保留<code>ServerChan</code>通知。获取<code>ServerChan</code>的密钥的方法详见<a href="http://sc.ftqq.com/3.version">文档</a>。</p>
+
+<h3 id="部署">部署</h3>
+
+<p>可以部署在自己的云服务器上或者直接使用云服务商的云函数。</p>
+
+<h4 id="云函数">云函数</h4>
+
+<p>参考<a href="https://github.com/ZimoLoveShuang/auto-submit#%E4%BA%91%E7%AB%AF%E7%B3%BB%E7%BB%9F%E5%8F%AF%E7%94%A8%E9%85%8D%E5%90%88%E8%85%BE%E8%AE%AF%E4%BA%91%E5%87%BD%E6%95%B0">文档</a>。（学思路，不要照抄啊喂🤪）</p>
+
+<h4 id="云服务器-推荐">云服务器（推荐）</h4>
+
+<p>当然，如果你手头没有云服务器，还是推荐使用云函数来执行脚本，毕竟可以省钱。</p>
+
+<ol>
+<li><p>上传填写好个人信息的项目文件上传到你已经安装好<code>Python3.X</code>的云服务器；</p></li>
+
+<li><p>进入项目根目录，安装依赖；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">pip3 install -r requirements.txt</code></pre></div></li>
+
+<li><p>手动执行脚本，测试是否可以正常运行，如果运行结果显示<code>模拟登陆成功...</code>，则说明环境已经配置完毕。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">python3 index.py</code></pre></div></li>
+
+<li><p>根据自己的目录，添加定时任务。笔者的项目根目录为<code>/opt</code>，每天下午15：01执行脚本，并作了日志的记录。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#ae81ff">01</span> <span style="color:#ae81ff">15</span> * * * root /usr/local/bin/python3 /opt/index.py &gt;&gt; /opt/sign.log 2&gt;&amp;<span style="color:#ae81ff">1</span> &amp;</code></pre></div></li>
+</ol>
+
+<p>部署就到此结束了。</p>
+
+<h2 id="更新日志">更新日志</h2>
+
+<ul>
+<li><p><strong>2021年3月23日：</strong></p>
+
+<ul>
+<li><p>PushPlus功能波动，更换成钉钉机器人通知（钉钉机器人密钥获取请自行参考官方文档）</p></li>
+
+<li><p>修复接口错误，默认配置为<code>宁波大学</code>，其他大学请自行在<strong>index.py</strong>中设定</p></li>
+</ul>
+
+<p><strong>设定办法：</strong></p>
+
+<ol>
+<li>访问 <a href="https://mobile.campushoy.com/v6/config/guest/tenant/list">https://mobile.campushoy.com/v6/config/guest/tenant/list</a> 获取本校<code>id</code></li>
+<li>访问 <a href="https://mobile.campushoy.com/v6/config/guest/tenant/info?ids=学校id">https://mobile.campushoy.com/v6/config/guest/tenant/info?ids=学校id</a></li>
+<li>获取<code>idsUrl</code>、<code>ampUrl</code>、<code>ampUrl2</code>填入<strong>index.py</strong></li>
+<li><code>login_url</code>请自行设定</li>
+</ol></li>
+
+<li><p><strong>2021年1月30日：</strong></p>
+
+<ul>
+<li>Serverchan近期服务不稳定，将微信通知改成更稳定的PushPlus</li>
+</ul></li>
+
+<li><p><strong>2021年1月28日：</strong></p></li>
+
+<li><p>修复离校签到改成常规签到了，已经修复，下载新的<code>index.py</code>替换原来的<code>index.py</code>即可，配置文件<code>config.yml</code>不需要变动。</p></li>
+
+<li><p><strong>2021年1月27日：</strong></p>
+
+<ul>
+<li>移除了冗余代码，适配了宁波大学的校外每日签到任务；</li>
+<li>修复了今日校园更换接口导致原有接口失效的问题；</li>
+<li>修复了今日校园修改生成算法的密钥导致<code>Cpdaily-Extension</code>失效的问题；</li>
+<li>移除已失效的邮件通知功能，改为微信通知，需要调用Serverchan，配置方法详见注释；</li>
+<li>完善了容错机制，增加了两处可能产生错误之处的告警通知；</li>
+<li>完善了请求方式，不采用强制SSL；</li>
+<li>完善了日志记录，去除了SSL警告；</li>
+<li>完善了配置文件<code>config.yml</code>的注释，对小白更友好。</li>
+</ul></li>
+</ul>
+
+<p><strong>最后，说几句闲话：</strong></p>
+
+<p>想起之前一位从事信息安全行业的朋友说过的话：通常给自己的代码做安全，不会使用强度最大的加密方法（不要试图一劳永逸），而是会选用中等强度的加密方式，并且不定时地更换加密算法，以此来增加逆向的成本而不仅仅是增加逆向的难度。</p>
+
+<p>至于为何不再重构去年的代码了，因为今日校园的工程师为了刷KPI（为了让你们自己打卡），也在不定时地维护系统（更换打卡的接口）。想来无非也是以上的道理。今日校园升级版本后，抓包有了一定的门槛（需要用到基本的<code>计算机网络</code>知识和一定的逻辑分析能力。当然难度也不是非常非常大，相信在座的各位只要是有学习过相关的知识，花费一定的时间（也许是两个小时，也许是两天&hellip;），也可以自己从头开始写一个打卡脚本。</p>
+
+<p>可以，但没必要。毕竟，去年我是亲历者。</p>
+
+<p>所有除了感情以外的事情，切记权衡成本和收益。如有必要，及时止损。</p>
+
+<p>疫情还没有彻底结束，大家一定要做好防范措施，如果有接触高危地区高危人群，也请及时报告。这是你的责任，也是你的义务。</p>
+
+<p>最后，祝每一个看到这里的朋友，新年快乐❤️！</p>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>使用 VS Code 插件绘制流程图类图组件图</title>
+      <link>https://byteprince.com/posts/ca02613b/</link>
+      <pubDate>Tue, 22 Sep 2020 14:20:12 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/ca02613b/</guid>
+      <description>PlantUML</description>
+      <content:encoded><![CDATA[
+
+<p><strong>PlantUML</strong> 是一个开源项目，支持快速绘制：
+时序图、用例图、类图、活动图、组件图、状态图、对象图、部署图、定时图，同时还支持以下非 UML 图:
+线框图形界面、架构图、规范和描述语言 (SDL)、Ditaa diagram、甘特图、思维导图、WorkBreakdown Structure diagram、以 AsciiMath 或 JLaTeXMath 符号的数学公式、Entity Relationship diagram</p>
+
+<p>通过简单直观的语言来定义这些示意图,与 MarkDown 有相似的作用，这两种语言一个主要面向文本渲染一个主要用于图形绘制。</p>
+
+<h3 id="环境准备">环境准备</h3>
+
+<ul>
+<li>VSCode</li>
+<li>PlantUML插件</li>
+</ul>
+
+<h3 id="语法">语法</h3>
+
+<p>参考：<a href="http://plantuml.com/zh/guide">官方文档</a></p>
+
+<h3 id="例子">例子</h3>
+<pre tabindex="0"><code>@startuml
+
+skinparam dpi 1000   #指定图片分辨率，如果不指定，默认的参数导出的图片放大以后会比较模糊
+
+scale 13500 width    #指定图片的高度和宽度
+
+scale 2200 height 
+
+用户 -&gt; 认证中心: 登录操作
+
+认证中心 -&gt; 缓存: 存放(key=token+ip,value=token)token
+
+用户 &lt;- 认证中心 : 认证成功返回token
+
+用户 -&gt; 认证中心: 下次访问头部携带token认证
+
+认证中心 &lt;- 缓存: key=token+ip获取token
+
+其他服务 &lt;- 认证中心: 存在且校验成功则跳转到用户请求的其他服务
+
+其他服务 -&gt; 用户: 信息
+
+@enduml</code></pre>
+<h3 id="文件格式">文件格式</h3>
+
+<p><code>.wsd</code>, <code>.pu</code>, <code>.puml</code>, <code>.plantuml</code>, <code>.iuml</code></p>
+
+<h3 id="预览">预览</h3>
+
+<p><kbd><kbd>Alt</kbd>+<kbd>D</kbd></kbd></p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20200922144137.png#center" style="zoom:50%;" /></p>
+
+<h3 id="导出">导出</h3>
+
+<p>可以导出为<code>png</code>、<code>svg</code>、<code>eos</code>、<code>pdf</code>、<code>scxml</code>、<code>html</code>、<code>txt</code>、<code>utt</code>、<code>latex</code>、<code>latex:nopreamble</code> 等格式，方法如下:</p>
+
+<ol>
+<li><kbd><kbd>F1</kbd></kbd> 或者 <kbd><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd></kbd></li>
+<li>PlantUML:导出当前图表；</li>
+<li>选择导出格式<code>png</code>；导出即可。</li>
+</ol>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>论文排版常用技巧</title>
+      <link>https://byteprince.com/posts/360145af/</link>
+      <pubDate>Tue, 28 Jul 2020 17:29:12 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/360145af/</guid>
+      <description>一些比较实用的Word排版技巧</description>
+      <content:encoded><![CDATA[
+
+<h3 id="标题和正文样式">标题和正文样式</h3>
+
+<h4 id="创建样式">创建样式</h4>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20200728175329.jpg" style="zoom:80%;" /></p>
+
+<p><strong>最主要的三个设置内容：</strong>后续段落样式、字体和段落。</p>
+
+<h4 id="重新定义样式">重新定义样式</h4>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20200728180312.jpg" style="zoom:80%;" /></p>
+
+<h4 id="定义多级列表">定义多级列表</h4>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20200728180722.jpg" style="zoom:80%;" /></p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20200728180733.jpg" style="zoom:80%;" /></p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20200728180750.jpg" style="zoom:80%;" /></p>
+
+<h3 id="图片表格自动编号">图片表格自动编号</h3>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20200728181233.jpg" style="zoom:80%;" /></p>
+
+<p>效果：</p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20200728181343.jpg#center" alt="" /></p>
+
+<h3 id="参考文献">参考文献</h3>
+
+<h4 id="如何插入参考文献">如何插入参考文献？</h4>
+
+<p>​       将光标定格在需要插入文献标记的位置，然后点击<code>引用</code>-&gt;<code>插入尾注</code>，就可以了。</p>
+
+<p>要记得选中所有的尾注，使用<code>查找和替换</code>功能，寻找所有<code>^e</code>的字符，替换成 <code>[^&amp;]</code>。</p>
+
+<h4 id="如何给尾注编号加上方括号">如何给尾注编号加上方括号？</h4>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20200728181918.jpg#center" alt="" /></p>
+
+<p>方法：直接在将光标移到正文尾注前，切换“上标”，就可以直接添加方括号了。</p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20200728181942.jpg#center" alt="" /></p>
+
+<h4 id="尾注上方的横线怎么删">尾注上方的横线怎么删？</h4>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20200728182043.jpg" style="zoom:80%;" /></p>
+
+<h4 id="尾注后一页的页眉横线怎么删">尾注后一页的页眉横线怎么删？</h4>
+
+<p>把光标移到尾注之前，然后<code>插入</code>——<code>分隔符</code>——<code>分节符-下一页</code>，然后全选中尾注的内容，右击选择<code>便签选项</code>，设置为<code>尾注——节的结尾</code>！就OK了！</p>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Hexo 提速：自动部署到 VPS</title>
+      <link>https://byteprince.com/posts/934eaeda/</link>
+      <pubDate>Mon, 20 Apr 2020 17:52:08 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/934eaeda/</guid>
+      <description>将Hexo博客部署到阿里云ECS</description>
+      <content:encoded><![CDATA[
+
+<p>Hexo 是一个便捷的静态博客系统，最方便快捷的方案就是部署到 GitPage 上。但是 GitPage 的服务器位于境外，如果没有加 CDN 的话，国内用户访问 GitPage 的速度普遍较慢，而且国内搜索引擎对基本不（能）抓取 GitPage 上的内容，影响网站的 SEO。</p>
+
+<h3 id="环境">环境</h3>
+
+<ol>
+<li>带<code>Git</code>环境的 ECS（以 <code>CentOS</code> 为例）</li>
+<li>本地<code>Hexo</code>环境（<code>Node.js</code>等）</li>
+<li>已备案域名等其他必要的东西</li>
+</ol>
+
+<h3 id="原理">原理</h3>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210507124728.png#center" alt="" /></p>
+
+<p>示意图</p>
+
+<h3 id="创建仓库">创建仓库</h3>
+
+<p>在 ECS 上，检查 Git 环境，创建 Git 仓库</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir blog.git <span style="color:#f92672">&amp;&amp;</span> cd blog.git
+git init --bare</code></pre></div>
+<p><img src="https://img.xiehestudio.com/pic_go/20200420202426.png#center" alt="" /></p>
+
+<p>其中<code>git init --bare</code>指令的作用是创建一个裸仓库。裸仓库与普通git仓库不同，普通git仓库包含所有可操作性的项目文件和<code>.git</code>目录，而裸仓库只包含commit的版本信息。简便起见，这里直接创建裸仓库。</p>
+
+<h3 id="hexo配置">Hexo配置</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">deploy:
+- type: git
+  <span style="color:#75715e">#git仓库路径</span>
+  repo: root@xx.xxx.xxx.xxx:/www/blog.git
+  <span style="color:#75715e">#分支</span>
+  branch: master</code></pre></div>
+<h3 id="插件安装">插件安装</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm install hexo-deployer-git --save</code></pre></div>
+<p>该插件的作用是执行<code>deploy</code>的时候，将 Hexo 生成的静态文件提交到 Hexo 的<code>_config.yml</code>配置的<code>deploy.repo</code>地址。如果已经成功部署到 GitPage 过，该插件一般都默认安装了，可以执行该命令检查、更新插件。</p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20200420204233.png#center" alt="" /></p>
+
+<h3 id="自动部署">自动部署</h3>
+
+<h4 id="创建钩子">创建钩子</h4>
+
+<p>进入 Git 仓库<code>/hooks</code>目录，并创建钩子<code>post-receive</code>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd /www/blog.git/hooks
+touch post-receive
+vim post-receive</code></pre></div>
+<p>然后输入以下内容</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash -l
+</span><span style="color:#75715e"></span>GIT_REPO<span style="color:#f92672">=</span>/www/blog.git
+TMP_GIT_CLONE<span style="color:#f92672">=</span>/www/tmp/blog
+PUBLIC_WWW<span style="color:#f92672">=</span>/www/wwwroot/byteprince.com
+rm -rf <span style="color:#e6db74">${</span>TMP_GIT_CLONE<span style="color:#e6db74">}</span>
+git clone $GIT_REPO $TMP_GIT_CLONE
+rm -rf <span style="color:#e6db74">${</span>PUBLIC_WWW<span style="color:#e6db74">}</span>/*
+cp -rf <span style="color:#e6db74">${</span>TMP_GIT_CLONE<span style="color:#e6db74">}</span>/* <span style="color:#e6db74">${</span>PUBLIC_WWW<span style="color:#e6db74">}</span></code></pre></div>
+<p>其中<code>/www/blog.git</code>为仓库路径，<code>/www/wwwroot/byteprince.com</code>为博客网站路径，<code>/www/tmp/blog</code>是临时目录。</p>
+
+<p>git会先将文件拉到临时目录，然后再将所有文件拷贝到博客网站目录<code>/www/wwwroot/byteprince.com</code>。</p>
+
+<p>保存后退出。</p>
+
+<h4 id="更改目录权限">更改目录权限</h4>
+
+<p>更改网站目录权限</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chmod +x post-receive
+chmod <span style="color:#ae81ff">777</span> -R /www/wwwroot/byteprince.com</code></pre></div>
+<h3 id="运行">运行</h3>
+
+<p>每次写完博客，在本地博客目录下运行<code>hexo g -d</code>即可。可能需要输入远程访问服务器的密码。</p>
+
+<p>出现以下提示说明部署成功。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">...
+INFO  Deploy <span style="color:#66d9ef">done</span>: git</code></pre></div>]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Typora &#43; PicGo 实现图片自动上传图床</title>
+      <link>https://byteprince.com/posts/e3b03f1d/</link>
+      <pubDate>Mon, 20 Apr 2020 16:56:23 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/e3b03f1d/</guid>
+      <description>推荐一款很好用的图床管理工具</description>
+      <content:encoded><![CDATA[
+
+<p>Typora 是一款很优秀的 Markdown 编辑器，在更新版本<code>0.9.84</code>后，可以结合 PicGo 实现图片自动上传到图床，节约手动上传图片到图床的时间。</p>
+
+<h3 id="环境">环境</h3>
+
+<ul>
+<li><a href="https://typora.io">Typora</a>版本不低于<code>0.9.84</code></li>
+<li><a href="https://github.com/Molunerfinn/PicGo/releases">PicGo</a></li>
+</ul>
+
+<h3 id="使用方法">使用方法</h3>
+
+<p>1.PicGo -&gt; <code>图床设置</code>，选择对应的图床服务商，并填写存储桶，秘钥等信息。</p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210507125619.png#center" alt="" /></p>
+
+<p>2.设置 PicSever 并开启。</p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210507125721.png#center" alt="" /></p>
+
+<p>3.打开 Typora - <code>文件</code> —&gt; <code>偏好设置</code>，完成以下设置。</p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210507125822.png#center" alt="" /></p>
+
+<p>4.在 Typora 中愉快地写作~</p>
+
+<ul>
+<li>方法一：使用快捷键<code>Ctrl</code>+<code>Shift</code>+<code>I</code>,选择图片插入</li>
+<li>方法二：直接将图片拖入编辑器区域</li>
+</ul>
+
+<p>使用以上两种方法，图片直接被上传到图床并以外链的形式插入到文档中</p>
+
+<p>Perfect！👍</p>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Github 基本使用方法</title>
+      <link>https://byteprince.com/posts/4daf64c3/</link>
+      <pubDate>Wed, 19 Feb 2020 17:07:29 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/4daf64c3/</guid>
+      <description></description>
+      <content:encoded><![CDATA[<p>本地环境要求：<code>Git</code></p>
+
+<h1 id="上传">上传</h1>
+
+<h2 id="1-新建远程仓库">1.新建远程仓库</h2>
+
+<p><em>创建仓库的注意点：</em></p>
+
+<p><strong>gitignore:</strong> 不需要进行版本管理的仓库类型，对应生成文件<code>.gitignore</code></p>
+
+<p><strong>license:</strong> 证书类型，对应生成文件 LICENSE</p>
+
+<h2 id="2-使用命令上传">2.使用命令上传</h2>
+
+<p>①右击待上传的项目文件夹，选择<code>Git bash here</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git init</code></pre></div>
+<p>随后项目文件路径下会多出一个<code>.git</code>文件夹，用来保存 git 传输的一些信息</p>
+
+<p>②将项目上所有的文件添加到仓库中。</p>
+
+<p>如果想添加某个特定的文件，只需把<code>.</code>换成这个特定的文件名即可，中间以空格隔开。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git add .</code></pre></div>
+<p>③填写对本次 commit（提交）的注释</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git commit -m <span style="color:#e6db74">&#34;xxxxxx&#34;</span></code></pre></div>
+<p>④本地的仓库关联到 Github 上</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git remote add origin https://github.com/BytePrince/xxxxxxx.git</code></pre></div>
+<p>⑤代码上传到 Github 仓库</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git push -u origin master</code></pre></div>
+<p>执行完后，输入账号密码确认身份即可。</p>
+
+<h1 id="更新">更新</h1>
+
+<p>1.选中项目文件夹，进入 bash。如果想更新某个特定的文件，只需把<code>.</code>换成这个特定的文件名即可。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git add .</code></pre></div>
+<p>2.填写对本次 commit（提交）的注释</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git commit -m <span style="color:#e6db74">&#39;xxxxxxxxxx&#39;</span></code></pre></div>
+<p>3.提交到原始的 master 分支</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git push origin master</code></pre></div>
+<h1 id="回滚">回滚</h1>
+
+<h2 id="本地项目回滚到-github-仓库内的某个版本">本地项目回滚到 Github 仓库内的某个版本</h2>
+
+<p>1.选中项目文件夹，进入 bash</p>
+
+<p>2.查看提交日志</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git log</code></pre></div>
+<p>3.选择需要回滚的版本，并记录其 hash</p>
+
+<p>4.按<code>Q</code>返回命令行模式，使用命令，将本地项目回滚到仓库里指定的版本</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git reset --hard xxxxxx<span style="color:#f92672">(</span>hash<span style="color:#f92672">)</span></code></pre></div>
+<h2 id="github仓库内的项目回滚">Github仓库内的项目回滚</h2>
+
+<p>一般有两种思路，①新建分支，从分支回滚到 master；②回滚项目到本地，从本地重新 Pull。</p>
+
+<p>这边采用后者。</p>
+
+<p>按照上述，将历史版本回滚到本地，随后推送到仓库。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"> git push -f -u origin master </code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"> git Pull</code></pre></div>]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>用 NFC 贴纸实现华为一碰传</title>
+      <link>https://byteprince.com/posts/462dd14b/</link>
+      <pubDate>Fri, 15 Nov 2019 22:03:44 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/462dd14b/</guid>
+      <description>Dell G3 + Honor Magic 2</description>
+      <content:encoded><![CDATA[
+
+<p>最近笔者在网上看到，DIY 华为的“一碰传”功能相当火爆。本人身为虔诚的“菊花粉”，同时又爱好 DIY，自然不会放弃这个好机会。参考了相关的资料后，顺利使用自备的 NFC 贴纸实现华为一碰传的功能，特此总结，提供给想要 DIY 或者 DIY 失败的朋友进行参考。</p>
+
+<h3 id="华为-一碰传-简介">华为“一碰传”简介</h3>
+
+<p>华为一碰传的功能简介不再赘述，这些在<a href="https://consumer.huawei.com/cn/support/huaweishareonehop/">华为官网</a>都可以看到。以下是官网称实现一碰传和多屏协同需要的硬件支持：</p>
+
+<p><img src="https://img.xiehestudio.com/2019/11/15/4bc8e4577f6aa.png#center" alt="" /></p>
+
+<p>从上图可以得知，华为一碰传实现的主要硬件载体就是手机的 NFC 模块和电脑的 NFC 标签。在这个 DIY 的过程中，华为 Mate Book 本身就并不是必备条件，我们完全可以通过自己的 NFC 空白芯片来模拟，当然，一个具有 NFC 读写功能的华为手机是必需品。另外，既然是华为自家的生态才可以直接使用这个功能，自然在 NFC 的读写中肯定会引入相关的参数来区别华为笔记本电脑和非华为笔记本电脑，这个在后续的操作中会体现。</p>
+
+<h3 id="diy华为一碰传需要做的准备">DIY华为一碰传需要做的准备</h3>
+
+<p>①一台具有 <strong>NFC</strong> 模块的<strong>华为</strong>手机（多屏协同要求手机系统版本不低于 <strong>EMUI10/Magic UI 3.0</strong>）</p>
+
+<p>②一台具有 5G WIFI 和蓝牙功能的电脑，显卡支持 HEVC</p>
+
+<p>③<strong>NFC 标签贴纸（NTAG312/NTAG215 等均可）</strong>/空白的 IC 卡</p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/0faa6265f79f3.jpg" alt="" style="zoom: 25%;" /></center></p>
+
+<h3 id="模拟华为一碰传的思路">模拟华为一碰传的思路</h3>
+
+<p>目前有不少教程了，但是写的都太过于详细导致让新手很难抓住重点，这里可以让你在操作的时候思路更清晰。</p>
+
+<p>1.手机端安装<a href="https://www.lanzoui.com/i7e9akf">一碰传助手</a>，PC 端安装<a href="https://www.lanzoui.com/i7e9bta">华为电脑管家</a>；</p>
+
+<p>2.在执行一碰传或者多屏协同任务的时候，华为电脑管家会通过 SN 值来检测是否是华为电脑，若非华为电脑则无法执行任务。通过伪装 SN 值来“欺骗”华为电脑管家，就是本次破解的核心（通过注入<code>util.dll</code>来实现）</p>
+
+<p>3.在<a href="https://www.lanzoui.com/i7e9bta">华为电脑管家安装包</a>中提供了两版 dll，根据前人的经验，电脑 SN 值小于大于16位的可以通过直接注入<code>util.dll</code>来实现，而 SN 小于16位的则需要通过伪装 SN 或者修改 SN 来实现。</p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210507102841.png#center" alt="" /></p>
+
+<h3 id="具体操作流程">具体操作流程</h3>
+
+<p>1.下载<a href="https://www.lanzoui.com/i7e9bta">华为电脑管家安装包</a>，解压 <strong>PCManager_Setup_10.0.2.59.zip</strong> 进行安装</p>
+
+<p><img src="https://img.xiehestudio.com/2019/11/16/377f67a981e9f.png#center" alt="" /></p>
+
+<p>2.号文件到电脑上，安装完成之后无法打开运行，需要进行 dll 注入才可以正常打开，注入 dll 的方法如下：</p>
+
+<p>首先打开任务管理器停止华为电脑管家的服务，</p>
+
+<p><img src="https://img.xiehestudio.com/2019/11/16/6cff789dc631a.jpg#center" alt="" /></p>
+
+<p>一般刚安装好的只有 MBAMainService 服务。启动过多屏协同之后会出现 LCD 服务将“无需伪装 SN 版 dll “文件夹中的 <code>Util.dll</code> 替换到电脑管家的程序目录，替换成功后返回任务管理器启动刚才停止的两个服务或者直接重启电脑。</p>
+
+<p>重启后就可以双击桌面上的华为电脑管家图标正常打开华为电脑管家了。</p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/2713f01dda8f0.png" alt="" style="zoom: 67%;" /></center></p>
+
+<p>查看序列号的位数（包含空格），如果序列号的位数大于16，则可以不用伪装或者修改SN，反之则需要。</p>
+
+<p>3.【<strong>SN 号大于16的可以直接跳过此步骤</strong>】伪装 SN/修改 SN 的方法：</p>
+
+<p><strong>①伪装：</strong></p>
+
+<p>复制<a href="https://www.lanzous.com/i7e9bta">华为电脑管家安装包</a>中“伪装 SN 版所需 DLL ”进行替换（方法同<strong>步骤2</strong>，先在仍无管理器中停止华为电脑管家的相关服务后进行替换，替换后重启服务或者直接重启电脑），该版本dll支持识别伪装的SN码。</p>
+
+<p>管理员运行 Powershell 进行新增伪装 SN 码，步骤如图：</p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/f02c553573b20.png" alt="" style="zoom:80%;" /></center></p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/54fc211bec99d.jpg" alt="" style="zoom: 80%;" /></center></p>
+
+<p><img src="https://img.xiehestudio.com/2019/11/16/7b176064bafcf.jpg#center" alt="" /></p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/10/03f004ad34d1d.png" style="zoom: 50%;" /></center></p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/10/e40eeca3f33be.png" style="zoom: 50%;" /></center></p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/b81b585504197.jpg" alt="" style="zoom: 67%;" /></center></p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/7a9487cd83f4c.jpg" alt="" style="zoom: 80%;" /></center></p>
+
+<p>如图所示，伪装版本的 SN 码就已经增加完毕</p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/3ca89eed32d69.png" alt="" style="zoom:67%;" /></center></p>
+
+<p>接下来用伪装的 SN 码生成二维码，进行制作 NFC 标签即可，以图中伪装的二维码为例，对应字符串为
+<code>SN=5EKPM18320000397|MAC=98541B2E6877|MODELID=00000505</code></p>
+
+<p><strong>②修改：</strong></p>
+
+<p>不建议使用修改 SN 的方式，因为修改 SN 可能会影响电脑的保修，故不再赘述。如果在了解这个风险后还是想要尝试，可以百度如何使用<code>DmiEditWinGui</code>修改 SN。</p>
+
+<p>4.获取本地蓝牙 Mac 地址</p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/3ca89eed32d69.png" alt="" style="zoom:67%;" /></center></p>
+
+<p>构造字符串<code>SN=5EKPM18320000397|MAC=98541B2E6877|MODELID=00000505</code></p>
+
+<p>将<strong>步骤3</strong>中生成的字符串转成二维码（<a href="https://www.liantu.com/">在线转二维码工具</a>），使用华为一碰传助手扫描生成的二维码，根据手机上的提示激活 NFC 标签即可。</p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/0886d04c49a48.jpg" alt="" style="zoom: 80%;" /></center></p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/85d365d05371c.jpg" alt="" style="zoom: 33%;" /></center></p>
+
+<h3 id="enjoy-it">Enjoy it</h3>
+
+<p><img src="https://img.xiehestudio.com/2019/11/16/822f441e97307.jpg#center" alt="" /></p>
+
+<p>以后，你只要打开手机的 NFC 功能并轻触 NFC 标签，就可以和电脑进行快捷连接，连接后就可以进行愉快的一碰传和多屏协同的功能了~</p>
+
+<iframe src="//player.bilibili.com/player.html?aid=75861913&cid=129775718&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width: 100%; height: 500px; max-width: 100%；align:center; padding:20px 0;"> </iframe>
+
+<h3 id="总结">总结</h3>
+
+<p>华为的一碰传和多屏协同是华为生态中重要的一步。虽然这个方式并不一定适合每个人的使用习惯，但是深度体验华为多设备文件传输同步功能后还是感触颇深。作为代表当今中国科技实力的企业之一，华为正在逐渐缩小和苹果，谷歌等世界超一流公产品的差距，衷心希望华为的产品可以越来越优秀。</p>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>探索 Python 中的 print 函数</title>
+      <link>https://byteprince.com/posts/e5b64c32/</link>
+      <pubDate>Fri, 05 Oct 2018 17:07:55 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/e5b64c32/</guid>
+      <description>你真的懂 print() 的用法吗</description>
+      <content:encoded><![CDATA[
+
+<h3 id="print-函数的高级用法">Print()函数的高级用法</h3>
+
+<p>通过<code>help(print)</code>命令可以查看到详细的帮助信息</p>
+
+<blockquote>
+<p>Help on built-in function print in module builtins:</p>
+
+<p>print(&hellip;)
+ print(value, &hellip;, sep=&rsquo; &lsquo;, end=&rsquo;\n&rsquo;, file=sys.stdout, flush=False)</p>
+
+<p>Prints the values to a stream, or to sys.stdout by default.
+ Optional keyword arguments:
+ file:  a file-like object (stream); defaults to the current sys.stdout.
+ sep:   string inserted between values, default a space.
+ end:   string appended after the last value, default a newline.
+ flush: whether to forcibly flush the stream.</p>
+</blockquote>
+
+<p>一个例子熟练<code>Print()</code>函数的参数用法:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"> <span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#39;abc.txt&#39;</span>,<span style="color:#e6db74">&#39;w&#39;</span>) <span style="color:#66d9ef">as</span> f:
+     print(<span style="color:#e6db74">&#34;file</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,<span style="color:#e6db74">&#34;abc&#34;</span>,<span style="color:#e6db74">&#34;fff&#34;</span>,sep<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;#########</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>,end<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>,file<span style="color:#f92672">=</span>f)</code></pre></div>
+<p>运行，会输出以下内容到<code>abc.txt</code>中：</p>
+<pre tabindex="0"><code>file
+#########
+abc#########
+fff</code></pre>
+<p><code>flush</code> 参数默认为false，如果指定<code>flush = True</code>，那么会即时彻底执行<code>print()</code>函数，而不是先将内容存放在内存中。</p>
+]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>

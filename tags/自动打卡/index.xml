@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>自动打卡 on Byte Prince</title>
+    <link>https://byteprince.com/tags/%E8%87%AA%E5%8A%A8%E6%89%93%E5%8D%A1/</link>
+    <description>Recent content in 自动打卡 on Byte Prince</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 24 Jan 2021 13:01:12 +0800</lastBuildDate><atom:link href="https://byteprince.com/tags/%E8%87%AA%E5%8A%A8%E6%89%93%E5%8D%A1/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>今日校园自动打卡</title>
+      <link>https://byteprince.com/posts/b530bd3e/</link>
+      <pubDate>Sun, 24 Jan 2021 13:01:12 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/b530bd3e/</guid>
+      <description>懒人懒办法</description>
+      <content:encoded><![CDATA[
+
+<h2 id="说明">说明</h2>
+
+<p>项目地址：<a href="https://github.com/BytePrince/Auto_Sign_For_NBU">BytePrince/Auto_Sign_For_NBU</a></p>
+
+<p>本项目<strong>2020.05.03</strong>前所有代码均为本人原创，自<strong>2021.01.24</strong>后更新的代码参考子墨大佬的<a href="https://github.com/ZimoLoveShuang/auto-submit">ZimoLoveShuang/auto-submit</a>。至于为何不再重构自己去年写的代码，文末会提到。</p>
+
+<p><strong>本人修复了Bug，移除了不必要的代码并适配了宁波大学的每日信息填报打卡（理论上适配宁波大学所有学院）。</strong></p>
+
+<p>如果对你有帮助，请给<a href="https://github.com/BytePrince/Auto_Sign_For_NBU">BytePrince/Auto_Sign_For_NBU</a>点上一个Star⭐。</p>
+
+<h2 id="使用方法">使用方法</h2>
+
+<h3 id="准备">准备</h3>
+
+<p>Clone本项目</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git clone https://github.com/BytePrince/Auto_Sign_For_NBU.git </code></pre></div>
+<h3 id="信息填写">信息填写</h3>
+
+<ol>
+<li>在<code>config.yml</code>中填写自己的<strong>个人信息</strong></li>
+</ol>
+
+<p>示例如下：</p>
+<pre tabindex="0"><code>users:
+   - user:
+         #此字段填写你的学号
+         username: &#39;17600****&#39;
+         #此字段填写你的今日校园登录密码
+         password: &#39;******&#39;
+         #此字段填写你的地址，即定位信息，如下图
+         address: 中国浙江省xx市xx区xx路
+         #email 接受通知消息的邮箱
+         email: xxxxxxxxxx@qq.com
+         #school 学校全称
+         school: 宁波大学</code></pre>
+<p><img src="https://img.xiehestudio.com/pic_go/20210124134349.png#center" alt="位置信息" style="zoom:80%;" /></p>
+
+<ol>
+<li>在<code>config.yml</code>中填写<strong>表单信息</strong></li>
+</ol>
+
+<p>表单内容可能会发生变化，<del>后期如果表单内容更新频繁的话可能会写一个表单内容自动更新API</del>，示例如下：</p>
+<pre tabindex="0"><code>cpdaily:
+  #表单组默认选项配置，按照说明填写即可。
+  defaults:
+    #表单默认选项配置，按顺序，注意，只有标必填项的才处理
+    - default:
+        #表单项类型，对应今日校园接口返回的fieldType字段，1代表文本，2代表单选，3代表多选，4代表图片
+        type: 2
+        #表单项标题
+        title: 1. 今日您的健康情况是?（如有发热等呼吸道症状，请第一时间报备辅导员）
+        #表单项默认值
+        value: 健康
+    - default:
+        type: 2
+        title: 今日您的甬行码颜色是？
+        value: 绿色
+    - default:
+        type: 2
+        title: 今日您是否存在其他异常情况？
+        value: 无
+    - default:
+        type: 2
+        title: 明日你是否有出行计划（离开居住地所在市）
+        value: 否</code></pre>
+<ol>
+<li>在<code>config.yml</code>中填写<strong>通知接口信息</strong></li>
+</ol>
+
+<p>此处用于每天自动打卡后发送通知。由于QQ或者邮件通知配置过程对小白来说会复杂一些，将这两种通知方式移除，仅仅保留<code>ServerChan</code>通知。获取<code>ServerChan</code>的密钥的方法详见<a href="http://sc.ftqq.com/3.version">文档</a>。</p>
+
+<h3 id="部署">部署</h3>
+
+<p>可以部署在自己的云服务器上或者直接使用云服务商的云函数。</p>
+
+<h4 id="云函数">云函数</h4>
+
+<p>参考<a href="https://github.com/ZimoLoveShuang/auto-submit#%E4%BA%91%E7%AB%AF%E7%B3%BB%E7%BB%9F%E5%8F%AF%E7%94%A8%E9%85%8D%E5%90%88%E8%85%BE%E8%AE%AF%E4%BA%91%E5%87%BD%E6%95%B0">文档</a>。（学思路，不要照抄啊喂🤪）</p>
+
+<h4 id="云服务器-推荐">云服务器（推荐）</h4>
+
+<p>当然，如果你手头没有云服务器，还是推荐使用云函数来执行脚本，毕竟可以省钱。</p>
+
+<ol>
+<li><p>上传填写好个人信息的项目文件上传到你已经安装好<code>Python3.X</code>的云服务器；</p></li>
+
+<li><p>进入项目根目录，安装依赖；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">pip3 install -r requirements.txt</code></pre></div></li>
+
+<li><p>手动执行脚本，测试是否可以正常运行，如果运行结果显示<code>模拟登陆成功...</code>，则说明环境已经配置完毕。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">python3 index.py</code></pre></div></li>
+
+<li><p>根据自己的目录，添加定时任务。笔者的项目根目录为<code>/opt</code>，每天下午15：01执行脚本，并作了日志的记录。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#ae81ff">01</span> <span style="color:#ae81ff">15</span> * * * root /usr/local/bin/python3 /opt/index.py &gt;&gt; /opt/sign.log 2&gt;&amp;<span style="color:#ae81ff">1</span> &amp;</code></pre></div></li>
+</ol>
+
+<p>部署就到此结束了。</p>
+
+<h2 id="更新日志">更新日志</h2>
+
+<ul>
+<li><p><strong>2021年3月23日：</strong></p>
+
+<ul>
+<li><p>PushPlus功能波动，更换成钉钉机器人通知（钉钉机器人密钥获取请自行参考官方文档）</p></li>
+
+<li><p>修复接口错误，默认配置为<code>宁波大学</code>，其他大学请自行在<strong>index.py</strong>中设定</p></li>
+</ul>
+
+<p><strong>设定办法：</strong></p>
+
+<ol>
+<li>访问 <a href="https://mobile.campushoy.com/v6/config/guest/tenant/list">https://mobile.campushoy.com/v6/config/guest/tenant/list</a> 获取本校<code>id</code></li>
+<li>访问 <a href="https://mobile.campushoy.com/v6/config/guest/tenant/info?ids=学校id">https://mobile.campushoy.com/v6/config/guest/tenant/info?ids=学校id</a></li>
+<li>获取<code>idsUrl</code>、<code>ampUrl</code>、<code>ampUrl2</code>填入<strong>index.py</strong></li>
+<li><code>login_url</code>请自行设定</li>
+</ol></li>
+
+<li><p><strong>2021年1月30日：</strong></p>
+
+<ul>
+<li>Serverchan近期服务不稳定，将微信通知改成更稳定的PushPlus</li>
+</ul></li>
+
+<li><p><strong>2021年1月28日：</strong></p></li>
+
+<li><p>修复离校签到改成常规签到了，已经修复，下载新的<code>index.py</code>替换原来的<code>index.py</code>即可，配置文件<code>config.yml</code>不需要变动。</p></li>
+
+<li><p><strong>2021年1月27日：</strong></p>
+
+<ul>
+<li>移除了冗余代码，适配了宁波大学的校外每日签到任务；</li>
+<li>修复了今日校园更换接口导致原有接口失效的问题；</li>
+<li>修复了今日校园修改生成算法的密钥导致<code>Cpdaily-Extension</code>失效的问题；</li>
+<li>移除已失效的邮件通知功能，改为微信通知，需要调用Serverchan，配置方法详见注释；</li>
+<li>完善了容错机制，增加了两处可能产生错误之处的告警通知；</li>
+<li>完善了请求方式，不采用强制SSL；</li>
+<li>完善了日志记录，去除了SSL警告；</li>
+<li>完善了配置文件<code>config.yml</code>的注释，对小白更友好。</li>
+</ul></li>
+</ul>
+
+<p><strong>最后，说几句闲话：</strong></p>
+
+<p>想起之前一位从事信息安全行业的朋友说过的话：通常给自己的代码做安全，不会使用强度最大的加密方法（不要试图一劳永逸），而是会选用中等强度的加密方式，并且不定时地更换加密算法，以此来增加逆向的成本而不仅仅是增加逆向的难度。</p>
+
+<p>至于为何不再重构去年的代码了，因为今日校园的工程师为了刷KPI（为了让你们自己打卡），也在不定时地维护系统（更换打卡的接口）。想来无非也是以上的道理。今日校园升级版本后，抓包有了一定的门槛（需要用到基本的<code>计算机网络</code>知识和一定的逻辑分析能力。当然难度也不是非常非常大，相信在座的各位只要是有学习过相关的知识，花费一定的时间（也许是两个小时，也许是两天&hellip;），也可以自己从头开始写一个打卡脚本。</p>
+
+<p>可以，但没必要。毕竟，去年我是亲历者。</p>
+
+<p>所有除了感情以外的事情，切记权衡成本和收益。如有必要，及时止损。</p>
+
+<p>疫情还没有彻底结束，大家一定要做好防范措施，如果有接触高危地区高危人群，也请及时报告。这是你的责任，也是你的义务。</p>
+
+<p>最后，祝每一个看到这里的朋友，新年快乐❤️！</p>
+]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>

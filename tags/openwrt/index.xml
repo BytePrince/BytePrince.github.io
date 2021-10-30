@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>OpenWrt on Byte Prince</title>
+    <link>https://byteprince.com/tags/openwrt/</link>
+    <description>Recent content in OpenWrt on Byte Prince</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 30 Nov 2020 17:18:11 +0800</lastBuildDate><atom:link href="https://byteprince.com/tags/openwrt/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NanoPi R2s 配置备份</title>
+      <link>https://byteprince.com/posts/9ed4e0b0/</link>
+      <pubDate>Mon, 30 Nov 2020 17:18:11 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/9ed4e0b0/</guid>
+      <description>提供科学上网服务以及校园网断线重连</description>
+      <content:encoded><![CDATA[
+
+<h3 id="1-固件">1 固件</h3>
+
+<ul>
+<li><strong>版本：</strong><code>FriendlyWrt_NanoPi-R2S.RK3328.v19.07</code></li>
+<li><strong>来源：</strong><a href="https://github.com/soffchen/NanoPi-R2S">soffchen/NanoPi-R2S</a><br /></li>
+<li><strong>备份：</strong><a href="https://byte.lanzoui.com/b09lkx2of">下载地址</a> 密码:<code>1234</code> 修改后缀为<code>.7z.001</code>和<code>.7z.002</code>再进行解压。</li>
+</ul>
+
+<h3 id="2-软件源">2 软件源</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#发行版软件源</span>
+src/gz openwrt_base https://openwrt.proxy.ustclug.org/releases/19.07.1/packages/aarch64_cortex-a53/base
+src/gz openwrt_luci https://openwrt.proxy.ustclug.org/releases/19.07.1/packages/aarch64_cortex-a53/luci
+src/gz openwrt_packages https://openwrt.proxy.ustclug.org/releases/19.07.1/packages/aarch64_cortex-a53/packages
+src/gz openwrt_routing https://openwrt.proxy.ustclug.org/releases/19.07.1/packages/aarch64_cortex-a53/routing
+
+
+
+<span style="color:#75715e">#自定义软件源</span>
+src/gz songchenwen https://nanopi-r2s-opkg-feeds.songchenwen.com/packages</code></pre></div>
+<h4 id="2-1-添加软件源">2.1 添加软件源</h4>
+
+<p>在 <code>软件包 - 配置 - 自定义软件源</code> 中添加如下一行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">src/gz songchenwen https://nanopi-r2s-opkg-feeds.songchenwen.com/packages/</code></pre></div>
+<h4 id="2-2-添加签名公钥-可选">2.2 添加签名公钥（可选）</h4>
+
+<p>ssh进入安装有<code>OpenWrt</code>的路由器，执行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mkdir -p /etc/opkg/keys; wget -qO /etc/opkg/keys/5e99c2573f29d764 <span style="color:#e6db74">&#34;https://nanopi-r2s-opkg-feeds.songchenwen.com/keys/5e99c2573f29d764&#34;</span></code></pre></div>
+<p>或禁用签名检查，在 <code>软件包 - 配置</code> 中删掉这一行 <code>option check_signature 1</code></p>
+
+<h4 id="2-3-第三方软件源">2.3 第三方软件源</h4>
+
+<p><strong>①NanoPi R2S 专用软件源</strong></p>
+
+<p>（参考：<a href="https://songchenwen.com">宋辰文的博客</a> <a href="https://nanopi-r2s-opkg-feeds.songchenwen.com/">NanoPi R2S 专用软件源</a> )</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">src/gz songchenwen https://nanopi-r2s-opkg-feeds.songchenwen.com/packages/</code></pre></div>
+<p><strong>②kuoruan_universal源</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">src/gz kuoruan_universal http://openwrt.kuoruan.net/packages/releases/all</code></pre></div>
+<p>以上两个源适用<code>FriendlyWrt</code>系统，且已经过测试。添加源后执行以下命令即可。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">opkg update</code></pre></div>
+<p><strong>③V2ray源</strong></p>
+
+<ul>
+<li><a href="https://github.com/kuoruan/openwrt-v2ray">kuoruan/openwrt-v2ray</a></li>
+<li><a href="https://github.com/kuoruan/luci-app-v2ray">luci-app-v2ray</a> （<code>NanoPi R2S</code>适用，添加该源后也可以安装<code>luci-app-ssr-plus</code>和<code>luci-i18n-ssr-plus-zh-cn</code>）</li>
+</ul>
+
+<h4 id="2-4-opkg包管理">2.4 opkg包管理</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">opkg update</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">opkg install </code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">opkg remove</code></pre></div>
+<p>使用opkg命令卸载插件后若插件还在插件列表中，尝试清除<code>/usr/share</code>目录下与插件相关的残留文件。</p>
+
+<h3 id="3-cron备份">3 Cron备份</h3>
+
+<blockquote>
+<p>专治锐捷。</p>
+</blockquote>
+<pre tabindex="0"><code>0 * * * * /usr/bin/python3 /login/detect.py &gt;&gt; /login/conn.log 2&gt;&amp;1 &amp;</code></pre>
+<p>脚本备份下载：<a href="https://pan.pwner.cn/?dir=Car">Pwner&rsquo;s Pan</a></p>
+]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>

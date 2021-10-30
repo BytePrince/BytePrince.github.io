@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>版本控制 on Byte Prince</title>
+    <link>https://byteprince.com/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/</link>
+    <description>Recent content in 版本控制 on Byte Prince</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 19 Feb 2020 17:07:29 +0800</lastBuildDate><atom:link href="https://byteprince.com/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Github 基本使用方法</title>
+      <link>https://byteprince.com/posts/4daf64c3/</link>
+      <pubDate>Wed, 19 Feb 2020 17:07:29 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/4daf64c3/</guid>
+      <description></description>
+      <content:encoded><![CDATA[<p>本地环境要求：<code>Git</code></p>
+
+<h1 id="上传">上传</h1>
+
+<h2 id="1-新建远程仓库">1.新建远程仓库</h2>
+
+<p><em>创建仓库的注意点：</em></p>
+
+<p><strong>gitignore:</strong> 不需要进行版本管理的仓库类型，对应生成文件<code>.gitignore</code></p>
+
+<p><strong>license:</strong> 证书类型，对应生成文件 LICENSE</p>
+
+<h2 id="2-使用命令上传">2.使用命令上传</h2>
+
+<p>①右击待上传的项目文件夹，选择<code>Git bash here</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git init</code></pre></div>
+<p>随后项目文件路径下会多出一个<code>.git</code>文件夹，用来保存 git 传输的一些信息</p>
+
+<p>②将项目上所有的文件添加到仓库中。</p>
+
+<p>如果想添加某个特定的文件，只需把<code>.</code>换成这个特定的文件名即可，中间以空格隔开。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git add .</code></pre></div>
+<p>③填写对本次 commit（提交）的注释</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git commit -m <span style="color:#e6db74">&#34;xxxxxx&#34;</span></code></pre></div>
+<p>④本地的仓库关联到 Github 上</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git remote add origin https://github.com/BytePrince/xxxxxxx.git</code></pre></div>
+<p>⑤代码上传到 Github 仓库</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git push -u origin master</code></pre></div>
+<p>执行完后，输入账号密码确认身份即可。</p>
+
+<h1 id="更新">更新</h1>
+
+<p>1.选中项目文件夹，进入 bash。如果想更新某个特定的文件，只需把<code>.</code>换成这个特定的文件名即可。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git add .</code></pre></div>
+<p>2.填写对本次 commit（提交）的注释</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git commit -m <span style="color:#e6db74">&#39;xxxxxxxxxx&#39;</span></code></pre></div>
+<p>3.提交到原始的 master 分支</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git push origin master</code></pre></div>
+<h1 id="回滚">回滚</h1>
+
+<h2 id="本地项目回滚到-github-仓库内的某个版本">本地项目回滚到 Github 仓库内的某个版本</h2>
+
+<p>1.选中项目文件夹，进入 bash</p>
+
+<p>2.查看提交日志</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git log</code></pre></div>
+<p>3.选择需要回滚的版本，并记录其 hash</p>
+
+<p>4.按<code>Q</code>返回命令行模式，使用命令，将本地项目回滚到仓库里指定的版本</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git reset --hard xxxxxx<span style="color:#f92672">(</span>hash<span style="color:#f92672">)</span></code></pre></div>
+<h2 id="github仓库内的项目回滚">Github仓库内的项目回滚</h2>
+
+<p>一般有两种思路，①新建分支，从分支回滚到 master；②回滚项目到本地，从本地重新 Pull。</p>
+
+<p>这边采用后者。</p>
+
+<p>按照上述，将历史版本回滚到本地，随后推送到仓库。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"> git push -f -u origin master </code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"> git Pull</code></pre></div>]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>

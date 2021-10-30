@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>NFC on Byte Prince</title>
+    <link>https://byteprince.com/tags/nfc/</link>
+    <description>Recent content in NFC on Byte Prince</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 15 Nov 2019 22:03:44 +0800</lastBuildDate><atom:link href="https://byteprince.com/tags/nfc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>用 NFC 贴纸实现华为一碰传</title>
+      <link>https://byteprince.com/posts/462dd14b/</link>
+      <pubDate>Fri, 15 Nov 2019 22:03:44 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/462dd14b/</guid>
+      <description>Dell G3 + Honor Magic 2</description>
+      <content:encoded><![CDATA[
+
+<p>最近笔者在网上看到，DIY 华为的“一碰传”功能相当火爆。本人身为虔诚的“菊花粉”，同时又爱好 DIY，自然不会放弃这个好机会。参考了相关的资料后，顺利使用自备的 NFC 贴纸实现华为一碰传的功能，特此总结，提供给想要 DIY 或者 DIY 失败的朋友进行参考。</p>
+
+<h3 id="华为-一碰传-简介">华为“一碰传”简介</h3>
+
+<p>华为一碰传的功能简介不再赘述，这些在<a href="https://consumer.huawei.com/cn/support/huaweishareonehop/">华为官网</a>都可以看到。以下是官网称实现一碰传和多屏协同需要的硬件支持：</p>
+
+<p><img src="https://img.xiehestudio.com/2019/11/15/4bc8e4577f6aa.png#center" alt="" /></p>
+
+<p>从上图可以得知，华为一碰传实现的主要硬件载体就是手机的 NFC 模块和电脑的 NFC 标签。在这个 DIY 的过程中，华为 Mate Book 本身就并不是必备条件，我们完全可以通过自己的 NFC 空白芯片来模拟，当然，一个具有 NFC 读写功能的华为手机是必需品。另外，既然是华为自家的生态才可以直接使用这个功能，自然在 NFC 的读写中肯定会引入相关的参数来区别华为笔记本电脑和非华为笔记本电脑，这个在后续的操作中会体现。</p>
+
+<h3 id="diy华为一碰传需要做的准备">DIY华为一碰传需要做的准备</h3>
+
+<p>①一台具有 <strong>NFC</strong> 模块的<strong>华为</strong>手机（多屏协同要求手机系统版本不低于 <strong>EMUI10/Magic UI 3.0</strong>）</p>
+
+<p>②一台具有 5G WIFI 和蓝牙功能的电脑，显卡支持 HEVC</p>
+
+<p>③<strong>NFC 标签贴纸（NTAG312/NTAG215 等均可）</strong>/空白的 IC 卡</p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/0faa6265f79f3.jpg" alt="" style="zoom: 25%;" /></center></p>
+
+<h3 id="模拟华为一碰传的思路">模拟华为一碰传的思路</h3>
+
+<p>目前有不少教程了，但是写的都太过于详细导致让新手很难抓住重点，这里可以让你在操作的时候思路更清晰。</p>
+
+<p>1.手机端安装<a href="https://www.lanzoui.com/i7e9akf">一碰传助手</a>，PC 端安装<a href="https://www.lanzoui.com/i7e9bta">华为电脑管家</a>；</p>
+
+<p>2.在执行一碰传或者多屏协同任务的时候，华为电脑管家会通过 SN 值来检测是否是华为电脑，若非华为电脑则无法执行任务。通过伪装 SN 值来“欺骗”华为电脑管家，就是本次破解的核心（通过注入<code>util.dll</code>来实现）</p>
+
+<p>3.在<a href="https://www.lanzoui.com/i7e9bta">华为电脑管家安装包</a>中提供了两版 dll，根据前人的经验，电脑 SN 值小于大于16位的可以通过直接注入<code>util.dll</code>来实现，而 SN 小于16位的则需要通过伪装 SN 或者修改 SN 来实现。</p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210507102841.png#center" alt="" /></p>
+
+<h3 id="具体操作流程">具体操作流程</h3>
+
+<p>1.下载<a href="https://www.lanzoui.com/i7e9bta">华为电脑管家安装包</a>，解压 <strong>PCManager_Setup_10.0.2.59.zip</strong> 进行安装</p>
+
+<p><img src="https://img.xiehestudio.com/2019/11/16/377f67a981e9f.png#center" alt="" /></p>
+
+<p>2.号文件到电脑上，安装完成之后无法打开运行，需要进行 dll 注入才可以正常打开，注入 dll 的方法如下：</p>
+
+<p>首先打开任务管理器停止华为电脑管家的服务，</p>
+
+<p><img src="https://img.xiehestudio.com/2019/11/16/6cff789dc631a.jpg#center" alt="" /></p>
+
+<p>一般刚安装好的只有 MBAMainService 服务。启动过多屏协同之后会出现 LCD 服务将“无需伪装 SN 版 dll “文件夹中的 <code>Util.dll</code> 替换到电脑管家的程序目录，替换成功后返回任务管理器启动刚才停止的两个服务或者直接重启电脑。</p>
+
+<p>重启后就可以双击桌面上的华为电脑管家图标正常打开华为电脑管家了。</p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/2713f01dda8f0.png" alt="" style="zoom: 67%;" /></center></p>
+
+<p>查看序列号的位数（包含空格），如果序列号的位数大于16，则可以不用伪装或者修改SN，反之则需要。</p>
+
+<p>3.【<strong>SN 号大于16的可以直接跳过此步骤</strong>】伪装 SN/修改 SN 的方法：</p>
+
+<p><strong>①伪装：</strong></p>
+
+<p>复制<a href="https://www.lanzous.com/i7e9bta">华为电脑管家安装包</a>中“伪装 SN 版所需 DLL ”进行替换（方法同<strong>步骤2</strong>，先在仍无管理器中停止华为电脑管家的相关服务后进行替换，替换后重启服务或者直接重启电脑），该版本dll支持识别伪装的SN码。</p>
+
+<p>管理员运行 Powershell 进行新增伪装 SN 码，步骤如图：</p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/f02c553573b20.png" alt="" style="zoom:80%;" /></center></p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/54fc211bec99d.jpg" alt="" style="zoom: 80%;" /></center></p>
+
+<p><img src="https://img.xiehestudio.com/2019/11/16/7b176064bafcf.jpg#center" alt="" /></p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/10/03f004ad34d1d.png" style="zoom: 50%;" /></center></p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/10/e40eeca3f33be.png" style="zoom: 50%;" /></center></p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/b81b585504197.jpg" alt="" style="zoom: 67%;" /></center></p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/7a9487cd83f4c.jpg" alt="" style="zoom: 80%;" /></center></p>
+
+<p>如图所示，伪装版本的 SN 码就已经增加完毕</p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/3ca89eed32d69.png" alt="" style="zoom:67%;" /></center></p>
+
+<p>接下来用伪装的 SN 码生成二维码，进行制作 NFC 标签即可，以图中伪装的二维码为例，对应字符串为
+<code>SN=5EKPM18320000397|MAC=98541B2E6877|MODELID=00000505</code></p>
+
+<p><strong>②修改：</strong></p>
+
+<p>不建议使用修改 SN 的方式，因为修改 SN 可能会影响电脑的保修，故不再赘述。如果在了解这个风险后还是想要尝试，可以百度如何使用<code>DmiEditWinGui</code>修改 SN。</p>
+
+<p>4.获取本地蓝牙 Mac 地址</p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/3ca89eed32d69.png" alt="" style="zoom:67%;" /></center></p>
+
+<p>构造字符串<code>SN=5EKPM18320000397|MAC=98541B2E6877|MODELID=00000505</code></p>
+
+<p>将<strong>步骤3</strong>中生成的字符串转成二维码（<a href="https://www.liantu.com/">在线转二维码工具</a>），使用华为一碰传助手扫描生成的二维码，根据手机上的提示激活 NFC 标签即可。</p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/0886d04c49a48.jpg" alt="" style="zoom: 80%;" /></center></p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/85d365d05371c.jpg" alt="" style="zoom: 33%;" /></center></p>
+
+<h3 id="enjoy-it">Enjoy it</h3>
+
+<p><img src="https://img.xiehestudio.com/2019/11/16/822f441e97307.jpg#center" alt="" /></p>
+
+<p>以后，你只要打开手机的 NFC 功能并轻触 NFC 标签，就可以和电脑进行快捷连接，连接后就可以进行愉快的一碰传和多屏协同的功能了~</p>
+
+<iframe src="//player.bilibili.com/player.html?aid=75861913&cid=129775718&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width: 100%; height: 500px; max-width: 100%；align:center; padding:20px 0;"> </iframe>
+
+<h3 id="总结">总结</h3>
+
+<p>华为的一碰传和多屏协同是华为生态中重要的一步。虽然这个方式并不一定适合每个人的使用习惯，但是深度体验华为多设备文件传输同步功能后还是感触颇深。作为代表当今中国科技实力的企业之一，华为正在逐渐缩小和苹果，谷歌等世界超一流公产品的差距，衷心希望华为的产品可以越来越优秀。</p>
+]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>

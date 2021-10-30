@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Pycharm on Byte Prince</title>
+    <link>https://byteprince.com/tags/pycharm/</link>
+    <description>Recent content in Pycharm on Byte Prince</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 04 Apr 2021 17:17:58 +0800</lastBuildDate><atom:link href="https://byteprince.com/tags/pycharm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Pycharm配置使用Github版本控制</title>
+      <link>https://byteprince.com/posts/d29a2fe5/</link>
+      <pubDate>Sun, 04 Apr 2021 17:17:58 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/d29a2fe5/</guid>
+      <description></description>
+      <content:encoded><![CDATA[<h1 id="准备工作">准备工作</h1>
+
+<h2 id="1-关于github的基本用法">1.关于GitHub的基本用法</h2>
+
+<p>参考：<a href="https://pwner.cn/posts/16fb9e75.html">https://pwner.cn/posts/16fb9e75.html</a></p>
+
+<h2 id="2-关于pycharm的安装">2.关于Pycharm的安装</h2>
+
+<p>官网下载安装即可：<a href="https://www.jetbrains.com/Pycharm/">https://www.jetbrains.com/Pycharm/</a></p>
+
+<h2 id="3-关于git的安装">3.关于Git的安装</h2>
+
+<p>官网下载安装即可：<a href="https://Git-scm.com/download/win">https://Git-scm.com/download/win</a></p>
+
+<p>安装好 <code>Git</code> 后可以在本地检查</p>
+
+<h1 id="pycharm中配置github的方法">Pycharm中配置GitHub的方法</h1>
+
+<h2 id="1-在pycharm中检查git环境是否安装完毕">1.在Pycharm中检查Git环境是否安装完毕</h2>
+
+<p>检测显示Git版本说明<code>Git</code>环境已经成功配置，若未配置好Git环境请自行百度安装（安装过程比较简单，下载好安装包后一路下一步即可）</p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210404173145.png" alt="使用Pycharm检测Git环境" style="zoom:80%;" /></p>
+
+<p>一般都可以自动检测到<code>Git</code>的安装路径，如果没有自动检测到，请手动选择<code>Git</code>的安装路径</p>
+
+<h2 id="2-在pycharm中配置github账号信息">2.在Pycharm中配置GitHub账号信息</h2>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210404173326.png" alt="image-20210404173326578" style="zoom:80%;" /></p>
+
+<p>这样就完成了Pycharm和GitHub的账号关联，接下来就可以在Pycharm中使用GitHub进行项目的管理了</p>
+
+<h2 id="3-本地项目文件夹和github远程仓库的关联">3.本地项目文件夹和GitHub远程仓库的关联</h2>
+
+<h3 id="建立一个本地项目文件夹">建立一个本地项目文件夹</h3>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210404173450.png" alt="image-20210404173449923" style="zoom:80%;" /></p>
+
+<p>假设这是本次需要进行版本管理的项目根目录</p>
+
+<p>使用</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git init</code></pre></div>
+<p>命令初始化项目</p>
+
+<h3 id="创建github远程仓库">创建GitHub远程仓库</h3>
+
+<p>在GitHub创建同名仓库便于管理</p>
+
+<h3 id="将本地文件夹和远程仓库关联">将本地文件夹和远程仓库关联</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git remote add origin Git@github.com:PwnerZhang/local2021.Git</code></pre></div>
+<h3 id="将项目文件托管到github">将项目文件托管到GitHub</h3>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210426131950.png#center" alt="" /></p>]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>

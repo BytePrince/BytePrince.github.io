@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Nginx on Byte Prince</title>
+    <link>https://byteprince.com/categories/nginx/</link>
+    <description>Recent content in Nginx on Byte Prince</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 14 Jan 2021 16:38:02 +0800</lastBuildDate><atom:link href="https://byteprince.com/categories/nginx/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Nginx 安装配置</title>
+      <link>https://byteprince.com/posts/8d30ba6e/</link>
+      <pubDate>Thu, 14 Jan 2021 16:38:02 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/8d30ba6e/</guid>
+      <description></description>
+      <content:encoded><![CDATA[<h2 id="环境配置">环境配置</h2>
+
+<p>{% note warning %}</p>
+
+<p>此环境配置仅适用于非生产环境。
+{% endnote %}</p>
+
+<h3 id="环境简化">环境简化</h3>
+
+<ol>
+<li><p><strong>清除iptables规则</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">iptables -L   <span style="color:#75715e">#查看iptables规则</span>
+iptables -F   <span style="color:#75715e">#清除（filter表）中所有规则</span>
+iptables -t nat  -L  <span style="color:#75715e">#查看nat规则</span>
+iptables -t nat  -F  <span style="color:#75715e">#清除nat规则</span></code></pre></div></li>
+</ol>
+
+<p>注：清空<code>iptables</code>规则后会导致<code>ping</code>命令不可用</p>
+
+<ol>
+<li><p><strong>关闭selinux</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">getenforce  <span style="color:#75715e">#查看selinux状态，若为enable则关闭</span>
+setenforce  <span style="color:#75715e">#关闭selinux</span></code></pre></div></li>
+</ol>
+
+<h3 id="环境配置-1">环境配置</h3>
+
+<p>安装依赖库</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">um -y install gcc gcc-c++ autoconf pcre pcre-devel make automake</code></pre></div>
+<p>安装工具</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">yum -y install wget httpd-tools vim</code></pre></div>
+<p>确认<code>yum</code>源可用</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">yum list|grep gcc</code></pre></div>
+<h3 id="安装-nginx">安装 Nginx</h3>
+
+<blockquote>
+<p>官方文档：<code>http://nginx.org/en/linux_packages.html</code></p>
+</blockquote>
+
+<p>可以使用官方提供的<code>yum</code>源，也可以使用其他<code>yum</code>源.</p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210120171937.png#center" alt="官方提供的yum源" style="zoom:80%;" /></p>
+
+<h4 id="写入nginx仓库配置信息-可选">写入Nginx仓库配置信息（可选）</h4>
+
+<p>新建一个nginx源配置文件；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">vim /etc/yum.repos.d/nginx.repo  </code></pre></div>
+<p>在nginx.repo中写入以下官方提供的源信息；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 文档：http://nginx.org/en/linux_packages.html#RHEL-CentOS</span>
+<span style="color:#f92672">[</span>nginx-stable<span style="color:#f92672">]</span>
+name<span style="color:#f92672">=</span>nginx stable repo
+baseurl<span style="color:#f92672">=</span>http://nginx.org/packages/centos/$releasever/$basearch/
+gpgcheck<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+enabled<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+gpgkey<span style="color:#f92672">=</span>https://nginx.org/keys/nginx_signing.key
+module_hotfixes<span style="color:#f92672">=</span>true</code></pre></div>
+<p>执行<code>yum list |grep nginx</code>测试。</p>
+
+<p>如果可以看到</p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210122214002.png#center" style="zoom:67%;" /></p>
+
+<p>则说明<code>nginx</code>源配置已经生效。</p>
+
+<p>可以直接使用以下命令安装<code>nginx</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">yum install nginx</code></pre></div>]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Nginx 概述</title>
+      <link>https://byteprince.com/posts/1964bdb0/</link>
+      <pubDate>Tue, 12 Jan 2021 15:28:01 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/1964bdb0/</guid>
+      <description>底层原理简要分析</description>
+      <content:encoded><![CDATA[
+
+<h3 id="概述">概述</h3>
+
+<p>Nginx是一个开源的高性能、可靠的HTTP中间件，代理服务。（关于代理服务的作用，详见<a href="https://pwner.cn/posts/a8425aec.html">三种常用的代理方式详解</a>）</p>
+
+<h3 id="优势">优势</h3>
+
+<p>Nginx具备的是企业最常用也最需要的功能，具备轻量级性能优势。</p>
+
+<h4 id="底层原理">底层原理</h4>
+
+<ol>
+<li><strong>采用多路IO复用epoll模型</strong></li>
+</ol>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210114160609.png#center" alt="epoll模型的作用" style="zoom:67%;" /></p>
+
+<ol>
+<li><strong>CPU亲和（affinity）</strong></li>
+</ol>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210114163041.png#center" alt="为什么需要CPU亲和" style="zoom:67%;" /></p>
+
+<ol>
+<li><strong>senfile策略</strong></li>
+</ol>
+
+<p>Nginx在静态资源处理性能方面性能强大的原因正在于此。</p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210114163241.png#center" alt="常用file处理流程" style="zoom:67%;" /></p>
+
+<p>对于操作系统而言，文件需要经过内核空间与用户空间才进入socket流。而Nginx简化了这个流程：</p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210114163451.png#center" alt="sendfile的处理流程" style="zoom:67%;" /></p>
+
+<h4 id="多路io复用">多路IO复用</h4>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210114160847.png#center" alt="IO复用" style="zoom:67%;" /></p>
+
+<p>对于多个用户请求，会产生多个Socket流，海量IO流可能使得线程处于<code>等待</code>状态造成阻塞</p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210114161127.png#center" alt="阻塞" style="zoom:67%;" /></p>
+
+<p>所以采用IO复用的方式来处理，通常有以下两种处理方式：</p>
+
+<ol>
+<li><strong>多进程多线程处理</strong></li>
+</ol>
+
+<p>一个线程只能处理一个流的I/O事件。如果想要同时处理多个流，要么多进程（fork）要么多线程（pthread_create），但是效率都不高。</p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210114161438.png#center" alt="多进程多线程处理模式" style="zoom:67%;" /></p>
+
+<ol>
+<li><strong>多路IO复用</strong></li>
+</ol>
+
+<p>单线程实现IO流非阻塞模式，伪代码如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">while</span> true{
+  <span style="color:#66d9ef">for</span> i in stream[];{
+     <span style="color:#66d9ef">if</span> i has data
+     read until unavailiable
+  }
+}</code></pre></div>
+<h4 id="io复用内核模式种类">IO复用内核模式种类</h4>
+
+<h5 id="select模型-poll模型">Select模型、Poll模型</h5>
+
+<p>select,poll模型相当于一个代理</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#select模型伪代码</span>
+<span style="color:#66d9ef">while</span> true{
+    select(streams[]){
+    <span style="color:#66d9ef">for</span> i has data
+    read until unavailable
+    }
+}</code></pre></div>
+<h5 id="epoll模型">Epoll模型</h5>
+
+<ol>
+<li>解决了select模型对于文件句柄FD打开限制</li>
+<li>采用<code>callback</code>函数回调机制优化模型效率</li>
+<li>&hellip;&hellip;</li>
+</ol>
+
+<h3 id="劣势">劣势</h3>
+
+<p>Nginx具备的功能，其他服务也在采用（如<code>Apache</code>），功能全面性上，Nginx并不占优。</p>
+]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>

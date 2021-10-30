@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /collection
+Sitemap: https://byteprince.com/sitemap.xml

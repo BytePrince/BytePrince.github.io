@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<head><meta charset="utf-8">
+<meta name="referrer" content="same-origin">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Nginx 安装配置 | Byte Prince</title>
+<meta name="keywords" content="Nginx" />
+<meta name="description" content="Nginx 安装配置 - Byte Prince">
+<meta name="author" content="">
+<link rel="canonical" href="https://byteprince.com/posts/8d30ba6e/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.958cca03466d194813628cfe285c53349da8d10a1ffa4cc386a93ac3d1b3ee04.css" integrity="sha256-lYzKA0ZtGUgTYoz&#43;KFxTNJ2o0Qof&#43;kzDhqk6w9Gz7gQ=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
+<link rel="apple-touch-icon" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
+<link rel="mask-icon" href="https://byteprince.com/%3Clink%20/%20abs%20url%3E">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.88.1" />
+
+<meta property="og:title" content="Nginx 安装配置" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://byteprince.com/posts/8d30ba6e/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-01-14T16:38:02&#43;08:00" />
+<meta property="article:modified_time" content="2021-01-14T16:38:02&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Nginx 安装配置"/>
+<meta name="twitter:description" content=""/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://byteprince.com/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Nginx 安装配置",
+      "item": "https://byteprince.com/posts/8d30ba6e/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Nginx 安装配置",
+  "name": "Nginx 安装配置",
+  "description": "",
+  "keywords": [
+    "Nginx"
+  ],
+  "articleBody": "环境配置 {% note warning %}\n此环境配置仅适用于非生产环境。 {% endnote %}\n环境简化  清除iptables规则\niptables -L #查看iptables规则 iptables -F #清除（filter表）中所有规则 iptables -t nat -L #查看nat规则 iptables -t nat -F #清除nat规则  注：清空iptables规则后会导致ping命令不可用\n 关闭selinux\ngetenforce #查看selinux状态，若为enable则关闭 setenforce #关闭selinux  环境配置 安装依赖库\num -y install gcc gcc-c++ autoconf pcre pcre-devel make automake 安装工具\nyum -y install wget httpd-tools vim 确认yum源可用\nyum list|grep gcc 安装 Nginx  官方文档：http://nginx.org/en/linux_packages.html\n 可以使用官方提供的yum源，也可以使用其他yum源.\n写入Nginx仓库配置信息（可选） 新建一个nginx源配置文件；\nvim /etc/yum.repos.d/nginx.repo  在nginx.repo中写入以下官方提供的源信息；\n# 文档：http://nginx.org/en/linux_packages.html#RHEL-CentOS [nginx-stable] name=nginx stable repo baseurl=http://nginx.org/packages/centos/$releasever/$basearch/ gpgcheck=1 enabled=1 gpgkey=https://nginx.org/keys/nginx_signing.key module_hotfixes=true 执行yum list |grep nginx测试。\n如果可以看到\n则说明nginx源配置已经生效。\n可以直接使用以下命令安装nginx\nyum install nginx",
+  "wordCount" : "86",
+  "inLanguage": "en",
+  "datePublished": "2021-01-14T16:38:02+08:00",
+  "dateModified": "2021-01-14T16:38:02+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://byteprince.com/posts/8d30ba6e/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Byte Prince",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: #1d1e20;
+                --entry: #2e2e33;
+                --primary: rgba(255, 255, 255, 0.84);
+                --secondary: rgba(255, 255, 255, 0.56);
+                --tertiary: rgba(255, 255, 255, 0.16);
+                --content: rgba(255, 255, 255, 0.74);
+                --hljs-bg: #2e2e33;
+                --code-bg: #37383e;
+                --border: #333;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://byteprince.com/" accesskey="h" title="Byte Prince (Alt + H)">Byte Prince</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://byteprince.com/movies/" title="Movies">
+                    <span>Movies</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://byteprince.com/books/" title="Books">
+                    <span>Books</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://byteprince.com/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://byteprince.com/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://byteprince.com/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  
+  <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [['$','$'], ['\\(','\\)']],
+          processEscapes: true
+        }
+      });
+  </script>
+  <script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script>
+  
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      Nginx 安装配置
+    </h1>
+    <div class="post-meta">January 14, 2021
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <div class="details">Table of Contents</div>
+        </summary>
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e7%8e%af%e5%a2%83%e9%85%8d%e7%bd%ae" aria-label="环境配置">环境配置</a><ul>
+                        
+                <li>
+                    <a href="#%e7%8e%af%e5%a2%83%e7%ae%80%e5%8c%96" aria-label="环境简化">环境简化</a></li>
+                <li>
+                    <a href="#%e7%8e%af%e5%a2%83%e9%85%8d%e7%bd%ae-1" aria-label="环境配置">环境配置</a></li>
+                <li>
+                    <a href="#%e5%ae%89%e8%a3%85-nginx" aria-label="安装 Nginx">安装 Nginx</a><ul>
+                        
+                <li>
+                    <a href="#%e5%86%99%e5%85%a5nginx%e4%bb%93%e5%ba%93%e9%85%8d%e7%bd%ae%e4%bf%a1%e6%81%af-%e5%8f%af%e9%80%89" aria-label="写入Nginx仓库配置信息（可选）">写入Nginx仓库配置信息（可选）</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="环境配置">环境配置<a hidden class="anchor" aria-hidden="true" href="#环境配置">#</a></h2>
+
+<p>{% note warning %}</p>
+
+<p>此环境配置仅适用于非生产环境。
+{% endnote %}</p>
+
+<h3 id="环境简化">环境简化<a hidden class="anchor" aria-hidden="true" href="#环境简化">#</a></h3>
+
+<ol>
+<li><p><strong>清除iptables规则</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">iptables -L   <span style="color:#75715e">#查看iptables规则</span>
+iptables -F   <span style="color:#75715e">#清除（filter表）中所有规则</span>
+iptables -t nat  -L  <span style="color:#75715e">#查看nat规则</span>
+iptables -t nat  -F  <span style="color:#75715e">#清除nat规则</span></code></pre></div></li>
+</ol>
+
+<p>注：清空<code>iptables</code>规则后会导致<code>ping</code>命令不可用</p>
+
+<ol>
+<li><p><strong>关闭selinux</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">getenforce  <span style="color:#75715e">#查看selinux状态，若为enable则关闭</span>
+setenforce  <span style="color:#75715e">#关闭selinux</span></code></pre></div></li>
+</ol>
+
+<h3 id="环境配置-1">环境配置<a hidden class="anchor" aria-hidden="true" href="#环境配置-1">#</a></h3>
+
+<p>安装依赖库</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">um -y install gcc gcc-c++ autoconf pcre pcre-devel make automake</code></pre></div>
+<p>安装工具</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">yum -y install wget httpd-tools vim</code></pre></div>
+<p>确认<code>yum</code>源可用</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">yum list|grep gcc</code></pre></div>
+<h3 id="安装-nginx">安装 Nginx<a hidden class="anchor" aria-hidden="true" href="#安装-nginx">#</a></h3>
+
+<blockquote>
+<p>官方文档：<code>http://nginx.org/en/linux_packages.html</code></p>
+</blockquote>
+
+<p>可以使用官方提供的<code>yum</code>源，也可以使用其他<code>yum</code>源.</p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210120171937.png#center" alt="官方提供的yum源" style="zoom:80%;" /></p>
+
+<h4 id="写入nginx仓库配置信息-可选">写入Nginx仓库配置信息（可选）<a hidden class="anchor" aria-hidden="true" href="#写入nginx仓库配置信息-可选">#</a></h4>
+
+<p>新建一个nginx源配置文件；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">vim /etc/yum.repos.d/nginx.repo  </code></pre></div>
+<p>在nginx.repo中写入以下官方提供的源信息；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 文档：http://nginx.org/en/linux_packages.html#RHEL-CentOS</span>
+<span style="color:#f92672">[</span>nginx-stable<span style="color:#f92672">]</span>
+name<span style="color:#f92672">=</span>nginx stable repo
+baseurl<span style="color:#f92672">=</span>http://nginx.org/packages/centos/$releasever/$basearch/
+gpgcheck<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+enabled<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+gpgkey<span style="color:#f92672">=</span>https://nginx.org/keys/nginx_signing.key
+module_hotfixes<span style="color:#f92672">=</span>true</code></pre></div>
+<p>执行<code>yum list |grep nginx</code>测试。</p>
+
+<p>如果可以看到</p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210122214002.png#center" style="zoom:67%;" /></p>
+
+<p>则说明<code>nginx</code>源配置已经生效。</p>
+
+<p>可以直接使用以下命令安装<code>nginx</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">yum install nginx</code></pre></div>
+</div>
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://byteprince.com/tags/nginx/">🏷️Nginx</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://byteprince.com/posts/69a6621d/">
+    <span class="title">« Prev Page</span>
+    <br>
+    <span>江泽民同志关于西藏问题同克林顿总统的讲话</span>
+  </a>
+  <a class="next" href="https://byteprince.com/posts/1964bdb0/">
+    <span class="title">Next Page »</span>
+    <br>
+    <span>Nginx 概述</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    <footer class="footer">
+    
+    <span>&copy; 2018-2021 Byte Prince.</a></span>
+    <span>
+    All rights reserved.
+    
+    
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <div id="poem_sentence"></div>
+    <div id="poem_info"></div>
+    <script type="text/javascript">
+        jinrishici.load(function(result) {
+        var sentence = document.querySelector("#poem_sentence")
+        var info = document.querySelector("#poem_info")
+        sentence.innerHTML = result.data.content
+        });
+    </script>
+
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)">
+    <button class="top-link" id="top-link" type="button" accesskey="g">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+            <path d="M12 6H0l6-6z" />
+        </svg>
+    </button>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+    menu.onscroll = function () {
+        localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

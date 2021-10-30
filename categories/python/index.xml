@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Python on Byte Prince</title>
+    <link>https://byteprince.com/categories/python/</link>
+    <description>Recent content in Python on Byte Prince</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 05 Oct 2018 17:07:55 +0800</lastBuildDate><atom:link href="https://byteprince.com/categories/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>探索 Python 中的 print 函数</title>
+      <link>https://byteprince.com/posts/e5b64c32/</link>
+      <pubDate>Fri, 05 Oct 2018 17:07:55 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/e5b64c32/</guid>
+      <description>你真的懂 print() 的用法吗</description>
+      <content:encoded><![CDATA[
+
+<h3 id="print-函数的高级用法">Print()函数的高级用法</h3>
+
+<p>通过<code>help(print)</code>命令可以查看到详细的帮助信息</p>
+
+<blockquote>
+<p>Help on built-in function print in module builtins:</p>
+
+<p>print(&hellip;)
+ print(value, &hellip;, sep=&rsquo; &lsquo;, end=&rsquo;\n&rsquo;, file=sys.stdout, flush=False)</p>
+
+<p>Prints the values to a stream, or to sys.stdout by default.
+ Optional keyword arguments:
+ file:  a file-like object (stream); defaults to the current sys.stdout.
+ sep:   string inserted between values, default a space.
+ end:   string appended after the last value, default a newline.
+ flush: whether to forcibly flush the stream.</p>
+</blockquote>
+
+<p>一个例子熟练<code>Print()</code>函数的参数用法:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"> <span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#39;abc.txt&#39;</span>,<span style="color:#e6db74">&#39;w&#39;</span>) <span style="color:#66d9ef">as</span> f:
+     print(<span style="color:#e6db74">&#34;file</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,<span style="color:#e6db74">&#34;abc&#34;</span>,<span style="color:#e6db74">&#34;fff&#34;</span>,sep<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;#########</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>,end<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>,file<span style="color:#f92672">=</span>f)</code></pre></div>
+<p>运行，会输出以下内容到<code>abc.txt</code>中：</p>
+<pre tabindex="0"><code>file
+#########
+abc#########
+fff</code></pre>
+<p><code>flush</code> 参数默认为false，如果指定<code>flush = True</code>，那么会即时彻底执行<code>print()</code>函数，而不是先将内容存放在内存中。</p>
+]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>VS Code on Byte Prince</title>
+    <link>https://byteprince.com/tags/vs-code/</link>
+    <description>Recent content in VS Code on Byte Prince</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 22 Sep 2020 14:20:12 +0800</lastBuildDate><atom:link href="https://byteprince.com/tags/vs-code/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 VS Code 插件绘制流程图类图组件图</title>
+      <link>https://byteprince.com/posts/ca02613b/</link>
+      <pubDate>Tue, 22 Sep 2020 14:20:12 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/ca02613b/</guid>
+      <description>PlantUML</description>
+      <content:encoded><![CDATA[
+
+<p><strong>PlantUML</strong> 是一个开源项目，支持快速绘制：
+时序图、用例图、类图、活动图、组件图、状态图、对象图、部署图、定时图，同时还支持以下非 UML 图:
+线框图形界面、架构图、规范和描述语言 (SDL)、Ditaa diagram、甘特图、思维导图、WorkBreakdown Structure diagram、以 AsciiMath 或 JLaTeXMath 符号的数学公式、Entity Relationship diagram</p>
+
+<p>通过简单直观的语言来定义这些示意图,与 MarkDown 有相似的作用，这两种语言一个主要面向文本渲染一个主要用于图形绘制。</p>
+
+<h3 id="环境准备">环境准备</h3>
+
+<ul>
+<li>VSCode</li>
+<li>PlantUML插件</li>
+</ul>
+
+<h3 id="语法">语法</h3>
+
+<p>参考：<a href="http://plantuml.com/zh/guide">官方文档</a></p>
+
+<h3 id="例子">例子</h3>
+<pre tabindex="0"><code>@startuml
+
+skinparam dpi 1000   #指定图片分辨率，如果不指定，默认的参数导出的图片放大以后会比较模糊
+
+scale 13500 width    #指定图片的高度和宽度
+
+scale 2200 height 
+
+用户 -&gt; 认证中心: 登录操作
+
+认证中心 -&gt; 缓存: 存放(key=token+ip,value=token)token
+
+用户 &lt;- 认证中心 : 认证成功返回token
+
+用户 -&gt; 认证中心: 下次访问头部携带token认证
+
+认证中心 &lt;- 缓存: key=token+ip获取token
+
+其他服务 &lt;- 认证中心: 存在且校验成功则跳转到用户请求的其他服务
+
+其他服务 -&gt; 用户: 信息
+
+@enduml</code></pre>
+<h3 id="文件格式">文件格式</h3>
+
+<p><code>.wsd</code>, <code>.pu</code>, <code>.puml</code>, <code>.plantuml</code>, <code>.iuml</code></p>
+
+<h3 id="预览">预览</h3>
+
+<p><kbd><kbd>Alt</kbd>+<kbd>D</kbd></kbd></p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20200922144137.png#center" style="zoom:50%;" /></p>
+
+<h3 id="导出">导出</h3>
+
+<p>可以导出为<code>png</code>、<code>svg</code>、<code>eos</code>、<code>pdf</code>、<code>scxml</code>、<code>html</code>、<code>txt</code>、<code>utt</code>、<code>latex</code>、<code>latex:nopreamble</code> 等格式，方法如下:</p>
+
+<ol>
+<li><kbd><kbd>F1</kbd></kbd> 或者 <kbd><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd></kbd></li>
+<li>PlantUML:导出当前图表；</li>
+<li>选择导出格式<code>png</code>；导出即可。</li>
+</ol>
+]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>

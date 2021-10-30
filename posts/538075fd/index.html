@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<head><meta charset="utf-8">
+<meta name="referrer" content="same-origin">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>数据结构 之 图 | Byte Prince</title>
+<meta name="keywords" content="图" />
+<meta name="description" content="在数据结构中，图的综合性还是比较强的">
+<meta name="author" content="">
+<link rel="canonical" href="https://byteprince.com/posts/538075fd/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.958cca03466d194813628cfe285c53349da8d10a1ffa4cc386a93ac3d1b3ee04.css" integrity="sha256-lYzKA0ZtGUgTYoz&#43;KFxTNJ2o0Qof&#43;kzDhqk6w9Gz7gQ=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
+<link rel="apple-touch-icon" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
+<link rel="mask-icon" href="https://byteprince.com/%3Clink%20/%20abs%20url%3E">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.88.1" />
+
+<meta property="og:title" content="数据结构 之 图" />
+<meta property="og:description" content="在数据结构中，图的综合性还是比较强的" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://byteprince.com/posts/538075fd/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-12-22T19:17:46&#43;08:00" />
+<meta property="article:modified_time" content="2020-12-22T19:17:46&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="数据结构 之 图"/>
+<meta name="twitter:description" content="在数据结构中，图的综合性还是比较强的"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://byteprince.com/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "数据结构 之 图",
+      "item": "https://byteprince.com/posts/538075fd/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "数据结构 之 图",
+  "name": "数据结构 之 图",
+  "description": "在数据结构中，图的综合性还是比较强的",
+  "keywords": [
+    "图"
+  ],
+  "articleBody": " 图的基本概念  图 有向图 无向图 简单图 多重图 完全图（亦称 简单完全图） 子图 连通图，连通分量 强连通图，强连通分量 生成树，生成森林 顶点的度（入度，出度） 边的权和网 稠密图，稀疏图 路径，路径长度，回路 简单路径，简单回路 距离 有向树  图的存储 👉🏻邻接矩阵法 一维数组存储顶点信息（将顶点编号），二维数组存储顶点间关系（二维数组存储边的信息）\n邻接矩阵 网（带权图）的邻接矩阵 存储结构定义： #define MaxVertexNum 100 typedef char VertexType; typedef int EdgeType; typedef struct{ VertexType Vex[MaxVertexNum];///顶点表（一维表）  EdgeType Edge[MaxVertexNum][MaxVertexNum];///顶点关系表（二维表）  int vexnum,arcnum; }MGraph; 👉🏻邻接表法 邻接表是在稀疏图的情况下对邻接矩阵的一种改进，是实际中广泛采用的一种存储结构。\n结点结构 有向图和无向图的邻接表 存储结构定义 #define MAX_VERTEX_NUM 20//最大顶点个数 #define VertexType int//顶点数据的类型 #define InfoType int//图中弧或者边包含的信息的类型 typedef struct ArcNode{ int adjvex;//邻接点在数组中的位置下标  struct ArcNode * nextarc;//指向下一个邻接点的指针  InfoType * info;//信息域 }ArcNode; typedef struct VNode{ VertexType data;//顶点的数据域  ArcNode * firstarc;//指向邻接点的指针 }VNode,AdjList[MAX_VERTEX_NUM];//存储各链表头结点的数组 typedef struct { AdjList vertices;//图中顶点的数组  int vexnum,arcnum;//记录图中顶点数和边或弧数  int kind;//记录图的种类 }ALGraph 👉🏻十字链表 有向图的另一种链式存储结构。可看是将有向图的邻接表和逆邻接表结合得到的一种存储方法。对应于有向图中的每一条弧有一个结点，对应于每个顶点也有一个结点。图的十字链表不唯一，但是一个十字链表确定一个图。\n好处：既容易找以 Vi 为尾的弧，又容易找到以 Vi 为头的弧==容易求得顶点的入度和出度。\n结点结构 存储结构定义 typedef struct ArcNode { int tailvex, headvex; //弧尾、弧头在表头数组中位置  struct ArcNode *hlink; //指向弧头相同的下一条弧  struct ArcNode *tlink; //指向弧尾相同的下一条弧  InfoType *info; //弧相关信息指针 }ArcNode; typedef struct VexNode { VertexType data; //存与顶点有关信息  struct arcnode *firstin; //指向以该顶点为弧头的第一个弧结点  struct arcnode *firstout; //指向以该顶点为弧尾的第一个弧结点 }VexNode; typedef struct { VerNode xlist[MAX_VERTEX_NUM ] ; //表头向量  int vexnum, arcnum； }OLGraph; 图示 👉🏻邻接多重表 无向图的另一种链式存储结构。 是为了解决在邻接表中对同一条边存储两个结点而引入的一种结构。\n结点结构 其中：\nmark为标志域，可用于标记该边是否被搜索过。\nivex 和 jvex记录依附于该边的两个顶点；\nilink指示依附于ivex的下一条边。\njlin指示依附于jvex的下一条边。\ninfo 与边相关的信息。\n\n其中：\ndata存储顶点的相关信息；\nfirstedge指示第一条依附于该顶点的边\n图的遍历 👉🏻深度优先遍历(DFS） 算法思路 性能分析 深度优先生成树 👉🏻广度优先遍历(BFS) 算法思路 性能分析 广度优先生成树 👉🏻应用 图的遍历可以用来判断图的连通性。\n图的应用  图的遍历——连通性判断 有向无环图——拓扑排序 带权有向图——最短路径，Dijkstra算法  ",
+  "wordCount" : "178",
+  "inLanguage": "en",
+  "datePublished": "2020-12-22T19:17:46+08:00",
+  "dateModified": "2020-12-22T19:17:46+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://byteprince.com/posts/538075fd/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Byte Prince",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: #1d1e20;
+                --entry: #2e2e33;
+                --primary: rgba(255, 255, 255, 0.84);
+                --secondary: rgba(255, 255, 255, 0.56);
+                --tertiary: rgba(255, 255, 255, 0.16);
+                --content: rgba(255, 255, 255, 0.74);
+                --hljs-bg: #2e2e33;
+                --code-bg: #37383e;
+                --border: #333;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://byteprince.com/" accesskey="h" title="Byte Prince (Alt + H)">Byte Prince</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://byteprince.com/movies/" title="Movies">
+                    <span>Movies</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://byteprince.com/books/" title="Books">
+                    <span>Books</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://byteprince.com/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://byteprince.com/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://byteprince.com/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  
+  <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [['$','$'], ['\\(','\\)']],
+          processEscapes: true
+        }
+      });
+  </script>
+  <script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script>
+  
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      数据结构 之 图
+    </h1>
+    <div class="post-meta">December 22, 2020
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <div class="details">Table of Contents</div>
+        </summary>
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e5%9b%be%e7%9a%84%e5%9f%ba%e6%9c%ac%e6%a6%82%e5%bf%b5" aria-label="图的基本概念">图的基本概念</a></li>
+                <li>
+                    <a href="#%e5%9b%be%e7%9a%84%e5%ad%98%e5%82%a8" aria-label="图的存储">图的存储</a><ul>
+                        
+                <li>
+                    <a href="#%e9%82%bb%e6%8e%a5%e7%9f%a9%e9%98%b5%e6%b3%95" aria-label="👉🏻邻接矩阵法">👉🏻邻接矩阵法</a><ul>
+                        
+                <li>
+                    <a href="#%e9%82%bb%e6%8e%a5%e7%9f%a9%e9%98%b5" aria-label="邻接矩阵">邻接矩阵</a></li>
+                <li>
+                    <a href="#%e7%bd%91-%e5%b8%a6%e6%9d%83%e5%9b%be-%e7%9a%84%e9%82%bb%e6%8e%a5%e7%9f%a9%e9%98%b5" aria-label="网（带权图）的邻接矩阵">网（带权图）的邻接矩阵</a></li>
+                <li>
+                    <a href="#%e5%ad%98%e5%82%a8%e7%bb%93%e6%9e%84%e5%ae%9a%e4%b9%89" aria-label="存储结构定义：">存储结构定义：</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e9%82%bb%e6%8e%a5%e8%a1%a8%e6%b3%95" aria-label="👉🏻邻接表法">👉🏻邻接表法</a><ul>
+                        
+                <li>
+                    <a href="#%e7%bb%93%e7%82%b9%e7%bb%93%e6%9e%84" aria-label="结点结构">结点结构</a></li>
+                <li>
+                    <a href="#%e6%9c%89%e5%90%91%e5%9b%be%e5%92%8c%e6%97%a0%e5%90%91%e5%9b%be%e7%9a%84%e9%82%bb%e6%8e%a5%e8%a1%a8" aria-label="有向图和无向图的邻接表">有向图和无向图的邻接表</a></li>
+                <li>
+                    <a href="#%e5%ad%98%e5%82%a8%e7%bb%93%e6%9e%84%e5%ae%9a%e4%b9%89-1" aria-label="存储结构定义">存储结构定义</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%8d%81%e5%ad%97%e9%93%be%e8%a1%a8" aria-label="👉🏻十字链表">👉🏻十字链表</a><ul>
+                        
+                <li>
+                    <a href="#%e7%bb%93%e7%82%b9%e7%bb%93%e6%9e%84-1" aria-label="结点结构">结点结构</a></li>
+                <li>
+                    <a href="#%e5%ad%98%e5%82%a8%e7%bb%93%e6%9e%84%e5%ae%9a%e4%b9%89-2" aria-label="存储结构定义">存储结构定义</a></li>
+                <li>
+                    <a href="#%e5%9b%be%e7%a4%ba" aria-label="图示">图示</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e9%82%bb%e6%8e%a5%e5%a4%9a%e9%87%8d%e8%a1%a8" aria-label="👉🏻邻接多重表">👉🏻邻接多重表</a><ul>
+                        
+                <li>
+                    <a href="#%e7%bb%93%e7%82%b9%e7%bb%93%e6%9e%84-2" aria-label="结点结构">结点结构</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%9b%be%e7%9a%84%e9%81%8d%e5%8e%86" aria-label="图的遍历">图的遍历</a><ul>
+                        
+                <li>
+                    <a href="#%e6%b7%b1%e5%ba%a6%e4%bc%98%e5%85%88%e9%81%8d%e5%8e%86-dfs" aria-label="👉🏻深度优先遍历(DFS）">👉🏻深度优先遍历(DFS）</a><ul>
+                        
+                <li>
+                    <a href="#%e7%ae%97%e6%b3%95%e6%80%9d%e8%b7%af" aria-label="算法思路">算法思路</a></li>
+                <li>
+                    <a href="#%e6%80%a7%e8%83%bd%e5%88%86%e6%9e%90" aria-label="性能分析">性能分析</a></li>
+                <li>
+                    <a href="#%e6%b7%b1%e5%ba%a6%e4%bc%98%e5%85%88%e7%94%9f%e6%88%90%e6%a0%91" aria-label="深度优先生成树">深度优先生成树</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%b9%bf%e5%ba%a6%e4%bc%98%e5%85%88%e9%81%8d%e5%8e%86-bfs" aria-label="👉🏻广度优先遍历(BFS)">👉🏻广度优先遍历(BFS)</a><ul>
+                        
+                <li>
+                    <a href="#%e7%ae%97%e6%b3%95%e6%80%9d%e8%b7%af-1" aria-label="算法思路">算法思路</a></li>
+                <li>
+                    <a href="#%e6%80%a7%e8%83%bd%e5%88%86%e6%9e%90-1" aria-label="性能分析">性能分析</a></li>
+                <li>
+                    <a href="#%e5%b9%bf%e5%ba%a6%e4%bc%98%e5%85%88%e7%94%9f%e6%88%90%e6%a0%91" aria-label="广度优先生成树">广度优先生成树</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%ba%94%e7%94%a8" aria-label="👉🏻应用">👉🏻应用</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%9b%be%e7%9a%84%e5%ba%94%e7%94%a8" aria-label="图的应用">图的应用</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content">
+
+<h2 id="图的基本概念">图的基本概念<a hidden class="anchor" aria-hidden="true" href="#图的基本概念">#</a></h2>
+
+<ol>
+<li>图</li>
+<li>有向图</li>
+<li>无向图</li>
+<li>简单图</li>
+<li>多重图</li>
+<li>完全图（亦称 简单完全图）</li>
+<li>子图</li>
+<li>连通图，连通分量</li>
+<li>强连通图，强连通分量</li>
+<li>生成树，生成森林</li>
+<li>顶点的度（入度，出度）</li>
+<li>边的权和网</li>
+<li>稠密图，稀疏图</li>
+<li>路径，路径长度，回路</li>
+<li>简单路径，简单回路</li>
+<li>距离</li>
+<li>有向树</li>
+</ol>
+
+<h2 id="图的存储">图的存储<a hidden class="anchor" aria-hidden="true" href="#图的存储">#</a></h2>
+
+<h3 id="邻接矩阵法">👉🏻邻接矩阵法<a hidden class="anchor" aria-hidden="true" href="#邻接矩阵法">#</a></h3>
+
+<p>一维数组存储顶点信息（将顶点编号），二维数组存储顶点间关系（二维数组存储边的信息）</p>
+
+<h4 id="邻接矩阵">邻接矩阵<a hidden class="anchor" aria-hidden="true" href="#邻接矩阵">#</a></h4>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20201222193158.png" alt="" /></p>
+
+<h4 id="网-带权图-的邻接矩阵">网（带权图）的邻接矩阵<a hidden class="anchor" aria-hidden="true" href="#网-带权图-的邻接矩阵">#</a></h4>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20201222202439.png" style="zoom: 67%;" /></p>
+
+<h4 id="存储结构定义">存储结构定义：<a hidden class="anchor" aria-hidden="true" href="#存储结构定义">#</a></h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#define MaxVertexNum 100
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">char</span> VertexType;
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">int</span> EdgeType;
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span>{
+    VertexType Vex[MaxVertexNum];<span style="color:#75715e">///顶点表（一维表）
+</span><span style="color:#75715e"></span>    EdgeType Edge[MaxVertexNum][MaxVertexNum];<span style="color:#75715e">///顶点关系表（二维表）
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> vexnum,arcnum;     
+}MGraph;</code></pre></div>
+<h3 id="邻接表法">👉🏻邻接表法<a hidden class="anchor" aria-hidden="true" href="#邻接表法">#</a></h3>
+
+<p><code>邻接表</code>是在稀疏图的情况下对<code>邻接矩阵</code>的一种改进，<strong>是实际中广泛采用的一种存储结构</strong>。</p>
+
+<h4 id="结点结构">结点结构<a hidden class="anchor" aria-hidden="true" href="#结点结构">#</a></h4>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20201222202051.png" style="zoom:80%;" /></p>
+
+<h4 id="有向图和无向图的邻接表">有向图和无向图的邻接表<a hidden class="anchor" aria-hidden="true" href="#有向图和无向图的邻接表">#</a></h4>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20201222202302.png" alt="有向图" style="zoom: 80%;" /></p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20201222202341.png" alt="无向图" style="zoom:80%;" /></p>
+
+<h4 id="存储结构定义-1">存储结构定义<a hidden class="anchor" aria-hidden="true" href="#存储结构定义-1">#</a></h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#define  MAX_VERTEX_NUM 20</span><span style="color:#75715e">//最大顶点个数
+</span><span style="color:#75715e"></span><span style="color:#75715e">#define  VertexType int</span><span style="color:#75715e">//顶点数据的类型
+</span><span style="color:#75715e"></span><span style="color:#75715e">#define  InfoType int</span><span style="color:#75715e">//图中弧或者边包含的信息的类型
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ArcNode</span>{
+    <span style="color:#66d9ef">int</span> adjvex;<span style="color:#75715e">//邻接点在数组中的位置下标
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ArcNode</span> <span style="color:#f92672">*</span> nextarc;<span style="color:#75715e">//指向下一个邻接点的指针
+</span><span style="color:#75715e"></span>    InfoType <span style="color:#f92672">*</span> info;<span style="color:#75715e">//信息域
+</span><span style="color:#75715e"></span>}ArcNode;
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">VNode</span>{
+    VertexType data;<span style="color:#75715e">//顶点的数据域
+</span><span style="color:#75715e"></span>    ArcNode <span style="color:#f92672">*</span> firstarc;<span style="color:#75715e">//指向邻接点的指针
+</span><span style="color:#75715e"></span>}VNode,AdjList[MAX_VERTEX_NUM];<span style="color:#75715e">//存储各链表头结点的数组
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> {
+    AdjList vertices;<span style="color:#75715e">//图中顶点的数组
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> vexnum,arcnum;<span style="color:#75715e">//记录图中顶点数和边或弧数
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> kind;<span style="color:#75715e">//记录图的种类
+</span><span style="color:#75715e"></span>}ALGraph</code></pre></div>
+<h3 id="十字链表">👉🏻十字链表<a hidden class="anchor" aria-hidden="true" href="#十字链表">#</a></h3>
+
+<p><code>有向图</code>的另一种链式存储结构。可看是将<code>有向图</code>的<strong>邻接表</strong>和<strong>逆邻接表</strong>结合得到的一种存储方法。对应于有向图中的每一条弧有一个结点，对应于每个顶点也有一个结点。图的十字链表不唯一，但是一个十字链表确定一个图。</p>
+
+<p><strong>好处：</strong>既容易找以 <strong>V<sub>i</sub></strong> 为尾的弧，又容易找到以 <strong>V<sub>i</sub></strong> 为头的弧==&gt;容易求得顶点的<code>入度</code>和<code>出度</code>。</p>
+
+<h4 id="结点结构-1">结点结构<a hidden class="anchor" aria-hidden="true" href="#结点结构-1">#</a></h4>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20201222202903.png" alt="弧结点" style="zoom:80%;" /></p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20201222202924.png" alt="顶点结点" style="zoom:80%;" /></p>
+
+<h4 id="存储结构定义-2">存储结构定义<a hidden class="anchor" aria-hidden="true" href="#存储结构定义-2">#</a></h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ArcNode</span>
+{   
+    <span style="color:#66d9ef">int</span> tailvex, headvex;      <span style="color:#75715e">//弧尾、弧头在表头数组中位置
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ArcNode</span> <span style="color:#f92672">*</span>hlink;     <span style="color:#75715e">//指向弧头相同的下一条弧
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ArcNode</span> <span style="color:#f92672">*</span>tlink;     <span style="color:#75715e">//指向弧尾相同的下一条弧
+</span><span style="color:#75715e"></span>    InfoType <span style="color:#f92672">*</span>info;            <span style="color:#75715e">//弧相关信息指针
+</span><span style="color:#75715e"></span>}ArcNode;
+
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">VexNode</span>
+{   
+     VertexType data;           <span style="color:#75715e">//存与顶点有关信息
+</span><span style="color:#75715e"></span>     <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">arcnode</span> <span style="color:#f92672">*</span>firstin;   <span style="color:#75715e">//指向以该顶点为弧头的第一个弧结点
+</span><span style="color:#75715e"></span>     <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">arcnode</span> <span style="color:#f92672">*</span>firstout;  <span style="color:#75715e">//指向以该顶点为弧尾的第一个弧结点
+</span><span style="color:#75715e"></span>}VexNode;
+
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span>  
+{   VerNode xlist[MAX_VERTEX_NUM ] ;  <span style="color:#75715e">//表头向量
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> vexnum, arcnum<span style="color:#960050;background-color:#1e0010">；</span>
+}OLGraph;</code></pre></div>
+<h4 id="图示">图示<a hidden class="anchor" aria-hidden="true" href="#图示">#</a></h4>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20201222210303.gif" alt="十字链表" /></p>
+
+<h3 id="邻接多重表">👉🏻邻接多重表<a hidden class="anchor" aria-hidden="true" href="#邻接多重表">#</a></h3>
+
+<p><code>无向图</code>的另一种链式存储结构。 <strong>是为了解决在邻接表中对同一条边存储两个结点而引入的一种结构。</strong></p>
+
+<h4 id="结点结构-2">结点结构<a hidden class="anchor" aria-hidden="true" href="#结点结构-2">#</a></h4>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20201222211308.png" alt="边结点" style="zoom:80%;" /></p>
+
+<p>其中：</p>
+
+<p><code>mark</code>为标志域，可用于标记该边是否被搜索过。</p>
+
+<p><code>ivex</code> 和 <code>jvex</code>记录依附于该边的两个顶点；</p>
+
+<p><code>ilink</code>指示依附于ivex的下一条边。</p>
+
+<p><code>jlin</code>指示依附于jvex的下一条边。</p>
+
+<p><code>info</code> 与边相关的信息。</p>
+
+<p><center><img src="https://img.xiehestudio.com/pic_go/20201222211336.png" alt="顶点结点" style="zoom:80%;" /></center></p>
+
+<p>其中：</p>
+
+<p><code>data</code>存储顶点的相关信息；</p>
+
+<p><code>firstedge</code>指示第一条依附于该顶点的边</p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20201222211034.gif" alt="邻接多重表" /></p>
+
+<h2 id="图的遍历">图的遍历<a hidden class="anchor" aria-hidden="true" href="#图的遍历">#</a></h2>
+
+<h3 id="深度优先遍历-dfs">👉🏻深度优先遍历(DFS）<a hidden class="anchor" aria-hidden="true" href="#深度优先遍历-dfs">#</a></h3>
+
+<h4 id="算法思路">算法思路<a hidden class="anchor" aria-hidden="true" href="#算法思路">#</a></h4>
+
+<h4 id="性能分析">性能分析<a hidden class="anchor" aria-hidden="true" href="#性能分析">#</a></h4>
+
+<h4 id="深度优先生成树">深度优先生成树<a hidden class="anchor" aria-hidden="true" href="#深度优先生成树">#</a></h4>
+
+<h3 id="广度优先遍历-bfs">👉🏻广度优先遍历(BFS)<a hidden class="anchor" aria-hidden="true" href="#广度优先遍历-bfs">#</a></h3>
+
+<h4 id="算法思路-1">算法思路<a hidden class="anchor" aria-hidden="true" href="#算法思路-1">#</a></h4>
+
+<h4 id="性能分析-1">性能分析<a hidden class="anchor" aria-hidden="true" href="#性能分析-1">#</a></h4>
+
+<h4 id="广度优先生成树">广度优先生成树<a hidden class="anchor" aria-hidden="true" href="#广度优先生成树">#</a></h4>
+
+<h3 id="应用">👉🏻应用<a hidden class="anchor" aria-hidden="true" href="#应用">#</a></h3>
+
+<p>图的遍历可以用来判断图的连通性。</p>
+
+<h2 id="图的应用">图的应用<a hidden class="anchor" aria-hidden="true" href="#图的应用">#</a></h2>
+
+<ol>
+<li>图的遍历——连通性判断</li>
+<li>有向无环图——拓扑排序</li>
+<li>带权有向图——最短路径，Dijkstra算法</li>
+</ol>
+
+</div>
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://byteprince.com/tags/%E5%9B%BE/">🏷️图</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://byteprince.com/posts/1964bdb0/">
+    <span class="title">« Prev Page</span>
+    <br>
+    <span>Nginx 概述</span>
+  </a>
+  <a class="next" href="https://byteprince.com/posts/80e173ac/">
+    <span class="title">Next Page »</span>
+    <br>
+    <span>MySQL基础：事务处理与并发控制</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    <footer class="footer">
+    
+    <span>&copy; 2018-2021 Byte Prince.</a></span>
+    <span>
+    All rights reserved.
+    
+    
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <div id="poem_sentence"></div>
+    <div id="poem_info"></div>
+    <script type="text/javascript">
+        jinrishici.load(function(result) {
+        var sentence = document.querySelector("#poem_sentence")
+        var info = document.querySelector("#poem_info")
+        sentence.innerHTML = result.data.content
+        });
+    </script>
+
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)">
+    <button class="top-link" id="top-link" type="button" accesskey="g">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+            <path d="M12 6H0l6-6z" />
+        </svg>
+    </button>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+    menu.onscroll = function () {
+        localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

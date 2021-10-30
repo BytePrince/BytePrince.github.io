@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Hugo on Byte Prince</title>
+    <link>https://byteprince.com/tags/hugo/</link>
+    <description>Recent content in Hugo on Byte Prince</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 01 Oct 2021 15:18:19 +0800</lastBuildDate><atom:link href="https://byteprince.com/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>博客图片标题的一些优化</title>
+      <link>https://byteprince.com/posts/8903c78b/</link>
+      <pubDate>Fri, 01 Oct 2021 15:18:19 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/8903c78b/</guid>
+      <description>弃用普通的HTML标记作为图片标题</description>
+      <content:encoded><![CDATA[
+
+<h2 id="起因">起因</h2>
+
+<p>昨晚心血来潮，看到某位博主的博客甚是眼馋——里面的相册和豆瓣内容展示页面。但是，不知道咋回事，打完几把吃鸡后头脑不在状态，折腾到很晚都没搞定。安睡一晚上，早上起床醒来，一下就搞定了。</p>
+
+<h2 id="经过">经过</h2>
+
+<p>弃用普通的HTML标记<code>&lt;center&gt;图片标题&lt;/center&gt;</code>作为图片标题，改用原先一直没发现的<code>figure</code>（其实在<a href="https://gohugo.io/content-management/shortcodes/#figure">Hugo文档</a>中写的很详细了，之前没有仔细的阅读），在此基础上优化了<code>ficaption</code>的样式。</p>
+
+<p>在<code>themes\PaperMod\assets\css\common\post-single.css</code>中，添加了</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">figure</span> {
+    <span style="color:#66d9ef">text-align</span>: <span style="color:#66d9ef">center</span>;
+    <span style="color:#66d9ef">margin</span>: <span style="color:#ae81ff">0</span>;
+}
+<span style="color:#f92672">figure</span> <span style="color:#f92672">figcaption</span> {
+    <span style="color:#66d9ef">text-align</span>: <span style="color:#66d9ef">center</span>;
+    <span style="color:#66d9ef">margin</span>:<span style="color:#ae81ff">0.5</span><span style="color:#66d9ef">rem</span> <span style="color:#66d9ef">auto</span> <span style="color:#ae81ff">1</span><span style="color:#66d9ef">rem</span>;
+    <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">40</span><span style="color:#66d9ef">%</span>;
+    <span style="color:#66d9ef">border-top</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">solid</span> <span style="color:#ae81ff">#bbb</span>;
+    <span style="color:#66d9ef">font-size</span>:<span style="color:#ae81ff">0.8</span><span style="color:#66d9ef">em</span>;
+    <span style="color:#66d9ef">color</span>:<span style="color:#ae81ff">#bbb</span>;
+    <span style="color:#66d9ef">padding</span>:<span style="color:#ae81ff">5</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">line-height</span>:<span style="color:#ae81ff">1.8</span><span style="color:#66d9ef">em</span>;
+}
+<span style="color:#f92672">figure</span> <span style="color:#f92672">figcaption</span>:<span style="color:#a6e22e">before</span> {
+    <span style="color:#66d9ef">content</span>: <span style="color:#e6db74">&#34;◎ &#34;</span>;
+}
+
+<span style="color:#f92672">figure</span> <span style="color:#f92672">img</span> {
+    <span style="color:#66d9ef">max-width</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
+    <span style="color:#66d9ef">border-radius</span>: <span style="color:#ae81ff">0</span>;
+}
+
+@<span style="color:#66d9ef">media</span> <span style="color:#f92672">(</span><span style="color:#f92672">max-width</span>:<span style="color:#a6e22e">683px</span><span style="color:#f92672">)</span> {
+    <span style="color:#f92672">figure</span> <span style="color:#f92672">figcaption</span> {
+        <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">75</span><span style="color:#66d9ef">%</span>;
+    }
+}</code></pre></div>
+<p><img src="https://img.xiehestudio.com/pic_go/20211001154709.png" alt="" /></p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20211001155120.png" alt="image-20211001155120488" /></p>
+
+<h2 id="总结">总结</h2>
+
+<p>原生的<code>figure</code>语法如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{{ &lt; <span style="color:#f92672">figure</span> <span style="color:#a6e22e">align</span><span style="color:#f92672">=</span><span style="color:#e6db74">center</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;image.jpg&#34;</span> &gt; }}</code></pre></div>
+<p>也有人魔改了<code>shortcode</code>配置，使用以下的语法：</p>
+<pre tabindex="0"><code>{{ &lt; figure &#34;https://lmm.elizen.me/images/2021/08/obsidian-start-1.jpeg&#34; &#34;起始页 By Dataview&#34; &gt; }}</code></pre>
+<p>后者比前者要简洁一些，但是还是存在缺点：在 Markdown 文档中书写的时候不能直接预览图片。</p>
+
+<p>所以我还是采用 Markdown 的<code>![]()</code>语法来添加图片，使用<code>&lt;figure&gt;&lt;center&gt;&lt;figcaption&gt;图片标题&lt;/figcaption&gt;&lt;/center&gt;&lt;figure&gt;</code>来为图片添加标题，以同时获得较好的预览体验和标题显示效果。</p>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>在Hugo中优雅地使用数学公式</title>
+      <link>https://byteprince.com/posts/2d4e6e67/</link>
+      <pubDate>Sun, 12 Sep 2021 19:32:57 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/2d4e6e67/</guid>
+      <description></description>
+      <content:encoded><![CDATA[<p>在2021年4月之前，我使用 Hexo 静态博客，也曾经因为 Hexo 默认的 Markdown 渲染引擎不能很好地渲染<code>checkbox</code>而头疼。现在，切换到 Hugo 以后，有一次遇到了数学公式渲染的问题。</p>
+
+<p>关于 Hugo 默认的 Markdown 渲染引擎<code>goldmark</code>，在<cite>官方文档<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup></cite>中可以看到：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">markup</span>:
+  <span style="color:#f92672">asciidocExt</span>:
+    <span style="color:#f92672">attributes</span>: {}
+    <span style="color:#f92672">backend</span>: <span style="color:#ae81ff">html5</span>
+    <span style="color:#f92672">extensions</span>: []
+    <span style="color:#f92672">failureLevel</span>: <span style="color:#ae81ff">fatal</span>
+    <span style="color:#f92672">noHeaderOrFooter</span>: <span style="color:#66d9ef">true</span>
+    <span style="color:#f92672">preserveTOC</span>: <span style="color:#66d9ef">false</span>
+    <span style="color:#f92672">safeMode</span>: <span style="color:#ae81ff">unsafe</span>
+    <span style="color:#f92672">sectionNumbers</span>: <span style="color:#66d9ef">false</span>
+    <span style="color:#f92672">trace</span>: <span style="color:#66d9ef">false</span>
+    <span style="color:#f92672">verbose</span>: <span style="color:#66d9ef">false</span>
+    <span style="color:#f92672">workingFolderCurrent</span>: <span style="color:#66d9ef">false</span>
+  <span style="color:#f92672">blackFriday</span>:
+    <span style="color:#f92672">angledQuotes</span>: <span style="color:#66d9ef">false</span>
+    <span style="color:#f92672">extensions</span>: <span style="color:#66d9ef">null</span>
+    <span style="color:#f92672">extensionsMask</span>: <span style="color:#66d9ef">null</span>
+    <span style="color:#f92672">footnoteAnchorPrefix</span>: <span style="color:#e6db74">&#34;&#34;</span>
+    <span style="color:#f92672">footnoteReturnLinkContents</span>: <span style="color:#e6db74">&#34;&#34;</span>
+    <span style="color:#f92672">fractions</span>: <span style="color:#66d9ef">true</span>
+    <span style="color:#f92672">hrefTargetBlank</span>: <span style="color:#66d9ef">false</span>
+    <span style="color:#f92672">latexDashes</span>: <span style="color:#66d9ef">true</span>
+    <span style="color:#f92672">nofollowLinks</span>: <span style="color:#66d9ef">false</span>
+    <span style="color:#f92672">noreferrerLinks</span>: <span style="color:#66d9ef">false</span>
+    <span style="color:#f92672">plainIDAnchors</span>: <span style="color:#66d9ef">true</span>
+    <span style="color:#f92672">skipHTML</span>: <span style="color:#66d9ef">false</span>
+    <span style="color:#f92672">smartDashes</span>: <span style="color:#66d9ef">true</span>
+    <span style="color:#f92672">smartypants</span>: <span style="color:#66d9ef">true</span>
+    <span style="color:#f92672">smartypantsQuotesNBSP</span>: <span style="color:#66d9ef">false</span>
+    <span style="color:#f92672">taskLists</span>: <span style="color:#66d9ef">true</span>
+  <span style="color:#f92672">defaultMarkdownHandler</span>: <span style="color:#ae81ff">goldmark</span>
+  <span style="color:#f92672">goldmark</span>:
+    <span style="color:#f92672">extensions</span>:
+      <span style="color:#f92672">definitionList</span>: <span style="color:#66d9ef">true</span>
+      <span style="color:#f92672">footnote</span>: <span style="color:#66d9ef">true</span>
+      <span style="color:#f92672">linkify</span>: <span style="color:#66d9ef">true</span>
+      <span style="color:#f92672">strikethrough</span>: <span style="color:#66d9ef">true</span>
+      <span style="color:#f92672">table</span>: <span style="color:#66d9ef">true</span>
+      <span style="color:#f92672">taskList</span>: <span style="color:#66d9ef">true</span>
+      <span style="color:#f92672">typographer</span>: <span style="color:#66d9ef">true</span>
+    <span style="color:#f92672">parser</span>:
+      <span style="color:#f92672">attribute</span>:
+        <span style="color:#f92672">block</span>: <span style="color:#66d9ef">false</span>
+        <span style="color:#f92672">title</span>: <span style="color:#66d9ef">true</span>
+      <span style="color:#f92672">autoHeadingID</span>: <span style="color:#66d9ef">true</span>
+      <span style="color:#f92672">autoHeadingIDType</span>: <span style="color:#ae81ff">github</span>
+    <span style="color:#f92672">renderer</span>:
+      <span style="color:#f92672">hardWraps</span>: <span style="color:#66d9ef">false</span>
+      <span style="color:#f92672">unsafe</span>: <span style="color:#66d9ef">false</span>
+      <span style="color:#f92672">xhtml</span>: <span style="color:#66d9ef">false</span>
+  <span style="color:#f92672">highlight</span>:
+    <span style="color:#f92672">anchorLineNos</span>: <span style="color:#66d9ef">false</span>
+    <span style="color:#f92672">codeFences</span>: <span style="color:#66d9ef">true</span>
+    <span style="color:#f92672">guessSyntax</span>: <span style="color:#66d9ef">false</span>
+    <span style="color:#f92672">hl_Lines</span>: <span style="color:#e6db74">&#34;&#34;</span>
+    <span style="color:#f92672">lineAnchors</span>: <span style="color:#e6db74">&#34;&#34;</span>
+    <span style="color:#f92672">lineNoStart</span>: <span style="color:#ae81ff">1</span>
+    <span style="color:#f92672">lineNos</span>: <span style="color:#66d9ef">false</span>
+    <span style="color:#f92672">lineNumbersInTable</span>: <span style="color:#66d9ef">true</span>
+    <span style="color:#f92672">noClasses</span>: <span style="color:#66d9ef">true</span>
+    <span style="color:#f92672">style</span>: <span style="color:#ae81ff">monokai</span>
+    <span style="color:#f92672">tabWidth</span>: <span style="color:#ae81ff">4</span>
+  <span style="color:#f92672">tableOfContents</span>:
+    <span style="color:#f92672">endLevel</span>: <span style="color:#ae81ff">3</span>
+    <span style="color:#f92672">ordered</span>: <span style="color:#66d9ef">false</span>
+    <span style="color:#f92672">startLevel</span>: <span style="color:#ae81ff">2</span></code></pre></div>
+<p>后来因为<code>goldmark</code>对 HTML 渲染的效果不是很满意，故修改为<code>blackfriday</code>。关于<code>blackfriday</code>，可以参考一份写的比较完善，可读性又比较强的<cite>Hugo中文文档<sup class="footnote-ref" id="fnref:2"><a href="#fn:2">2</a></sup></cite></p>
+
+<p>至于引入对<code>MathJax</code>的支持（<code>MathJax</code>兼容<code>Latex</code>），需要在 HTML 模板文件中引入相应的 JS 代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/x-mathjax-config&#34;</span>&gt;
+    <span style="color:#a6e22e">MathJax</span>.<span style="color:#a6e22e">Hub</span>.<span style="color:#a6e22e">Config</span>({
+      <span style="color:#a6e22e">tex2jax</span><span style="color:#f92672">:</span> {
+        <span style="color:#a6e22e">inlineMath</span><span style="color:#f92672">:</span> [[<span style="color:#e6db74">&#39;$&#39;</span>,<span style="color:#e6db74">&#39;$&#39;</span>], [<span style="color:#e6db74">&#39;\\(&#39;</span>,<span style="color:#e6db74">&#39;\\)&#39;</span>]],
+        <span style="color:#a6e22e">processEscapes</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>
+      }
+    });
+&lt;/<span style="color:#f92672">script</span>&gt;
+
+&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML&#39;</span> <span style="color:#a6e22e">async</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;</code></pre></div>
+<p><strong>一些好用的数学工具：</strong></p>
+
+<ol>
+<li><a href="https://webdemo.myscript.com/views/math/index.html#">识别并转换数学公式的网站</a></li>
+<li><a href="https://latex-tutorial.com/tutorials/">LaTeX Tutorial</a></li>
+</ol>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1"><a href="https://gohugo.io/getting-started/configuration-markup#readout">https://gohugo.io/getting-started/configuration-markup#readout</a>
+ <a class="footnote-return" href="#fnref:1">↩︎</a></li>
+<li id="fn:2"><a href="https://hugocn.netlify.app/configuration.html#blackfriday">https://hugocn.netlify.app/configuration.html#blackfriday</a>
+ <a class="footnote-return" href="#fnref:2">↩︎</a></li>
+</ol>
+</div>]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>

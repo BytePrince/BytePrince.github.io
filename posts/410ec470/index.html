@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<head><meta charset="utf-8">
+<meta name="referrer" content="same-origin">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>CentOS 8 关闭 Cockpity 提示 | Byte Prince</title>
+<meta name="keywords" content="CentOS, cockpity" />
+<meta name="description" content="Cockpit 是一个 Web 端的系统管理工具">
+<meta name="author" content="">
+<link rel="canonical" href="https://byteprince.com/posts/410ec470/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.958cca03466d194813628cfe285c53349da8d10a1ffa4cc386a93ac3d1b3ee04.css" integrity="sha256-lYzKA0ZtGUgTYoz&#43;KFxTNJ2o0Qof&#43;kzDhqk6w9Gz7gQ=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
+<link rel="apple-touch-icon" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
+<link rel="mask-icon" href="https://byteprince.com/%3Clink%20/%20abs%20url%3E">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.88.1" />
+
+<meta property="og:title" content="CentOS 8 关闭 Cockpity 提示" />
+<meta property="og:description" content="Cockpit 是一个 Web 端的系统管理工具" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://byteprince.com/posts/410ec470/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-01-22T21:43:05&#43;08:00" />
+<meta property="article:modified_time" content="2021-01-22T21:43:05&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CentOS 8 关闭 Cockpity 提示"/>
+<meta name="twitter:description" content="Cockpit 是一个 Web 端的系统管理工具"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://byteprince.com/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "CentOS 8 关闭 Cockpity 提示",
+      "item": "https://byteprince.com/posts/410ec470/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CentOS 8 关闭 Cockpity 提示",
+  "name": "CentOS 8 关闭 Cockpity 提示",
+  "description": "Cockpit 是一个 Web 端的系统管理工具",
+  "keywords": [
+    "CentOS", "cockpity"
+  ],
+  "articleBody": " 关于Cockpity Cockpit 是一个 Web 端的系统管理工具，只用鼠标点点就能管理系统，事实上也确实如此，启动 Cockpit 服务之后，只需要鼠标点点点就能完成系统很多基础操作，比如查看系统信息，启动/停止服务，新增或者更改账户，系统更新，Web 终端及查看网络流量等功能。\n安装 某些发行版本已经默认安装，只需执行命令开机启动和添加防火墙就好。\n如果系统中没有默认安装，执行下面命令很容易安装，在 CentOS 中安装：\n 安装Cockpit。\nsudo yum install cockpit 设置开机启动。\nsudo systemctl enable --now cockpit.socket 设置防火墙。\nsudo firewall-cmd --permanent --zone=public --add-service=cockpit sudo firewall-cmd --reload  安装成功后在浏览器中输入地址进行访问：https://ip:9090。使用系统用户名、密码登录。\n禁用或注销服务 如果发行版本中默认安装，您有不想使用Cockpit，直接禁用或注销即可。\n禁用Cockpit systemctl disable cockpit.socket 注销Cockpit systemctl mask cockpit.socket 关闭登录后的提示 某些发行版默认安装了Cockpit，在登录后会默认提示开启Cockpit。\n通常情况下，CentOS 系统的文本登录界面中的提示信息是存放在文件/etc/motd或者目录/etc/motd.d/中。\n进入/etc/motd.d/后直接删除cockpit\nrm -rf cockpit  退出登录后重新登录就没有提示了。\n参考资料：\n https://cockpit-project.org/\n 《CentOS8：登录ssh提示Activate the web console》\n 《如何取消Centos 8中的Activate the web console with: systemctl enable –now cockpit.socket提示》\n  ",
+  "wordCount" : "69",
+  "inLanguage": "en",
+  "datePublished": "2021-01-22T21:43:05+08:00",
+  "dateModified": "2021-01-22T21:43:05+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://byteprince.com/posts/410ec470/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Byte Prince",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: #1d1e20;
+                --entry: #2e2e33;
+                --primary: rgba(255, 255, 255, 0.84);
+                --secondary: rgba(255, 255, 255, 0.56);
+                --tertiary: rgba(255, 255, 255, 0.16);
+                --content: rgba(255, 255, 255, 0.74);
+                --hljs-bg: #2e2e33;
+                --code-bg: #37383e;
+                --border: #333;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://byteprince.com/" accesskey="h" title="Byte Prince (Alt + H)">Byte Prince</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://byteprince.com/movies/" title="Movies">
+                    <span>Movies</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://byteprince.com/books/" title="Books">
+                    <span>Books</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://byteprince.com/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://byteprince.com/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://byteprince.com/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  
+  <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [['$','$'], ['\\(','\\)']],
+          processEscapes: true
+        }
+      });
+  </script>
+  <script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script>
+  
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      CentOS 8 关闭 Cockpity 提示
+    </h1>
+    <div class="post-meta">January 22, 2021
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <div class="details">Table of Contents</div>
+        </summary>
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e5%85%b3%e4%ba%8ecockpity" aria-label="关于Cockpity">关于Cockpity</a></li>
+                <li>
+                    <a href="#%e5%ae%89%e8%a3%85" aria-label="安装">安装</a></li>
+                <li>
+                    <a href="#%e7%a6%81%e7%94%a8%e6%88%96%e6%b3%a8%e9%94%80%e6%9c%8d%e5%8a%a1" aria-label="禁用或注销服务">禁用或注销服务</a><ul>
+                        
+                <li>
+                    <a href="#%e7%a6%81%e7%94%a8cockpit" aria-label="禁用Cockpit">禁用Cockpit</a></li>
+                <li>
+                    <a href="#%e6%b3%a8%e9%94%80cockpit" aria-label="注销Cockpit">注销Cockpit</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%85%b3%e9%97%ad%e7%99%bb%e5%bd%95%e5%90%8e%e7%9a%84%e6%8f%90%e7%a4%ba" aria-label="关闭登录后的提示">关闭登录后的提示</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content">
+
+<h3 id="关于cockpity">关于Cockpity<a hidden class="anchor" aria-hidden="true" href="#关于cockpity">#</a></h3>
+
+<p><code>Cockpit</code> 是一个 Web 端的系统管理工具，只用鼠标点点就能管理系统，事实上也确实如此，启动 <code>Cockpit</code> 服务之后，只需要鼠标点点点就能完成系统很多基础操作，比如查看系统信息，启动/停止服务，新增或者更改账户，系统更新，Web 终端及查看网络流量等功能。</p>
+
+<h3 id="安装">安装<a hidden class="anchor" aria-hidden="true" href="#安装">#</a></h3>
+
+<p>某些发行版本已经默认安装，只需执行命令开机启动和添加防火墙就好。</p>
+
+<p>如果系统中没有默认安装，执行下面命令很容易安装，在 CentOS 中安装：</p>
+
+<ol>
+<li><p>安装<code>Cockpit</code>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo yum install cockpit</code></pre></div></li>
+
+<li><p>设置开机启动。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo systemctl enable --now cockpit.socket</code></pre></div></li>
+
+<li><p>设置防火墙。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo firewall-cmd --permanent --zone<span style="color:#f92672">=</span>public --add-service<span style="color:#f92672">=</span>cockpit
+sudo firewall-cmd --reload</code></pre></div></li>
+</ol>
+
+<p>安装成功后在浏览器中输入地址进行访问：<code>https://ip:9090</code>。使用系统用户名、密码登录。</p>
+
+<h3 id="禁用或注销服务">禁用或注销服务<a hidden class="anchor" aria-hidden="true" href="#禁用或注销服务">#</a></h3>
+
+<p>如果发行版本中默认安装，您有不想使用<code>Cockpit</code>，直接禁用或注销即可。</p>
+
+<h4 id="禁用cockpit">禁用Cockpit<a hidden class="anchor" aria-hidden="true" href="#禁用cockpit">#</a></h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">systemctl disable cockpit.socket</code></pre></div>
+<h4 id="注销cockpit">注销Cockpit<a hidden class="anchor" aria-hidden="true" href="#注销cockpit">#</a></h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">systemctl mask cockpit.socket</code></pre></div>
+<h3 id="关闭登录后的提示">关闭登录后的提示<a hidden class="anchor" aria-hidden="true" href="#关闭登录后的提示">#</a></h3>
+
+<p>某些发行版默认安装了<code>Cockpit</code>，在登录后会默认提示开启<code>Cockpit</code>。</p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210122214748.png#center" style="zoom:67%;" /></p>
+
+<p>通常情况下，CentOS 系统的文本登录界面中的提示信息是存放在文件<code>/etc/motd</code>或者目录<code>/etc/motd.d/</code>中。</p>
+
+<p>进入<code>/etc/motd.d/</code>后直接删除<code>cockpit</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">rm -rf cockpit </code></pre></div>
+<p>退出登录后重新登录就没有提示了。</p>
+
+<p><strong>参考资料：</strong></p>
+
+<ul>
+<li><p><a href="https://cockpit-project.org/">https://cockpit-project.org/</a></p></li>
+
+<li><p><a href="https://blog.csdn.net/sunsineq/article/details/105705167">《CentOS8：登录ssh提示Activate the web console》</a></p></li>
+
+<li><p><a href="https://blog.csdn.net/qwfys200/article/details/106767633/">《如何取消Centos 8中的Activate the web console with: systemctl enable &ndash;now cockpit.socket提示》</a></p></li>
+</ul>
+
+</div>
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://byteprince.com/tags/centos/">🏷️CentOS</a></li>
+      <li><a href="https://byteprince.com/tags/cockpity/">🏷️cockpity</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://byteprince.com/posts/b530bd3e/">
+    <span class="title">« Prev Page</span>
+    <br>
+    <span>今日校园自动打卡</span>
+  </a>
+  <a class="next" href="https://byteprince.com/posts/69a6621d/">
+    <span class="title">Next Page »</span>
+    <br>
+    <span>江泽民同志关于西藏问题同克林顿总统的讲话</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    <footer class="footer">
+    
+    <span>&copy; 2018-2021 Byte Prince.</a></span>
+    <span>
+    All rights reserved.
+    
+    
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <div id="poem_sentence"></div>
+    <div id="poem_info"></div>
+    <script type="text/javascript">
+        jinrishici.load(function(result) {
+        var sentence = document.querySelector("#poem_sentence")
+        var info = document.querySelector("#poem_info")
+        sentence.innerHTML = result.data.content
+        });
+    </script>
+
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)">
+    <button class="top-link" id="top-link" type="button" accesskey="g">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+            <path d="M12 6H0l6-6z" />
+        </svg>
+    </button>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+    menu.onscroll = function () {
+        localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

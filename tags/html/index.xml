@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>HTML on Byte Prince</title>
+    <link>https://byteprince.com/tags/html/</link>
+    <description>Recent content in HTML on Byte Prince</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 31 Aug 2021 19:06:51 +0800</lastBuildDate><atom:link href="https://byteprince.com/tags/html/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>HTML 基础知识归纳</title>
+      <link>https://byteprince.com/posts/6f917c14/</link>
+      <pubDate>Tue, 31 Aug 2021 19:06:51 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/6f917c14/</guid>
+      <description>重学前端</description>
+      <content:encoded><![CDATA[
+
+<h1 id="元素">元素</h1>
+
+<p>包含<strong>开始标签（Opening tag）</strong>，<strong>结束标签（Closing tag）</strong>，<strong>内容（Content）</strong>三个部分</p>
+
+<p>例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">p</span>&gt;我的猫非常脾气暴躁&lt;/<span style="color:#f92672">p</span>&gt;</code></pre></div>
+<h1 id="嵌套元素">嵌套元素</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">p</span>&gt;我的猫咪脾气&lt;<span style="color:#f92672">strong</span>&gt;暴躁&lt;/<span style="color:#f92672">strong</span>&gt;:)&lt;/<span style="color:#f92672">p</span>&gt;</code></pre></div>
+<h1 id="空元素">空元素</h1>
+
+<p>当然，元素可能不包含任何内容，例如<img>元素：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;images/firefox-icon.png&#34;</span> <span style="color:#a6e22e">alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;测试图片&#34;</span>&gt;</code></pre></div>
+<h1 id="图像">图像</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;images/firefox-icon.png&#34;</span> <span style="color:#a6e22e">alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;测试图片&#34;</span>&gt;</code></pre></div>
+<p>图像地址属性：<code>src</code>，可在所在位置嵌入图像；
+替换文字属性： <code>alt</code>，是图像的描述内容，用于当图像不能被用户看见时显示。</p>
+
+<h1 id="标记文本">标记文本</h1>
+
+<h2 id="标题">标题</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">h1</span>&gt;
+&lt;<span style="color:#f92672">h2</span>&gt;
+...
+&lt;<span style="color:#f92672">h6</span>&gt;</code></pre></div>
+<h2 id="段落">段落</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">p</span>&gt;</code></pre></div>
+<h2 id="列表">列表</h2>
+
+<ol>
+<li>列表（Unordered List）：用一个 <code>&lt;ul&gt;</code> 元素包围。</li>
+<li>有序列表（Ordered List）：用一个 <code>&lt;ol&gt;</code> 元素包围。</li>
+</ol>
+
+<p>列表的每个项目用一个列表项目（List Item）元素 <code>&lt;li&gt;</code> 包围。</p>
+
+<h2 id="链接">链接</h2>
+
+<p><code>&lt;a&gt;</code> — a 是 &ldquo;anchor&rdquo; （锚）的缩写。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://www.mozilla.org/zh-CN/about/manifesto/&#34;</span>&gt;Mozilla 宣言&lt;/<span style="color:#f92672">a</span>&gt;</code></pre></div>
+<blockquote>
+<p>href 代表超文本引用（ <strong>h</strong>ypertext <strong>ref</strong>erence）。</p>
+</blockquote>
+]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>密钥登录 on Byte Prince</title>
+    <link>https://byteprince.com/tags/%E5%AF%86%E9%92%A5%E7%99%BB%E5%BD%95/</link>
+    <description>Recent content in 密钥登录 on Byte Prince</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 29 Nov 2020 14:49:08 +0800</lastBuildDate><atom:link href="https://byteprince.com/tags/%E5%AF%86%E9%92%A5%E7%99%BB%E5%BD%95/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用密钥登录服务器的配置</title>
+      <link>https://byteprince.com/posts/65eb32e5/</link>
+      <pubDate>Sun, 29 Nov 2020 14:49:08 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/65eb32e5/</guid>
+      <description></description>
+      <content:encoded><![CDATA[<p>使用密码口令登录服务器会有两个问题：</p>
+
+<ul>
+<li>安全问题，容易产生口令泄漏等安全风险</li>
+<li>口令较长，每次都需要输入口令较为繁琐</li>
+</ul>
+
+<p>基于此，总结下解决方案。</p>
+
+<p>口令较长的问题可以用<code>sshpass</code>来解决每次都需要输入长密码的烦恼，<strong>但是使用<code>sshpass</code>是极其不安全的</strong>，因为所有系统上的用户在命令行中通过简单的 <code>ps</code> 命令就可看到密码。</p>
+
+<p>所以，目前较为安全的<code>SSH登录</code>验证方式还是采用<code>密钥</code>登录。</p>
+
+<h3 id="环境">环境</h3>
+
+<ul>
+<li>Win 10</li>
+<li>CentOS 7</li>
+<li>Windows Terminal等命令行工具</li>
+</ul>
+
+<h3 id="windows配置">Windows配置</h3>
+
+<h4 id="生成ssh密钥">生成SSH密钥</h4>
+
+<p>查看<code>用户目录/.ssh</code> 目录，如果有<code>id_rsa.pub</code>和<code>id_rsa</code>文件，则此步跳过。</p>
+
+<p>否则执行以下命令生成密钥。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ssh-keygen -t rsa</code></pre></div>
+<p>其中<code>id_rsa.pub</code>为公钥，<code>id_rsa</code>为私钥。</p>
+
+<h3 id="centos配置">CentOS配置</h3>
+
+<h4 id="添加公钥">添加公钥</h4>
+
+<p><strong>以<code>root</code>用户为例</strong>，其他用户操作类似，只需要将操作目录换成<code>目标用户</code>目录即可。如用户为<code>zhangsan</code>，则只需要将<code>~/</code>（即<code>/root/</code>）换成<code>/home/zhangsan/</code>就可以。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir ~/.ssh
+touch ~/.ssh/authorized_keys</code></pre></div>
+<p>上传在<code>Win10</code> 生成的<code>公钥文件</code>到 <code>CentOS</code> 并追加内容到 <code>authorized_keys</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">scp .<span style="color:#ae81ff">\i</span>d_rsa.pub root@192.168.0.2:~/
+cat ~/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys
+rm ~/id_rsa.pub</code></pre></div>
+<h4 id="重启ssh">重启SSH</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">systemctl restart sshd</code></pre></div>
+<h4 id="修改目录权限">修改目录权限</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">chmod <span style="color:#ae81ff">700</span> ~/.ssh
+chmod <span style="color:#ae81ff">600</span> ~/.ssh/authorized_keys</code></pre></div>]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>

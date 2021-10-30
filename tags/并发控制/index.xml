@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>并发控制 on Byte Prince</title>
+    <link>https://byteprince.com/tags/%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/</link>
+    <description>Recent content in 并发控制 on Byte Prince</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 13 Dec 2020 15:37:00 +0800</lastBuildDate><atom:link href="https://byteprince.com/tags/%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MySQL基础：事务处理与并发控制</title>
+      <link>https://byteprince.com/posts/80e173ac/</link>
+      <pubDate>Sun, 13 Dec 2020 15:37:00 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/80e173ac/</guid>
+      <description></description>
+      <content:encoded><![CDATA[<h2 id="事务">事务</h2>
+
+<h3 id="概念">概念</h3>
+
+<p>用户定义的一个不可分割的数据库操作序列。这些操作要么全做，要么不做。</p>
+
+<p>一个事务可以是一条SQL语句，可以实一组SQL语句，也可以是整个程序。事务的开始和结束可以由用户显式控制，若用户未显式定义事务，则由DBMS按默认规定自动划分事务。</p>
+
+<p><mark>事务是恢复和并发控制的基本单位。</mark></p>
+
+<h3 id="事务的定义">事务的定义</h3>
+
+<h4 id="事务的开始">事务的开始</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">BEGIN</span> <span style="color:#66d9ef">TRANSACTION</span>; <span style="color:#75715e">/*事务开始*/</span></code></pre></div>
+<h4 id="事务的结束">事务的结束</h4>
+
+<p>提交或者回滚。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">COMMIT</span>;   <span style="color:#75715e">/*奖事务中的所有对数据库的更新写回到磁盘上的物理数据库中*/</span>
+<span style="color:#66d9ef">ROLLBACK</span>;   <span style="color:#75715e">/*系统将所有已完成的操作全部撤销，回滚到事务开始时的状态*/</span></code></pre></div>
+<h3 id="acid属性">ACID属性</h3>
+
+<ul>
+<li>原子性（Atomicity）</li>
+<li>一致性（Consistency）</li>
+<li>隔离性（Isolation）</li>
+<li>持续性（Durability）/永久性（Permanence）</li>
+</ul>
+
+<p>其中<code>一致性</code>和<code>原子性</code>密切相关，一般情况下，事务的<code>原子性</code>不正常（事务被迫中断），就会导致不一致性状态。</p>
+
+<p><code>隔离性</code>是指一个事务的执行不能被其他食物干扰。即一个事务的内部操作及使用的数据对其他并发事务是隔离的，并发执行的各个十五之间不能相互干扰。</p>
+
+<h3 id="事务管理">事务管理</h3>
+
+<p>保证事务的ACID属性是事务管理的重要任务。</p>
+
+<p>事务ACID属性可能遭到破坏的因素：</p>
+
+<ul>
+<li>多个事务并行运行时，不同事务的操作交叉进行</li>
+<li>事务在运行过程中被强行停止</li>
+</ul>
+
+<h2 id="并发控制">并发控制</h2>
+
+<h3 id="背景">背景</h3>
+
+<p>多处理机系统中，每个处理及可以运行一个事务，多个处理及可以同时运行多个事务，实现多个事务真正的并行运行。这种并行执行方式称为<code>同时并发运行</code>（simultaneous concurrency）。并发操作可能会破坏数据的不一致性：</p>
+
+<ul>
+<li><p>丢失修改（lost update）</p></li>
+
+<li><p>不可重复读（non-repeatable read）</p></li>
+</ul>
+
+<p>其中，不可重复读包括并发事务的<strong>修改</strong>，<strong>删除</strong>和<strong>插入操作</strong>。事务<code>T2</code>在<code>T1</code>读取某些数据库后删除或者插入一些记录，导致<code>T1</code>重复读取数据发现数据不一致，也成为<code>幻影</code>（phantom row）现象</p>
+
+<ul>
+<li>读脏数据（dirty read）</li>
+</ul>
+
+<p><img src="https://img.xiehestudio.com/2020/12/18/e5379166c1405.png"  /></p>
+
+<p>产生上述三类数据不一致性的主要原因是并发操作破坏了事务的<code>隔离性</code>。并发操作就是要用正确的方式调度并发操作，是一个用户事务的执行不受其他事务的干扰，从而避免造成数据的不一致性。当然，为了加强数据的一致性而调度并发操作，通常会增大系统的开销，最好就是做到一致性要求内系统开销最小。</p>
+
+<h3 id="技术">技术</h3>
+
+<p>并发控制的主要技术有:</p>
+
+<ul>
+<li><strong>封锁（locking）</strong></li>
+<li>时间戳（timestamp）</li>
+<li>乐观控制法（optimistic scheduler）</li>
+<li>多版本并发控制（multi-version concurrency control, MVCC）</li>
+</ul>
+
+<h2 id="封锁">封锁</h2>
+
+<h3 id="锁的种类">锁的种类</h3>
+
+<ul>
+<li><strong>排他锁（exclusive locks）</strong>，简称<code>X锁</code>，即<code>写锁</code></li>
+<li><strong>共享锁（share locks）</strong>，简称<code>S锁</code>，即<code>读锁</code></li>
+</ul>
+
+<h3 id="封锁类型的相容矩阵">封锁类型的相容矩阵</h3>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20201218203734.png" alt="" /></p>
+
+<h3 id="封锁协议">封锁协议</h3>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20201218204834.png" alt="不同级别的封锁协议的一致性保证" /></p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20201218204738.png" alt="使用封锁机制解决三种数据不一致性的示例" /></p>
+
+<p>上述三级协议的主要区别在于<strong>什么操作需要申请封锁，以及何时释放锁（即持锁时间）</strong>。不同的封锁协议使事务达到的一致性级别是不同的，封锁协议级别越高，一致性程度越高。</p>
+
+<h3 id="活锁和死锁">活锁和死锁</h3>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20201219102436.png" alt="活锁死锁示例" /></p>
+
+<h4 id="活锁">活锁</h4>
+
+<p>如果事务<code>T1</code>封锁了数据<code>R</code>，事务<code>T2</code>又请求封锁<code>R</code>，于是<code>T2</code>等待；<code>T3</code>也请求封锁<code>R</code>，当<code>T1</code>释放了<code>R</code>上的封锁之后系统首先批准了<code>T3</code>的请求，<code>T2</code>仍然等待；然后<code>T4</code>又请求封锁<code>R</code>，当<code>T3</code>释放了<code>R</code>上的封锁之后系统又批准了<code>T4</code>的请求&hellip;&hellip;<code>T2</code>有可能永远等待，形成活锁。</p>
+
+<h5 id="解决活锁的简单方法">解决活锁的简单方法</h5>
+
+<p>先来先服务</p>
+
+<h4 id="死锁">死锁</h4>
+
+<p>如果事务<code>T1</code>封锁了数据<code>R1</code>, <code>T2</code>封锁了数据<code>R2</code>，然后<code>T1</code>又请求封锁<code>R2</code>，因<code>T2</code>已封锁了<code>R2</code>，于是<code>T</code>1等待<code>T2</code>释放<code>R2</code>上的锁；接着<code>T2</code>又申请封锁<code>R1</code>，因<code>T1</code>已封锁了<code>R1</code>,<code>T2</code>也能等待<code>T1</code>释放<code>R1</code>上的锁。这样就出现了<code>T1</code>在等待<code>T2</code>，而<code>T2</code>又在等待<code>T1</code>的局面，<code>T1</code>和<code>T2</code>两个事务永远不能结束，形成死锁。</p>
+
+<h5 id="解决死锁的简单方法">解决死锁的简单方法</h5>
+
+<p>1.预防</p>
+
+<ul>
+<li>一次封锁法：要求每个事务必须一次将所有要使用的数据全部加锁（扩大封锁范围会降低系统并发度）</li>
+<li>顺序封锁法：预先对数据对象规定一个封锁顺序（数据随时变化，维护难度大；事先规定的顺序难以实际施加封锁）</li>
+</ul>
+
+<p>2.诊断与解除</p>
+
+<ul>
+<li>超时法：以超时为标志判定死锁（容易误判；时限设置太长不容易发现思索）</li>
+<li>等待图法：并发控制子系统周期性生成十五等待图，并进行检测，如果图中存在回路则表示出现死锁。</li>
+</ul>
+
+<p>通常选择一个<strong>处理死锁代价最小</strong>的事务将其撤销，释放此事务的所有锁，使得其他事务得以继续运行下去，同时对撤销的事务所执行的数据修改操作必须加以恢复。</p>]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>

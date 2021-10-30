@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<head><meta charset="utf-8">
+<meta name="referrer" content="same-origin">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>用 NFC 贴纸实现华为一碰传 | Byte Prince</title>
+<meta name="keywords" content="华为一碰传, NFC" />
+<meta name="description" content="Dell G3 &#43; Honor Magic 2">
+<meta name="author" content="">
+<link rel="canonical" href="https://byteprince.com/posts/462dd14b/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.958cca03466d194813628cfe285c53349da8d10a1ffa4cc386a93ac3d1b3ee04.css" integrity="sha256-lYzKA0ZtGUgTYoz&#43;KFxTNJ2o0Qof&#43;kzDhqk6w9Gz7gQ=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
+<link rel="apple-touch-icon" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
+<link rel="mask-icon" href="https://byteprince.com/%3Clink%20/%20abs%20url%3E">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.88.1" />
+
+<meta property="og:title" content="用 NFC 贴纸实现华为一碰传" />
+<meta property="og:description" content="Dell G3 &#43; Honor Magic 2" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://byteprince.com/posts/462dd14b/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-11-15T22:03:44&#43;08:00" />
+<meta property="article:modified_time" content="2019-11-15T22:03:44&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="用 NFC 贴纸实现华为一碰传"/>
+<meta name="twitter:description" content="Dell G3 &#43; Honor Magic 2"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://byteprince.com/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "用 NFC 贴纸实现华为一碰传",
+      "item": "https://byteprince.com/posts/462dd14b/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "用 NFC 贴纸实现华为一碰传",
+  "name": "用 NFC 贴纸实现华为一碰传",
+  "description": "Dell G3 + Honor Magic 2",
+  "keywords": [
+    "华为一碰传", "NFC"
+  ],
+  "articleBody": " 最近笔者在网上看到，DIY 华为的“一碰传”功能相当火爆。本人身为虔诚的“菊花粉”，同时又爱好 DIY，自然不会放弃这个好机会。参考了相关的资料后，顺利使用自备的 NFC 贴纸实现华为一碰传的功能，特此总结，提供给想要 DIY 或者 DIY 失败的朋友进行参考。\n华为“一碰传”简介 华为一碰传的功能简介不再赘述，这些在华为官网都可以看到。以下是官网称实现一碰传和多屏协同需要的硬件支持：\n从上图可以得知，华为一碰传实现的主要硬件载体就是手机的 NFC 模块和电脑的 NFC 标签。在这个 DIY 的过程中，华为 Mate Book 本身就并不是必备条件，我们完全可以通过自己的 NFC 空白芯片来模拟，当然，一个具有 NFC 读写功能的华为手机是必需品。另外，既然是华为自家的生态才可以直接使用这个功能，自然在 NFC 的读写中肯定会引入相关的参数来区别华为笔记本电脑和非华为笔记本电脑，这个在后续的操作中会体现。\nDIY华为一碰传需要做的准备 ①一台具有 NFC 模块的华为手机（多屏协同要求手机系统版本不低于 EMUI10/Magic UI 3.0）\n②一台具有 5G WIFI 和蓝牙功能的电脑，显卡支持 HEVC\n③NFC 标签贴纸（NTAG312/NTAG215 等均可）/空白的 IC 卡\n\n模拟华为一碰传的思路 目前有不少教程了，但是写的都太过于详细导致让新手很难抓住重点，这里可以让你在操作的时候思路更清晰。\n1.手机端安装一碰传助手，PC 端安装华为电脑管家；\n2.在执行一碰传或者多屏协同任务的时候，华为电脑管家会通过 SN 值来检测是否是华为电脑，若非华为电脑则无法执行任务。通过伪装 SN 值来“欺骗”华为电脑管家，就是本次破解的核心（通过注入util.dll来实现）\n3.在华为电脑管家安装包中提供了两版 dll，根据前人的经验，电脑 SN 值小于大于16位的可以通过直接注入util.dll来实现，而 SN 小于16位的则需要通过伪装 SN 或者修改 SN 来实现。\n具体操作流程 1.下载华为电脑管家安装包，解压 PCManager_Setup_10.0.2.59.zip 进行安装\n2.号文件到电脑上，安装完成之后无法打开运行，需要进行 dll 注入才可以正常打开，注入 dll 的方法如下：\n首先打开任务管理器停止华为电脑管家的服务，\n一般刚安装好的只有 MBAMainService 服务。启动过多屏协同之后会出现 LCD 服务将“无需伪装 SN 版 dll “文件夹中的 Util.dll 替换到电脑管家的程序目录，替换成功后返回任务管理器启动刚才停止的两个服务或者直接重启电脑。\n重启后就可以双击桌面上的华为电脑管家图标正常打开华为电脑管家了。\n\n查看序列号的位数（包含空格），如果序列号的位数大于16，则可以不用伪装或者修改SN，反之则需要。\n3.【SN 号大于16的可以直接跳过此步骤】伪装 SN/修改 SN 的方法：\n①伪装：\n复制华为电脑管家安装包中“伪装 SN 版所需 DLL ”进行替换（方法同步骤2，先在仍无管理器中停止华为电脑管家的相关服务后进行替换，替换后重启服务或者直接重启电脑），该版本dll支持识别伪装的SN码。\n管理员运行 Powershell 进行新增伪装 SN 码，步骤如图：\n\n\n\n\n\n\n如图所示，伪装版本的 SN 码就已经增加完毕\n\n接下来用伪装的 SN 码生成二维码，进行制作 NFC 标签即可，以图中伪装的二维码为例，对应字符串为 SN=5EKPM18320000397|MAC=98541B2E6877|MODELID=00000505\n②修改：\n不建议使用修改 SN 的方式，因为修改 SN 可能会影响电脑的保修，故不再赘述。如果在了解这个风险后还是想要尝试，可以百度如何使用DmiEditWinGui修改 SN。\n4.获取本地蓝牙 Mac 地址\n\n构造字符串SN=5EKPM18320000397|MAC=98541B2E6877|MODELID=00000505\n将步骤3中生成的字符串转成二维码（在线转二维码工具），使用华为一碰传助手扫描生成的二维码，根据手机上的提示激活 NFC 标签即可。\n\n\nEnjoy it 以后，你只要打开手机的 NFC 功能并轻触 NFC 标签，就可以和电脑进行快捷连接，连接后就可以进行愉快的一碰传和多屏协同的功能了~\n 总结 华为的一碰传和多屏协同是华为生态中重要的一步。虽然这个方式并不一定适合每个人的使用习惯，但是深度体验华为多设备文件传输同步功能后还是感触颇深。作为代表当今中国科技实力的企业之一，华为正在逐渐缩小和苹果，谷歌等世界超一流公产品的差距，衷心希望华为的产品可以越来越优秀。\n",
+  "wordCount" : "134",
+  "inLanguage": "en",
+  "datePublished": "2019-11-15T22:03:44+08:00",
+  "dateModified": "2019-11-15T22:03:44+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://byteprince.com/posts/462dd14b/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Byte Prince",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: #1d1e20;
+                --entry: #2e2e33;
+                --primary: rgba(255, 255, 255, 0.84);
+                --secondary: rgba(255, 255, 255, 0.56);
+                --tertiary: rgba(255, 255, 255, 0.16);
+                --content: rgba(255, 255, 255, 0.74);
+                --hljs-bg: #2e2e33;
+                --code-bg: #37383e;
+                --border: #333;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://byteprince.com/" accesskey="h" title="Byte Prince (Alt + H)">Byte Prince</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://byteprince.com/movies/" title="Movies">
+                    <span>Movies</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://byteprince.com/books/" title="Books">
+                    <span>Books</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://byteprince.com/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://byteprince.com/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://byteprince.com/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  
+  <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [['$','$'], ['\\(','\\)']],
+          processEscapes: true
+        }
+      });
+  </script>
+  <script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script>
+  
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      用 NFC 贴纸实现华为一碰传
+    </h1>
+    <div class="post-meta">November 15, 2019
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <div class="details">Table of Contents</div>
+        </summary>
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e5%8d%8e%e4%b8%ba-%e4%b8%80%e7%a2%b0%e4%bc%a0-%e7%ae%80%e4%bb%8b" aria-label="华为“一碰传”简介">华为“一碰传”简介</a></li>
+                <li>
+                    <a href="#diy%e5%8d%8e%e4%b8%ba%e4%b8%80%e7%a2%b0%e4%bc%a0%e9%9c%80%e8%a6%81%e5%81%9a%e7%9a%84%e5%87%86%e5%a4%87" aria-label="DIY华为一碰传需要做的准备">DIY华为一碰传需要做的准备</a></li>
+                <li>
+                    <a href="#%e6%a8%a1%e6%8b%9f%e5%8d%8e%e4%b8%ba%e4%b8%80%e7%a2%b0%e4%bc%a0%e7%9a%84%e6%80%9d%e8%b7%af" aria-label="模拟华为一碰传的思路">模拟华为一碰传的思路</a></li>
+                <li>
+                    <a href="#%e5%85%b7%e4%bd%93%e6%93%8d%e4%bd%9c%e6%b5%81%e7%a8%8b" aria-label="具体操作流程">具体操作流程</a></li>
+                <li>
+                    <a href="#enjoy-it" aria-label="Enjoy it">Enjoy it</a></li>
+                <li>
+                    <a href="#%e6%80%bb%e7%bb%93" aria-label="总结">总结</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content">
+
+<p>最近笔者在网上看到，DIY 华为的“一碰传”功能相当火爆。本人身为虔诚的“菊花粉”，同时又爱好 DIY，自然不会放弃这个好机会。参考了相关的资料后，顺利使用自备的 NFC 贴纸实现华为一碰传的功能，特此总结，提供给想要 DIY 或者 DIY 失败的朋友进行参考。</p>
+
+<h3 id="华为-一碰传-简介">华为“一碰传”简介<a hidden class="anchor" aria-hidden="true" href="#华为-一碰传-简介">#</a></h3>
+
+<p>华为一碰传的功能简介不再赘述，这些在<a href="https://consumer.huawei.com/cn/support/huaweishareonehop/">华为官网</a>都可以看到。以下是官网称实现一碰传和多屏协同需要的硬件支持：</p>
+
+<p><img src="https://img.xiehestudio.com/2019/11/15/4bc8e4577f6aa.png#center" alt="" /></p>
+
+<p>从上图可以得知，华为一碰传实现的主要硬件载体就是手机的 NFC 模块和电脑的 NFC 标签。在这个 DIY 的过程中，华为 Mate Book 本身就并不是必备条件，我们完全可以通过自己的 NFC 空白芯片来模拟，当然，一个具有 NFC 读写功能的华为手机是必需品。另外，既然是华为自家的生态才可以直接使用这个功能，自然在 NFC 的读写中肯定会引入相关的参数来区别华为笔记本电脑和非华为笔记本电脑，这个在后续的操作中会体现。</p>
+
+<h3 id="diy华为一碰传需要做的准备">DIY华为一碰传需要做的准备<a hidden class="anchor" aria-hidden="true" href="#diy华为一碰传需要做的准备">#</a></h3>
+
+<p>①一台具有 <strong>NFC</strong> 模块的<strong>华为</strong>手机（多屏协同要求手机系统版本不低于 <strong>EMUI10/Magic UI 3.0</strong>）</p>
+
+<p>②一台具有 5G WIFI 和蓝牙功能的电脑，显卡支持 HEVC</p>
+
+<p>③<strong>NFC 标签贴纸（NTAG312/NTAG215 等均可）</strong>/空白的 IC 卡</p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/0faa6265f79f3.jpg" alt="" style="zoom: 25%;" /></center></p>
+
+<h3 id="模拟华为一碰传的思路">模拟华为一碰传的思路<a hidden class="anchor" aria-hidden="true" href="#模拟华为一碰传的思路">#</a></h3>
+
+<p>目前有不少教程了，但是写的都太过于详细导致让新手很难抓住重点，这里可以让你在操作的时候思路更清晰。</p>
+
+<p>1.手机端安装<a href="https://www.lanzoui.com/i7e9akf">一碰传助手</a>，PC 端安装<a href="https://www.lanzoui.com/i7e9bta">华为电脑管家</a>；</p>
+
+<p>2.在执行一碰传或者多屏协同任务的时候，华为电脑管家会通过 SN 值来检测是否是华为电脑，若非华为电脑则无法执行任务。通过伪装 SN 值来“欺骗”华为电脑管家，就是本次破解的核心（通过注入<code>util.dll</code>来实现）</p>
+
+<p>3.在<a href="https://www.lanzoui.com/i7e9bta">华为电脑管家安装包</a>中提供了两版 dll，根据前人的经验，电脑 SN 值小于大于16位的可以通过直接注入<code>util.dll</code>来实现，而 SN 小于16位的则需要通过伪装 SN 或者修改 SN 来实现。</p>
+
+<p><img src="https://img.xiehestudio.com/pic_go/20210507102841.png#center" alt="" /></p>
+
+<h3 id="具体操作流程">具体操作流程<a hidden class="anchor" aria-hidden="true" href="#具体操作流程">#</a></h3>
+
+<p>1.下载<a href="https://www.lanzoui.com/i7e9bta">华为电脑管家安装包</a>，解压 <strong>PCManager_Setup_10.0.2.59.zip</strong> 进行安装</p>
+
+<p><img src="https://img.xiehestudio.com/2019/11/16/377f67a981e9f.png#center" alt="" /></p>
+
+<p>2.号文件到电脑上，安装完成之后无法打开运行，需要进行 dll 注入才可以正常打开，注入 dll 的方法如下：</p>
+
+<p>首先打开任务管理器停止华为电脑管家的服务，</p>
+
+<p><img src="https://img.xiehestudio.com/2019/11/16/6cff789dc631a.jpg#center" alt="" /></p>
+
+<p>一般刚安装好的只有 MBAMainService 服务。启动过多屏协同之后会出现 LCD 服务将“无需伪装 SN 版 dll “文件夹中的 <code>Util.dll</code> 替换到电脑管家的程序目录，替换成功后返回任务管理器启动刚才停止的两个服务或者直接重启电脑。</p>
+
+<p>重启后就可以双击桌面上的华为电脑管家图标正常打开华为电脑管家了。</p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/2713f01dda8f0.png" alt="" style="zoom: 67%;" /></center></p>
+
+<p>查看序列号的位数（包含空格），如果序列号的位数大于16，则可以不用伪装或者修改SN，反之则需要。</p>
+
+<p>3.【<strong>SN 号大于16的可以直接跳过此步骤</strong>】伪装 SN/修改 SN 的方法：</p>
+
+<p><strong>①伪装：</strong></p>
+
+<p>复制<a href="https://www.lanzous.com/i7e9bta">华为电脑管家安装包</a>中“伪装 SN 版所需 DLL ”进行替换（方法同<strong>步骤2</strong>，先在仍无管理器中停止华为电脑管家的相关服务后进行替换，替换后重启服务或者直接重启电脑），该版本dll支持识别伪装的SN码。</p>
+
+<p>管理员运行 Powershell 进行新增伪装 SN 码，步骤如图：</p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/f02c553573b20.png" alt="" style="zoom:80%;" /></center></p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/54fc211bec99d.jpg" alt="" style="zoom: 80%;" /></center></p>
+
+<p><img src="https://img.xiehestudio.com/2019/11/16/7b176064bafcf.jpg#center" alt="" /></p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/10/03f004ad34d1d.png" style="zoom: 50%;" /></center></p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/10/e40eeca3f33be.png" style="zoom: 50%;" /></center></p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/b81b585504197.jpg" alt="" style="zoom: 67%;" /></center></p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/7a9487cd83f4c.jpg" alt="" style="zoom: 80%;" /></center></p>
+
+<p>如图所示，伪装版本的 SN 码就已经增加完毕</p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/3ca89eed32d69.png" alt="" style="zoom:67%;" /></center></p>
+
+<p>接下来用伪装的 SN 码生成二维码，进行制作 NFC 标签即可，以图中伪装的二维码为例，对应字符串为
+<code>SN=5EKPM18320000397|MAC=98541B2E6877|MODELID=00000505</code></p>
+
+<p><strong>②修改：</strong></p>
+
+<p>不建议使用修改 SN 的方式，因为修改 SN 可能会影响电脑的保修，故不再赘述。如果在了解这个风险后还是想要尝试，可以百度如何使用<code>DmiEditWinGui</code>修改 SN。</p>
+
+<p>4.获取本地蓝牙 Mac 地址</p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/3ca89eed32d69.png" alt="" style="zoom:67%;" /></center></p>
+
+<p>构造字符串<code>SN=5EKPM18320000397|MAC=98541B2E6877|MODELID=00000505</code></p>
+
+<p>将<strong>步骤3</strong>中生成的字符串转成二维码（<a href="https://www.liantu.com/">在线转二维码工具</a>），使用华为一碰传助手扫描生成的二维码，根据手机上的提示激活 NFC 标签即可。</p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/0886d04c49a48.jpg" alt="" style="zoom: 80%;" /></center></p>
+
+<p><center><img src="https://img.xiehestudio.com/2019/11/16/85d365d05371c.jpg" alt="" style="zoom: 33%;" /></center></p>
+
+<h3 id="enjoy-it">Enjoy it<a hidden class="anchor" aria-hidden="true" href="#enjoy-it">#</a></h3>
+
+<p><img src="https://img.xiehestudio.com/2019/11/16/822f441e97307.jpg#center" alt="" /></p>
+
+<p>以后，你只要打开手机的 NFC 功能并轻触 NFC 标签，就可以和电脑进行快捷连接，连接后就可以进行愉快的一碰传和多屏协同的功能了~</p>
+
+<iframe src="//player.bilibili.com/player.html?aid=75861913&cid=129775718&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width: 100%; height: 500px; max-width: 100%；align:center; padding:20px 0;"> </iframe>
+
+<h3 id="总结">总结<a hidden class="anchor" aria-hidden="true" href="#总结">#</a></h3>
+
+<p>华为的一碰传和多屏协同是华为生态中重要的一步。虽然这个方式并不一定适合每个人的使用习惯，但是深度体验华为多设备文件传输同步功能后还是感触颇深。作为代表当今中国科技实力的企业之一，华为正在逐渐缩小和苹果，谷歌等世界超一流公产品的差距，衷心希望华为的产品可以越来越优秀。</p>
+
+</div>
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://byteprince.com/tags/%E5%8D%8E%E4%B8%BA%E4%B8%80%E7%A2%B0%E4%BC%A0/">🏷️华为一碰传</a></li>
+      <li><a href="https://byteprince.com/tags/nfc/">🏷️NFC</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://byteprince.com/posts/1b65258a/">
+    <span class="title">« Prev Page</span>
+    <br>
+    <span>2019的记忆</span>
+  </a>
+  <a class="next" href="https://byteprince.com/posts/7a035124/">
+    <span class="title">Next Page »</span>
+    <br>
+    <span>浮光掠影</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    <footer class="footer">
+    
+    <span>&copy; 2018-2021 Byte Prince.</a></span>
+    <span>
+    All rights reserved.
+    
+    
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <div id="poem_sentence"></div>
+    <div id="poem_info"></div>
+    <script type="text/javascript">
+        jinrishici.load(function(result) {
+        var sentence = document.querySelector("#poem_sentence")
+        var info = document.querySelector("#poem_info")
+        sentence.innerHTML = result.data.content
+        });
+    </script>
+
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)">
+    <button class="top-link" id="top-link" type="button" accesskey="g">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+            <path d="M12 6H0l6-6z" />
+        </svg>
+    </button>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+    menu.onscroll = function () {
+        localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
