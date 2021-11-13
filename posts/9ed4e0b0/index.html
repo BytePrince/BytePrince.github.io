@@ -15,7 +15,7 @@
 <meta name="description" content="提供科学上网服务以及校园网断线重连">
 <meta name="author" content="">
 <link rel="canonical" href="https://byteprince.com/posts/9ed4e0b0/" />
-<link crossorigin="anonymous" href="/assets/css/stylesheet.min.958cca03466d194813628cfe285c53349da8d10a1ffa4cc386a93ac3d1b3ee04.css" integrity="sha256-lYzKA0ZtGUgTYoz&#43;KFxTNJ2o0Qof&#43;kzDhqk6w9Gz7gQ=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.aa8e4e7230cce184ee469b7c70c9f8a7e21877ae161623f4be96f0e493823abc.css" integrity="sha256-qo5OcjDM4YTuRpt8cMn4p&#43;IYd64WFiP0vpbw5JOCOrw=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
@@ -69,8 +69,8 @@
   "keywords": [
     "OpenWrt", "FriendlyWrt", "NanoPi R2s"
   ],
-  "articleBody": " 1 固件  版本：FriendlyWrt_NanoPi-R2S.RK3328.v19.07 来源：soffchen/NanoPi-R2S\n 备份：下载地址 密码:1234 修改后缀为.7z.001和.7z.002再进行解压。  2 软件源 #发行版软件源 src/gz openwrt_base https://openwrt.proxy.ustclug.org/releases/19.07.1/packages/aarch64_cortex-a53/base src/gz openwrt_luci https://openwrt.proxy.ustclug.org/releases/19.07.1/packages/aarch64_cortex-a53/luci src/gz openwrt_packages https://openwrt.proxy.ustclug.org/releases/19.07.1/packages/aarch64_cortex-a53/packages src/gz openwrt_routing https://openwrt.proxy.ustclug.org/releases/19.07.1/packages/aarch64_cortex-a53/routing #自定义软件源 src/gz songchenwen https://nanopi-r2s-opkg-feeds.songchenwen.com/packages 2.1 添加软件源 在 软件包 - 配置 - 自定义软件源 中添加如下一行\nsrc/gz songchenwen https://nanopi-r2s-opkg-feeds.songchenwen.com/packages/ 2.2 添加签名公钥（可选） ssh进入安装有OpenWrt的路由器，执行\nmkdir -p /etc/opkg/keys; wget -qO /etc/opkg/keys/5e99c2573f29d764 \"https://nanopi-r2s-opkg-feeds.songchenwen.com/keys/5e99c2573f29d764\" 或禁用签名检查，在 软件包 - 配置 中删掉这一行 option check_signature 1\n2.3 第三方软件源 ①NanoPi R2S 专用软件源\n（参考：宋辰文的博客 NanoPi R2S 专用软件源 )\nsrc/gz songchenwen https://nanopi-r2s-opkg-feeds.songchenwen.com/packages/ ②kuoruan_universal源\nsrc/gz kuoruan_universal http://openwrt.kuoruan.net/packages/releases/all 以上两个源适用FriendlyWrt系统，且已经过测试。添加源后执行以下命令即可。\nopkg update ③V2ray源\n kuoruan/openwrt-v2ray luci-app-v2ray （NanoPi R2S适用，添加该源后也可以安装luci-app-ssr-plus和luci-i18n-ssr-plus-zh-cn）  2.4 opkg包管理 opkg updateopkg install opkg remove 使用opkg命令卸载插件后若插件还在插件列表中，尝试清除/usr/share目录下与插件相关的残留文件。\n3 Cron备份  专治锐捷。\n 0 * * * * /usr/bin/python3 /login/detect.py  /login/conn.log 2\u00261 \u0026 脚本备份下载：Pwner’s Pan\n",
-  "wordCount" : "105",
+  "articleBody": " 1 固件  版本：FriendlyWrt_NanoPi-R2S.RK3328.v19.07 来源：soffchen/NanoPi-R2S\n 备份：下载地址 密码:1234 修改后缀为.7z.001和.7z.002再进行解压。  2 软件源 1 2 3 4 5 6 7 8 9 10  #发行版软件源 src/gz openwrt_base https://openwrt.proxy.ustclug.org/releases/19.07.1/packages/aarch64_cortex-a53/base src/gz openwrt_luci https://openwrt.proxy.ustclug.org/releases/19.07.1/packages/aarch64_cortex-a53/luci src/gz openwrt_packages https://openwrt.proxy.ustclug.org/releases/19.07.1/packages/aarch64_cortex-a53/packages src/gz openwrt_routing https://openwrt.proxy.ustclug.org/releases/19.07.1/packages/aarch64_cortex-a53/routing #自定义软件源 src/gz songchenwen https://nanopi-r2s-opkg-feeds.songchenwen.com/packages   2.1 添加软件源 在 软件包 - 配置 - 自定义软件源 中添加如下一行\n1  src/gz songchenwen https://nanopi-r2s-opkg-feeds.songchenwen.com/packages/   2.2 添加签名公钥（可选） ssh进入安装有OpenWrt的路由器，执行\n1  mkdir -p /etc/opkg/keys; wget -qO /etc/opkg/keys/5e99c2573f29d764 \"https://nanopi-r2s-opkg-feeds.songchenwen.com/keys/5e99c2573f29d764\"   或禁用签名检查，在 软件包 - 配置 中删掉这一行 option check_signature 1\n2.3 第三方软件源 ①NanoPi R2S 专用软件源\n（参考：宋辰文的博客 NanoPi R2S 专用软件源 )\n1  src/gz songchenwen https://nanopi-r2s-opkg-feeds.songchenwen.com/packages/   ②kuoruan_universal源\n1  src/gz kuoruan_universal http://openwrt.kuoruan.net/packages/releases/all   以上两个源适用FriendlyWrt系统，且已经过测试。添加源后执行以下命令即可。\n1  opkg update   ③V2ray源\n kuoruan/openwrt-v2ray luci-app-v2ray （NanoPi R2S适用，添加该源后也可以安装luci-app-ssr-plus和luci-i18n-ssr-plus-zh-cn）  2.4 opkg包管理 1  opkg update  1  opkg install   1  opkg remove   使用opkg命令卸载插件后若插件还在插件列表中，尝试清除/usr/share目录下与插件相关的残留文件。\n3 Cron备份  专治锐捷。\n 0 * * * * /usr/bin/python3 /login/detect.py  /login/conn.log 2\u00261 \u0026 脚本备份下载：Pwner’s Pan\n",
+  "wordCount" : "124",
   "inLanguage": "en",
   "datePublished": "2020-11-30T17:18:11+08:00",
   "dateModified": "2020-11-30T17:18:11+08:00",
@@ -87,7 +87,11 @@
     }
   }
 }
-</script>
+</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
 </head>
 
 <body class="" id="top">
@@ -260,7 +264,21 @@
 </ul>
 
 <h3 id="2-软件源">2 软件源<a hidden class="anchor" aria-hidden="true" href="#2-软件源">#</a></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#发行版软件源</span>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#发行版软件源</span>
 src/gz openwrt_base https://openwrt.proxy.ustclug.org/releases/19.07.1/packages/aarch64_cortex-a53/base
 src/gz openwrt_luci https://openwrt.proxy.ustclug.org/releases/19.07.1/packages/aarch64_cortex-a53/luci
 src/gz openwrt_packages https://openwrt.proxy.ustclug.org/releases/19.07.1/packages/aarch64_cortex-a53/packages
@@ -269,15 +287,31 @@ src/gz openwrt_routing https://openwrt.proxy.ustclug.org/releases/19.07.1/packag
 
 
 <span style="color:#75715e">#自定义软件源</span>
-src/gz songchenwen https://nanopi-r2s-opkg-feeds.songchenwen.com/packages</code></pre></div>
+src/gz songchenwen https://nanopi-r2s-opkg-feeds.songchenwen.com/packages</code></pre></td></tr></table>
+</div>
+</div>
 <h4 id="2-1-添加软件源">2.1 添加软件源<a hidden class="anchor" aria-hidden="true" href="#2-1-添加软件源">#</a></h4>
 
 <p>在 <code>软件包 - 配置 - 自定义软件源</code> 中添加如下一行</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">src/gz songchenwen https://nanopi-r2s-opkg-feeds.songchenwen.com/packages/</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">src/gz songchenwen https://nanopi-r2s-opkg-feeds.songchenwen.com/packages/</code></pre></td></tr></table>
+</div>
+</div>
 <h4 id="2-2-添加签名公钥-可选">2.2 添加签名公钥（可选）<a hidden class="anchor" aria-hidden="true" href="#2-2-添加签名公钥-可选">#</a></h4>
 
 <p>ssh进入安装有<code>OpenWrt</code>的路由器，执行</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mkdir -p /etc/opkg/keys; wget -qO /etc/opkg/keys/5e99c2573f29d764 <span style="color:#e6db74">&#34;https://nanopi-r2s-opkg-feeds.songchenwen.com/keys/5e99c2573f29d764&#34;</span></code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mkdir -p /etc/opkg/keys; wget -qO /etc/opkg/keys/5e99c2573f29d764 <span style="color:#e6db74">&#34;https://nanopi-r2s-opkg-feeds.songchenwen.com/keys/5e99c2573f29d764&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>或禁用签名检查，在 <code>软件包 - 配置</code> 中删掉这一行 <code>option check_signature 1</code></p>
 
 <h4 id="2-3-第三方软件源">2.3 第三方软件源<a hidden class="anchor" aria-hidden="true" href="#2-3-第三方软件源">#</a></h4>
@@ -285,11 +319,32 @@ src/gz songchenwen https://nanopi-r2s-opkg-feeds.songchenwen.com/packages</code>
 <p><strong>①NanoPi R2S 专用软件源</strong></p>
 
 <p>（参考：<a href="https://songchenwen.com">宋辰文的博客</a> <a href="https://nanopi-r2s-opkg-feeds.songchenwen.com/">NanoPi R2S 专用软件源</a> )</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">src/gz songchenwen https://nanopi-r2s-opkg-feeds.songchenwen.com/packages/</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">src/gz songchenwen https://nanopi-r2s-opkg-feeds.songchenwen.com/packages/</code></pre></td></tr></table>
+</div>
+</div>
 <p><strong>②kuoruan_universal源</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">src/gz kuoruan_universal http://openwrt.kuoruan.net/packages/releases/all</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">src/gz kuoruan_universal http://openwrt.kuoruan.net/packages/releases/all</code></pre></td></tr></table>
+</div>
+</div>
 <p>以上两个源适用<code>FriendlyWrt</code>系统，且已经过测试。添加源后执行以下命令即可。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">opkg update</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">opkg update</code></pre></td></tr></table>
+</div>
+</div>
 <p><strong>③V2ray源</strong></p>
 
 <ul>
@@ -298,7 +353,28 @@ src/gz songchenwen https://nanopi-r2s-opkg-feeds.songchenwen.com/packages</code>
 </ul>
 
 <h4 id="2-4-opkg包管理">2.4 opkg包管理<a hidden class="anchor" aria-hidden="true" href="#2-4-opkg包管理">#</a></h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">opkg update</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">opkg install </code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">opkg remove</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">opkg update</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">opkg install </code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">opkg remove</code></pre></td></tr></table>
+</div>
+</div>
 <p>使用opkg命令卸载插件后若插件还在插件列表中，尝试清除<code>/usr/share</code>目录下与插件相关的残留文件。</p>
 
 <h3 id="3-cron备份">3 Cron备份<a hidden class="anchor" aria-hidden="true" href="#3-cron备份">#</a></h3>

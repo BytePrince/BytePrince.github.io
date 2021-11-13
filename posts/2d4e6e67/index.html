@@ -15,7 +15,7 @@
 <meta name="description" content="在Hugo中优雅地使用数学公式 - Byte Prince">
 <meta name="author" content="">
 <link rel="canonical" href="https://byteprince.com/posts/2d4e6e67/" />
-<link crossorigin="anonymous" href="/assets/css/stylesheet.min.958cca03466d194813628cfe285c53349da8d10a1ffa4cc386a93ac3d1b3ee04.css" integrity="sha256-lYzKA0ZtGUgTYoz&#43;KFxTNJ2o0Qof&#43;kzDhqk6w9Gz7gQ=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.aa8e4e7230cce184ee469b7c70c9f8a7e21877ae161623f4be96f0e493823abc.css" integrity="sha256-qo5OcjDM4YTuRpt8cMn4p&#43;IYd64WFiP0vpbw5JOCOrw=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
@@ -74,8 +74,8 @@
   "keywords": [
     "Hugo", "Markdown", "MathJax"
   ],
-  "articleBody": "在2021年4月之前，我使用 Hexo 静态博客，也曾经因为 Hexo 默认的 Markdown 渲染引擎不能很好地渲染checkbox而头疼。现在，切换到 Hugo 以后，有一次遇到了数学公式渲染的问题。\n关于 Hugo 默认的 Markdown 渲染引擎goldmark，在官方文档1中可以看到：\nmarkup: asciidocExt: attributes: {} backend: html5 extensions: [] failureLevel: fatal noHeaderOrFooter: true preserveTOC: false safeMode: unsafe sectionNumbers: false trace: false verbose: false workingFolderCurrent: false blackFriday: angledQuotes: false extensions: null extensionsMask: null footnoteAnchorPrefix: \"\" footnoteReturnLinkContents: \"\" fractions: true hrefTargetBlank: false latexDashes: true nofollowLinks: false noreferrerLinks: false plainIDAnchors: true skipHTML: false smartDashes: true smartypants: true smartypantsQuotesNBSP: false taskLists: true defaultMarkdownHandler: goldmark goldmark: extensions: definitionList: true footnote: true linkify: true strikethrough: true table: true taskList: true typographer: true parser: attribute: block: false title: true autoHeadingID: true autoHeadingIDType: github renderer: hardWraps: false unsafe: false xhtml: false highlight: anchorLineNos: false codeFences: true guessSyntax: false hl_Lines: \"\" lineAnchors: \"\" lineNoStart: 1 lineNos: false lineNumbersInTable: true noClasses: true style: monokai tabWidth: 4 tableOfContents: endLevel: 3 ordered: false startLevel: 2 后来因为goldmark对 HTML 渲染的效果不是很满意，故修改为blackfriday。关于blackfriday，可以参考一份写的比较完善，可读性又比较强的Hugo中文文档2\n至于引入对MathJax的支持（MathJax兼容Latex），需要在 HTML 模板文件中引入相应的 JS 代码：\nscript type=\"text/x-mathjax-config\" MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\\\(','\\\\)']], processEscapes: true } }); script script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' asyncscript 一些好用的数学工具：\n 识别并转换数学公式的网站 LaTeX Tutorial   https://gohugo.io/getting-started/configuration-markup#readout ↩︎ https://hugocn.netlify.app/configuration.html#blackfriday ↩︎  ",
-  "wordCount" : "168",
+  "articleBody": "在2021年4月之前，我使用 Hexo 静态博客，也曾经因为 Hexo 默认的 Markdown 渲染引擎不能很好地渲染checkbox而头疼。现在，切换到 Hugo 以后，有一次遇到了数学公式渲染的问题。\n关于 Hugo 默认的 Markdown 渲染引擎goldmark，在官方文档1中可以看到：\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66  markup: asciidocExt: attributes: {} backend: html5 extensions: [] failureLevel: fatal noHeaderOrFooter: true preserveTOC: false safeMode: unsafe sectionNumbers: false trace: false verbose: false workingFolderCurrent: false blackFriday: angledQuotes: false extensions: null extensionsMask: null footnoteAnchorPrefix: \"\" footnoteReturnLinkContents: \"\" fractions: true hrefTargetBlank: false latexDashes: true nofollowLinks: false noreferrerLinks: false plainIDAnchors: true skipHTML: false smartDashes: true smartypants: true smartypantsQuotesNBSP: false taskLists: true defaultMarkdownHandler: goldmark goldmark: extensions: definitionList: true footnote: true linkify: true strikethrough: true table: true taskList: true typographer: true parser: attribute: block: false title: true autoHeadingID: true autoHeadingIDType: github renderer: hardWraps: false unsafe: false xhtml: false highlight: anchorLineNos: false codeFences: true guessSyntax: false hl_Lines: \"\" lineAnchors: \"\" lineNoStart: 1 lineNos: false lineNumbersInTable: true noClasses: true style: monokai tabWidth: 4 tableOfContents: endLevel: 3 ordered: false startLevel: 2   后来因为goldmark对 HTML 渲染的效果不是很满意，故修改为blackfriday。关于blackfriday，可以参考一份写的比较完善，可读性又比较强的Hugo中文文档2\n至于引入对MathJax的支持（MathJax兼容Latex），需要在 HTML 模板文件中引入相应的 JS 代码：\n1 2 3 4 5 6 7 8 9 10  script type=\"text/x-mathjax-config\" MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\\\(','\\\\)']], processEscapes: true } }); script script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' asyncscript   一些好用的数学工具：\n 识别并转换数学公式的网站 LaTeX Tutorial   https://gohugo.io/getting-started/configuration-markup#readout ↩︎ https://hugocn.netlify.app/configuration.html#blackfriday ↩︎  ",
+  "wordCount" : "244",
   "inLanguage": "en",
   "datePublished": "2021-09-12T19:32:57+08:00",
   "dateModified": "2021-09-12T19:32:57+08:00",
@@ -92,7 +92,11 @@
     }
   }
 }
-</script>
+</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
 </head>
 
 <body class="" id="top">
@@ -230,7 +234,77 @@
   <div class="post-content"><p>在2021年4月之前，我使用 Hexo 静态博客，也曾经因为 Hexo 默认的 Markdown 渲染引擎不能很好地渲染<code>checkbox</code>而头疼。现在，切换到 Hugo 以后，有一次遇到了数学公式渲染的问题。</p>
 
 <p>关于 Hugo 默认的 Markdown 渲染引擎<code>goldmark</code>，在<cite>官方文档<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup></cite>中可以看到：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">markup</span>:
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">markup</span>:
   <span style="color:#f92672">asciidocExt</span>:
     <span style="color:#f92672">attributes</span>: {}
     <span style="color:#f92672">backend</span>: <span style="color:#ae81ff">html5</span>
@@ -295,11 +369,27 @@
   <span style="color:#f92672">tableOfContents</span>:
     <span style="color:#f92672">endLevel</span>: <span style="color:#ae81ff">3</span>
     <span style="color:#f92672">ordered</span>: <span style="color:#66d9ef">false</span>
-    <span style="color:#f92672">startLevel</span>: <span style="color:#ae81ff">2</span></code></pre></div>
+    <span style="color:#f92672">startLevel</span>: <span style="color:#ae81ff">2</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>后来因为<code>goldmark</code>对 HTML 渲染的效果不是很满意，故修改为<code>blackfriday</code>。关于<code>blackfriday</code>，可以参考一份写的比较完善，可读性又比较强的<cite>Hugo中文文档<sup class="footnote-ref" id="fnref:2"><a href="#fn:2">2</a></sup></cite></p>
 
 <p>至于引入对<code>MathJax</code>的支持（<code>MathJax</code>兼容<code>Latex</code>），需要在 HTML 模板文件中引入相应的 JS 代码：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/x-mathjax-config&#34;</span>&gt;
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/x-mathjax-config&#34;</span>&gt;
     <span style="color:#a6e22e">MathJax</span>.<span style="color:#a6e22e">Hub</span>.<span style="color:#a6e22e">Config</span>({
       <span style="color:#a6e22e">tex2jax</span><span style="color:#f92672">:</span> {
         <span style="color:#a6e22e">inlineMath</span><span style="color:#f92672">:</span> [[<span style="color:#e6db74">&#39;$&#39;</span>,<span style="color:#e6db74">&#39;$&#39;</span>], [<span style="color:#e6db74">&#39;\\(&#39;</span>,<span style="color:#e6db74">&#39;\\)&#39;</span>]],
@@ -308,7 +398,9 @@
     });
 &lt;/<span style="color:#f92672">script</span>&gt;
 
-&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML&#39;</span> <span style="color:#a6e22e">async</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;</code></pre></div>
+&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML&#39;</span> <span style="color:#a6e22e">async</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;</code></pre></td></tr></table>
+</div>
+</div>
 <p><strong>一些好用的数学工具：</strong></p>
 
 <ol>

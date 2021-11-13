@@ -31,29 +31,83 @@
 </blockquote>
 
 <p><strong>进程通信设置：</strong>在启动服务器程序时禁止各客户端使用<code>TCP/IP</code>网络进行通信</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysqld <span style="color:#f92672">--</span>skip<span style="color:#f92672">-</span>networking</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysqld <span style="color:#f92672">--</span>skip<span style="color:#f92672">-</span>networking</code></pre></td></tr></table>
+</div>
+</div>
 <p>等价写法：(启动选项前添加<code>--</code>，启动选项由多个单词组成，之间添加<code>_</code>或者<code>-</code>)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysqld <span style="color:#f92672">--</span>skip_networking</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysqld <span style="color:#f92672">--</span>skip_networking</code></pre></td></tr></table>
+</div>
+</div>
 <p>按照该命令启动服务器程序，再使用<code>mysql</code>来启动客户端程序，把服务器主机名指定为127.0.0.1的话会显示连接失败。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql <span style="color:#f92672">-</span>h127.<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql <span style="color:#f92672">-</span>h127.<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p
 Enter password:
 
-ERROR <span style="color:#ae81ff">2003</span> (HY000):Can<span style="color:#e6db74">&#39;t connect to MySQL server on &#39;</span><span style="color:#ae81ff">127</span>.<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">1</span><span style="color:#e6db74">&#39;</span></code></pre></div>
+ERROR <span style="color:#ae81ff">2003</span> (HY000):Can<span style="color:#e6db74">&#39;t connect to MySQL server on &#39;</span><span style="color:#ae81ff">127</span>.<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">1</span><span style="color:#e6db74">&#39;</span></code></pre></td></tr></table>
+</div>
+</div>
 <p><strong>存储引擎设置：</strong>在启动服务器程序时指定默认存储引擎</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysqld <span style="color:#f92672">--</span><span style="color:#66d9ef">default</span><span style="color:#f92672">-</span>storage<span style="color:#f92672">-</span><span style="color:#66d9ef">engine</span><span style="color:#f92672">=</span>MyISAM</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysqld <span style="color:#f92672">--</span><span style="color:#66d9ef">default</span><span style="color:#f92672">-</span>storage<span style="color:#f92672">-</span><span style="color:#66d9ef">engine</span><span style="color:#f92672">=</span>MyISAM</code></pre></td></tr></table>
+</div>
+</div>
 <p>然后在客户端程序连接到服务器程序后创建的表默认就是用启动选项中指定的类型。</p>
 
 <p>可以使用以下命令查询表的结构（包括存储引擎）：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#66d9ef">SHOW</span> <span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#960050;background-color:#1e0010">{</span>Table_name<span style="color:#960050;background-color:#1e0010">}</span>;</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#66d9ef">SHOW</span> <span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#960050;background-color:#1e0010">{</span>Table_name<span style="color:#960050;background-color:#1e0010">}</span>;</code></pre></td></tr></table>
+</div>
+</div>
 <p><strong>查看启动选项帮助信息：</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql <span style="color:#f92672">--</span>help
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysql <span style="color:#f92672">--</span>help
 mysqld_safe <span style="color:#f92672">--</span>help
-mysqld <span style="color:#f92672">--</span>verbose <span style="color:#f92672">--</span>help</code></pre></div>
+mysqld <span style="color:#f92672">--</span>verbose <span style="color:#f92672">--</span>help</code></pre></td></tr></table>
+</div>
+</div>
 <p><strong>总结</strong></p>
 
 <ul>
 <li><p>通用格式：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysqld <span style="color:#f92672">--</span>option_1[<span style="color:#f92672">=</span>value_1] <span style="color:#f92672">--</span>optio_2[<span style="color:#f92672">=</span>value_2]  ...  <span style="color:#f92672">--</span>option_n[<span style="color:#f92672">=</span>value_n]</code></pre></div></li>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysqld <span style="color:#f92672">--</span>option_1[<span style="color:#f92672">=</span>value_1] <span style="color:#f92672">--</span>optio_2[<span style="color:#f92672">=</span>value_2]  ...  <span style="color:#f92672">--</span>option_n[<span style="color:#f92672">=</span>value_n]</code></pre></td></tr></table>
+</div>
+</div></li>
 
 <li><p>某些选项不需要指定值，例如<code>skip-networking</code>等。</p></li>
 
@@ -107,7 +161,14 @@ mysqld <span style="color:#f92672">--</span>verbose <span style="color:#f92672">
 </table>
 
 <p>短形式只需要添加一个短划线前缀</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysqld <span style="color:#f92672">-</span>P <span style="color:#ae81ff">3306</span></code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysqld <span style="color:#f92672">-</span>P <span style="color:#ae81ff">3306</span></code></pre></td></tr></table>
+</div>
+</div>
 <h3 id="2-配置文件">2.配置文件</h3>
 
 <blockquote>
@@ -252,10 +313,24 @@ default-storage-engine=MyISAM
 
 <ul>
 <li><p>不搜索默认路径下的配置文件</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysqld <span style="color:#f92672">--</span>defaults<span style="color:#f92672">-</span>file<span style="color:#f92672">=/</span>tmp<span style="color:#f92672">/</span>myconfig.txt</code></pre></div></li>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysqld <span style="color:#f92672">--</span>defaults<span style="color:#f92672">-</span>file<span style="color:#f92672">=/</span>tmp<span style="color:#f92672">/</span>myconfig.txt</code></pre></td></tr></table>
+</div>
+</div></li>
 
 <li><p>搜索默认的配置文件路径</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysqld <span style="color:#f92672">--</span>defaults<span style="color:#f92672">-</span>extra<span style="color:#f92672">-</span>file<span style="color:#f92672">=/</span>tmp<span style="color:#f92672">/</span>myconfig.txt</code></pre></div></li>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysqld <span style="color:#f92672">--</span>defaults<span style="color:#f92672">-</span>extra<span style="color:#f92672">-</span>file<span style="color:#f92672">=/</span>tmp<span style="color:#f92672">/</span>myconfig.txt</code></pre></td></tr></table>
+</div>
+</div></li>
 </ul>
 
 <h3 id="3-命令行和配置文件中启动选项的优先级">3.命令行和配置文件中启动选项的优先级</h3>
@@ -271,15 +346,38 @@ default-storage-engine=MyISAM
 <h2 id="查看系统变量">查看系统变量</h2>
 <pre tabindex="0"><code>SHOW VARIABLES [LIKE 匹配的模式];</code></pre>
 <p>如，查询以 default 开头的系统变量的值</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#66d9ef">SHOW</span> VARIABLES <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;default%&#39;</span>;</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#66d9ef">SHOW</span> VARIABLES <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;default%&#39;</span>;</code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="设置系统变量">设置系统变量</h2>
 
 <h3 id="通过命令行添加启动选项">通过命令行添加启动选项</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysqld <span style="color:#f92672">--</span><span style="color:#66d9ef">default</span><span style="color:#f92672">-</span>storage<span style="color:#f92672">-</span><span style="color:#66d9ef">engine</span><span style="color:#f92672">=</span>MyISAM <span style="color:#f92672">--</span>maxconnections<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span></code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">mysqld <span style="color:#f92672">--</span><span style="color:#66d9ef">default</span><span style="color:#f92672">-</span>storage<span style="color:#f92672">-</span><span style="color:#66d9ef">engine</span><span style="color:#f92672">=</span>MyISAM <span style="color:#f92672">--</span>maxconnections<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span></code></pre></td></tr></table>
+</div>
+</div>
 <h3 id="通过配置文件添加启动选项">通过配置文件添加启动选项</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">[server]
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql">[server]
 <span style="color:#66d9ef">default</span><span style="color:#f92672">-</span>storage<span style="color:#f92672">-</span><span style="color:#66d9ef">engine</span><span style="color:#f92672">=</span>MyISAM
-max<span style="color:#f92672">-</span>connections<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span></code></pre></div>
+max<span style="color:#f92672">-</span>connections<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span></code></pre></td></tr></table>
+</div>
+</div>
 <blockquote>
 <p>通常情况下，长变量之间建议使用<code>_</code>连接。对于⼤部分系统变量来说，它们的值可以在服务器程序运⾏过程中进⾏动态修改⽽⽆需停⽌并重启服务器。</p>
 </blockquote>
@@ -315,8 +413,16 @@ max<span style="color:#f92672">-</span>connections<span style="color:#f92672">=<
 <h4 id="查看不同作用范围的系统变量">查看不同作用范围的系统变量</h4>
 <pre tabindex="0"><code>SHOW [GLOBAL|SESSION] VARIABLES [LIKE 匹配的模式];</code></pre>
 <p>例如：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#66d9ef">SHOW</span> SESSION VARIABLES <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;default_storage_engine&#39;</span>;
-<span style="color:#66d9ef">SHOW</span> GLOBAL VARIABLES <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;default_storage_engine&#39;</span>;</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-mysql" data-lang="mysql"><span style="color:#66d9ef">SHOW</span> SESSION VARIABLES <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;default_storage_engine&#39;</span>;
+<span style="color:#66d9ef">SHOW</span> GLOBAL VARIABLES <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;default_storage_engine&#39;</span>;</code></pre></td></tr></table>
+</div>
+</div>
 <blockquote>
 <p>1.如果某个客户端改变了某个系统变量在<code>GLOBAL</code>作⽤范围的值，并不会影响该系统变量在当前已经连接的客户端作⽤范围<code>SESSION</code>的值，只会影响后续连⼊的客户端在作⽤范围为<code>SESSION</code>的值。</p>
 

@@ -15,7 +15,7 @@
 <meta name="description" content="一次 Git 的失败记录 - Byte Prince">
 <meta name="author" content="">
 <link rel="canonical" href="https://byteprince.com/posts/b61c3883/" />
-<link crossorigin="anonymous" href="/assets/css/stylesheet.min.958cca03466d194813628cfe285c53349da8d10a1ffa4cc386a93ac3d1b3ee04.css" integrity="sha256-lYzKA0ZtGUgTYoz&#43;KFxTNJ2o0Qof&#43;kzDhqk6w9Gz7gQ=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.aa8e4e7230cce184ee469b7c70c9f8a7e21877ae161623f4be96f0e493823abc.css" integrity="sha256-qo5OcjDM4YTuRpt8cMn4p&#43;IYd64WFiP0vpbw5JOCOrw=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
@@ -69,8 +69,8 @@
   "keywords": [
     "Github", "Git", "SSH"
   ],
-  "articleBody": "遇到这种情况先检查是否是网络问题。\n第一个报错  ssh_exchange_identification: read: Connection reset by peer\n 先是更新博客的时候发现 github 仓库失联了，在 Terminal 中尝试连接我的几个服务器，也出现kex_exchange_identification: read: Connection reset的问题，之前是配置了 SSH 密钥连接服务器的。综上，判断是 SSH 公钥有问题。\n解决方案 1.重置本地公钥\nssh-keygen -t rsa -C \"zzzain46@gmail.com\" 之后会有几次信息确认，默认的话按回车就可以顺利完成了。\n2.配置Github的密钥\n第二个报错  fatal: refusing to merge unrelated histories\n 这是在git push 和 git pull的时候会遇到的问题，原因是本地和远程分支没有取得关系。\n解决方法 在操作命令后面加--allow-unrelated-histories可以解决。例如：\ngit merge master --allow-unrelated-histories 或者\ngit pull origin master --allow-unrelated-histories 附 检查本地和 Github 的 SSH 连接是否正常\nssh -T git@github.com 查看 push 的方式\ngit remote -v 移除原有的 push 方式\ngit remote rm origin 添加新的 push 方式\ngit remote add origin git@github.com:BytePrince/BytePrince.github.io.git",
-  "wordCount" : "83",
+  "articleBody": "遇到这种情况先检查是否是网络问题。\n第一个报错  ssh_exchange_identification: read: Connection reset by peer\n 先是更新博客的时候发现 github 仓库失联了，在 Terminal 中尝试连接我的几个服务器，也出现kex_exchange_identification: read: Connection reset的问题，之前是配置了 SSH 密钥连接服务器的。综上，判断是 SSH 公钥有问题。\n解决方案 1.重置本地公钥\n1  ssh-keygen -t rsa -C \"zzzain46@gmail.com\"   之后会有几次信息确认，默认的话按回车就可以顺利完成了。\n2.配置Github的密钥\n第二个报错  fatal: refusing to merge unrelated histories\n 这是在git push 和 git pull的时候会遇到的问题，原因是本地和远程分支没有取得关系。\n解决方法 在操作命令后面加--allow-unrelated-histories可以解决。例如：\n1  git merge master --allow-unrelated-histories   或者\n1  git pull origin master --allow-unrelated-histories   附 检查本地和 Github 的 SSH 连接是否正常\n1  ssh -T git@github.com   查看 push 的方式\n1  git remote -v   移除原有的 push 方式\n1  git remote rm origin   添加新的 push 方式\n1  git remote add origin git@github.com:BytePrince/BytePrince.github.io.git  ",
+  "wordCount" : "90",
   "inLanguage": "en",
   "datePublished": "2021-06-10T10:29:43+08:00",
   "dateModified": "2021-06-10T10:29:43+08:00",
@@ -87,7 +87,11 @@
     }
   }
 }
-</script>
+</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
 </head>
 
 <body class="" id="top">
@@ -262,7 +266,14 @@
 <h3 id="解决方案">解决方案<a hidden class="anchor" aria-hidden="true" href="#解决方案">#</a></h3>
 
 <p><strong>1.重置本地公钥</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ssh-keygen -t rsa -C <span style="color:#e6db74">&#34;zzzain46@gmail.com&#34;</span></code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ssh-keygen -t rsa -C <span style="color:#e6db74">&#34;zzzain46@gmail.com&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>之后会有几次信息确认，默认的话按回车就可以顺利完成了。</p>
 
 <p><strong>2.配置Github的密钥</strong></p>
@@ -278,19 +289,61 @@
 <h3 id="解决方法">解决方法<a hidden class="anchor" aria-hidden="true" href="#解决方法">#</a></h3>
 
 <p>在操作命令后面加<code>--allow-unrelated-histories</code>可以解决。例如：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git merge master --allow-unrelated-histories</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git merge master --allow-unrelated-histories</code></pre></td></tr></table>
+</div>
+</div>
 <p>或者</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git pull origin master --allow-unrelated-histories</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git pull origin master --allow-unrelated-histories</code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="附">附<a hidden class="anchor" aria-hidden="true" href="#附">#</a></h2>
 
 <p>检查本地和 Github 的 SSH 连接是否正常</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ssh -T git@github.com</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ssh -T git@github.com</code></pre></td></tr></table>
+</div>
+</div>
 <p>查看 push 的方式</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git remote -v</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git remote -v</code></pre></td></tr></table>
+</div>
+</div>
 <p>移除原有的 push 方式</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git remote rm origin</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git remote rm origin</code></pre></td></tr></table>
+</div>
+</div>
 <p>添加新的 push 方式</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git remote add origin git@github.com:BytePrince/BytePrince.github.io.git</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git remote add origin git@github.com:BytePrince/BytePrince.github.io.git</code></pre></td></tr></table>
+</div>
+</div>
 </div>
   <footer class="post-footer">
     <ul class="post-tags">

@@ -15,7 +15,7 @@
 <meta name="description" content="使用root权限一定要小心">
 <meta name="author" content="">
 <link rel="canonical" href="https://byteprince.com/posts/0142f245/" />
-<link crossorigin="anonymous" href="/assets/css/stylesheet.min.958cca03466d194813628cfe285c53349da8d10a1ffa4cc386a93ac3d1b3ee04.css" integrity="sha256-lYzKA0ZtGUgTYoz&#43;KFxTNJ2o0Qof&#43;kzDhqk6w9Gz7gQ=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.aa8e4e7230cce184ee469b7c70c9f8a7e21877ae161623f4be96f0e493823abc.css" integrity="sha256-qo5OcjDM4YTuRpt8cMn4p&#43;IYd64WFiP0vpbw5JOCOrw=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
@@ -74,8 +74,8 @@
   "keywords": [
     "CentOS", "yum"
   ],
-  "articleBody": " 环境清理 1、删除现有Python ##强制删除已安装程序及其关联 rpm -qa|grep python|xargs rpm -ev --allmatches --nodeps ##删除所有残余文件 ##xargs，允许你对输出执行其他某些命令 whereis python |xargs rm -frv ##验证删除，返回无结果 whereis python 2、删除现有的yum、强制删除已安装程序及其关联 ##强制删除已安装程序及其关联 rpm -qa|grep yum|xargs rpm -ev --allmatches --nodeps ##强制删除所有残余文件 whereis yum |xargs rm -frv 修复Python2 1.下载相应的包\n# 所需要的包  ##查看自己系统版本的命令 cat /etc/redhat-release #CentOS Linux release 7.8.2003 (Core) ## 下载地址http://mirrors.ustc.edu.cn/centos/7.8.2003(自己系统版本号)/os/x86_64/Packages/  ## python 相应版本号按最新的来 python-2.7.5-88.el7.x86_64.rpm python-iniparse-0.4-9.el7.noarch.rpm python-pycurl-7.19.0-19.el7.x86_64.rpm python-devel-2.7.5-88.el7.x86_64.rpm python-libs-2.7.5-88.el7.x86_64.rpm python-urlgrabber-3.10-10.el7.noarch.rpm rpm-python-4.11.3-43.el7.x86_64.rpm 2.安装\n## 安装python cd /usr/local/rpm rpm -ivh python-* rpm-python-* ## 出现安装包的依赖问题，此时如下解决即可：--nodeps --force为不考虑依赖包，强制安装。 rpm -ivh python-* rpm-python-* --nodeps --force ## 安装完后即可运行python: ## 验证python Python 2.7.5 (default,Nov 20 2020,21:18:26) 修复yum 1.下载相应的包\n## 查看自己系统版本的命令 cat /etc/redhat-release #CentOS Linux release 7.8.2003 (Core) ## 下载相应的包地址： http://mirrors.ustc.edu.cn/centos/7.8.2003(自己系统版本号)/os/x86_64/Packages/ ## 所需要的包 ## yum yum-3.4.3-167.el7.centos.noarch.rpm yum-metadata-parser-1.1.4-10.el7.x86_64.rpm yum-plugin-fastestmirror-1.1.31-53.el7.noarch.rpm ##创建目录python和yum用以存放rpm包 mkdir /usr/local/rpm  2.安装\n##安装yum rpm -ivh yum-* ##至此yum重新安装成功！ ##生成缓存 yum clean all yum makecache yum update",
-  "wordCount" : "124",
+  "articleBody": " 环境清理 1 2 3 4 5 6 7 8 9 10 11 12 13  #删除现有Python ##强制删除已安装程序及其关联 rpm -qa|grep python|xargs rpm -ev --allmatches --nodeps ##删除所有残余文件 ##xargs，允许你对输出执行其他某些命令 whereis python |xargs rm -frv ##验证删除，返回无结果 whereis python #删除现有的yum、强制删除已安装程序及其关联 ##强制删除已安装程序及其关联 rpm -qa|grep yum|xargs rpm -ev --allmatches --nodeps ##强制删除所有残余文件 whereis yum |xargs rm -frv   修复 Python2 1.下载相应的包\n1 2 3 4 5 6 7 8 9 10 11 12  #查看自己系统版本的命令 cat /etc/redhat-release #CentOS Linux release 7.8.2003 (Core) #下载地址 http://mirrors.ustc.edu.cn/centos/7.8.2003(自己系统版本号)/os/x86_64/Packages/  #python 相应版本号按最新的来 python-2.7.5-88.el7.x86_64.rpm python-iniparse-0.4-9.el7.noarch.rpm python-pycurl-7.19.0-19.el7.x86_64.rpm python-devel-2.7.5-88.el7.x86_64.rpm python-libs-2.7.5-88.el7.x86_64.rpm python-urlgrabber-3.10-10.el7.noarch.rpm rpm-python-4.11.3-43.el7.x86_64.rpm   2.安装\n1 2 3 4 5 6 7 8 9  #安装python cd /usr/local/rpm rpm -ivh python-* rpm-python-* #出现安装包的依赖问题，此时如下解决即可：--nodeps --force为不考虑依赖包，强制安装。 rpm -ivh python-* rpm-python-* --nodeps --force #验证python Python 2.7.5 (default,Nov 20 2020,21:18:26)   修复 yum 1.下载相应的包\n1 2 3 4 5 6 7 8 9 10 11 12 13  #查看自己系统版本的命令 cat /etc/redhat-release #CentOS Linux release 7.8.2003 (Core) #下载相应的包地址： http://mirrors.ustc.edu.cn/centos/7.8.2003(自己系统版本号)/os/x86_64/Packages/ #下载下列需要的包 yum-3.4.3-167.el7.centos.noarch.rpm yum-metadata-parser-1.1.4-10.el7.x86_64.rpm yum-plugin-fastestmirror-1.1.31-53.el7.noarch.rpm #创建目录python和yum用以存放rpm包 mkdir /usr/local/rpm    2.安装\n1 2 3 4 5 6 7  #安装yum rpm -ivh yum-* #生成缓存 yum clean all yum makecache yum update  ",
+  "wordCount" : "166",
   "inLanguage": "en",
   "datePublished": "2021-10-17T22:17:03+08:00",
   "dateModified": "2021-10-17T22:17:03+08:00",
@@ -92,7 +92,11 @@
     }
   }
 }
-</script>
+</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
 </head>
 
 <body class="" id="top">
@@ -235,9 +239,9 @@
                 <li>
                     <a href="#%e7%8e%af%e5%a2%83%e6%b8%85%e7%90%86" aria-label="环境清理">环境清理</a></li>
                 <li>
-                    <a href="#%e4%bf%ae%e5%a4%8dpython2" aria-label="修复Python2">修复Python2</a></li>
+                    <a href="#%e4%bf%ae%e5%a4%8d-python2" aria-label="修复 Python2">修复 Python2</a></li>
                 <li>
-                    <a href="#%e4%bf%ae%e5%a4%8dyum" aria-label="修复yum">修复yum</a>
+                    <a href="#%e4%bf%ae%e5%a4%8d-yum" aria-label="修复 yum">修复 yum</a>
                 </li>
             </ul>
         </div>
@@ -247,70 +251,152 @@
   <div class="post-content">
 
 <h2 id="环境清理">环境清理<a hidden class="anchor" aria-hidden="true" href="#环境清理">#</a></h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">1、删除现有Python
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#删除现有Python</span>
 <span style="color:#75715e">##强制删除已安装程序及其关联</span>
 rpm -qa|grep python|xargs rpm -ev --allmatches --nodeps 
 <span style="color:#75715e">##删除所有残余文件 ##xargs，允许你对输出执行其他某些命令</span>
 whereis python |xargs rm -frv 
 <span style="color:#75715e">##验证删除，返回无结果</span>
-whereis python 
-2、删除现有的yum、强制删除已安装程序及其关联
+whereis python
+
+<span style="color:#75715e">#删除现有的yum、强制删除已安装程序及其关联</span>
 <span style="color:#75715e">##强制删除已安装程序及其关联</span>
 rpm -qa|grep yum|xargs rpm -ev --allmatches --nodeps
 <span style="color:#75715e">##强制删除所有残余文件</span>
-whereis yum |xargs rm -frv</code></pre></div>
-<h2 id="修复python2">修复Python2<a hidden class="anchor" aria-hidden="true" href="#修复python2">#</a></h2>
+whereis yum |xargs rm -frv</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="修复-python2">修复 Python2<a hidden class="anchor" aria-hidden="true" href="#修复-python2">#</a></h2>
 
 <p>1.下载相应的包</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 所需要的包 </span>
-
-<span style="color:#75715e">##查看自己系统版本的命令</span>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#查看自己系统版本的命令</span>
 cat /etc/redhat-release    <span style="color:#75715e">#CentOS Linux release 7.8.2003 (Core)</span>
 
-<span style="color:#75715e">## 下载地址http://mirrors.ustc.edu.cn/centos/7.8.2003(自己系统版本号)/os/x86_64/Packages/ </span>
-<span style="color:#75715e">## python 相应版本号按最新的来</span>
+<span style="color:#75715e">#下载地址 http://mirrors.ustc.edu.cn/centos/7.8.2003(自己系统版本号)/os/x86_64/Packages/ </span>
+<span style="color:#75715e">#python 相应版本号按最新的来</span>
 python-2.7.5-88.el7.x86_64.rpm
 python-iniparse-0.4-9.el7.noarch.rpm
 python-pycurl-7.19.0-19.el7.x86_64.rpm
 python-devel-2.7.5-88.el7.x86_64.rpm
 python-libs-2.7.5-88.el7.x86_64.rpm
 python-urlgrabber-3.10-10.el7.noarch.rpm
-rpm-python-4.11.3-43.el7.x86_64.rpm</code></pre></div>
+rpm-python-4.11.3-43.el7.x86_64.rpm</code></pre></td></tr></table>
+</div>
+</div>
 <p>2.安装</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">## 安装python</span>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#安装python</span>
 cd /usr/local/rpm
 rpm -ivh python-* rpm-python-*
-<span style="color:#75715e">## 出现安装包的依赖问题，此时如下解决即可：--nodeps --force为不考虑依赖包，强制安装。</span>
-rpm -ivh python-*   rpm-python-* --nodeps --force
-<span style="color:#75715e">## 安装完后即可运行python:</span>
 
-<span style="color:#75715e">## 验证python</span>
-Python 2.7.5 <span style="color:#f92672">(</span>default,Nov <span style="color:#ae81ff">20</span> 2020,21:18:26<span style="color:#f92672">)</span></code></pre></div>
-<h2 id="修复yum">修复yum<a hidden class="anchor" aria-hidden="true" href="#修复yum">#</a></h2>
+<span style="color:#75715e">#出现安装包的依赖问题，此时如下解决即可：--nodeps --force为不考虑依赖包，强制安装。</span>
+rpm -ivh python-*   rpm-python-* --nodeps --force
+
+<span style="color:#75715e">#验证python</span>
+Python 2.7.5 <span style="color:#f92672">(</span>default,Nov <span style="color:#ae81ff">20</span> 2020,21:18:26<span style="color:#f92672">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="修复-yum">修复 yum<a hidden class="anchor" aria-hidden="true" href="#修复-yum">#</a></h2>
 
 <p>1.下载相应的包</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">## 查看自己系统版本的命令</span>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#查看自己系统版本的命令</span>
 cat /etc/redhat-release    <span style="color:#75715e">#CentOS Linux release 7.8.2003 (Core)</span>
 
-<span style="color:#75715e">## 下载相应的包地址：</span>
+<span style="color:#75715e">#下载相应的包地址：</span>
 http://mirrors.ustc.edu.cn/centos/7.8.2003<span style="color:#f92672">(</span>自己系统版本号<span style="color:#f92672">)</span>/os/x86_64/Packages/
-<span style="color:#75715e">## 所需要的包</span>
-<span style="color:#75715e">## yum</span>
+
+<span style="color:#75715e">#下载下列需要的包</span>
 yum-3.4.3-167.el7.centos.noarch.rpm
 yum-metadata-parser-1.1.4-10.el7.x86_64.rpm
 yum-plugin-fastestmirror-1.1.31-53.el7.noarch.rpm
 
-<span style="color:#75715e">##创建目录python和yum用以存放rpm包</span>
-mkdir /usr/local/rpm </code></pre></div>
+<span style="color:#75715e">#创建目录python和yum用以存放rpm包</span>
+mkdir /usr/local/rpm </code></pre></td></tr></table>
+</div>
+</div>
 <p>2.安装</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">##安装yum</span>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#安装yum</span>
 rpm -ivh yum-*
-<span style="color:#75715e">##至此yum重新安装成功！</span>
 
-<span style="color:#75715e">##生成缓存</span>
+<span style="color:#75715e">#生成缓存</span>
 yum clean all 
 yum makecache 
-yum update</code></pre></div>
+yum update</code></pre></td></tr></table>
+</div>
+</div>
 </div>
   <footer class="post-footer">
     <ul class="post-tags">

@@ -15,7 +15,7 @@
 <meta name="description" content="你真的懂 print() 的用法吗">
 <meta name="author" content="">
 <link rel="canonical" href="https://byteprince.com/posts/e5b64c32/" />
-<link crossorigin="anonymous" href="/assets/css/stylesheet.min.958cca03466d194813628cfe285c53349da8d10a1ffa4cc386a93ac3d1b3ee04.css" integrity="sha256-lYzKA0ZtGUgTYoz&#43;KFxTNJ2o0Qof&#43;kzDhqk6w9Gz7gQ=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.aa8e4e7230cce184ee469b7c70c9f8a7e21877ae161623f4be96f0e493823abc.css" integrity="sha256-qo5OcjDM4YTuRpt8cMn4p&#43;IYd64WFiP0vpbw5JOCOrw=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
@@ -69,8 +69,8 @@
   "keywords": [
     "Python"
   ],
-  "articleBody": " Print()函数的高级用法 通过help(print)命令可以查看到详细的帮助信息\n Help on built-in function print in module builtins:\nprint(…) print(value, …, sep=’ ‘, end=’\\n’, file=sys.stdout, flush=False)\nPrints the values to a stream, or to sys.stdout by default. Optional keyword arguments: file: a file-like object (stream); defaults to the current sys.stdout. sep: string inserted between values, default a space. end: string appended after the last value, default a newline. flush: whether to forcibly flush the stream.\n 一个例子熟练Print()函数的参数用法:\nwith open('abc.txt','w') as f: print(\"file\\n\",\"abc\",\"fff\",sep='#########\\n',end='',file=f) 运行，会输出以下内容到abc.txt中：\nfile ######### abc######### fff flush 参数默认为false，如果指定flush = True，那么会即时彻底执行print()函数，而不是先将内容存放在内存中。\n",
-  "wordCount" : "82",
+  "articleBody": " Print()函数的高级用法 通过help(print)命令可以查看到详细的帮助信息\n Help on built-in function print in module builtins:\nprint(…) print(value, …, sep=’ ‘, end=’\\n’, file=sys.stdout, flush=False)\nPrints the values to a stream, or to sys.stdout by default. Optional keyword arguments: file: a file-like object (stream); defaults to the current sys.stdout. sep: string inserted between values, default a space. end: string appended after the last value, default a newline. flush: whether to forcibly flush the stream.\n 一个例子熟练Print()函数的参数用法:\n1 2  with open('abc.txt','w') as f: print(\"file\\n\",\"abc\",\"fff\",sep='#########\\n',end='',file=f)   运行，会输出以下内容到abc.txt中：\nfile ######### abc######### fff flush 参数默认为false，如果指定flush = True，那么会即时彻底执行print()函数，而不是先将内容存放在内存中。\n",
+  "wordCount" : "84",
   "inLanguage": "en",
   "datePublished": "2018-10-05T17:07:55+08:00",
   "dateModified": "2018-10-05T17:07:55+08:00",
@@ -87,7 +87,11 @@
     }
   }
 }
-</script>
+</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
 </head>
 
 <body class="" id="top">
@@ -243,8 +247,16 @@
 </blockquote>
 
 <p>一个例子熟练<code>Print()</code>函数的参数用法:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"> <span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#39;abc.txt&#39;</span>,<span style="color:#e6db74">&#39;w&#39;</span>) <span style="color:#66d9ef">as</span> f:
-     print(<span style="color:#e6db74">&#34;file</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,<span style="color:#e6db74">&#34;abc&#34;</span>,<span style="color:#e6db74">&#34;fff&#34;</span>,sep<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;#########</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>,end<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>,file<span style="color:#f92672">=</span>f)</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"> <span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#39;abc.txt&#39;</span>,<span style="color:#e6db74">&#39;w&#39;</span>) <span style="color:#66d9ef">as</span> f:
+     print(<span style="color:#e6db74">&#34;file</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,<span style="color:#e6db74">&#34;abc&#34;</span>,<span style="color:#e6db74">&#34;fff&#34;</span>,sep<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;#########</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>,end<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>,file<span style="color:#f92672">=</span>f)</code></pre></td></tr></table>
+</div>
+</div>
 <p>运行，会输出以下内容到<code>abc.txt</code>中：</p>
 <pre tabindex="0"><code>file
 #########

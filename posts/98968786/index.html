@@ -15,7 +15,7 @@
 <meta name="description" content="对于生产环境的服务器来说，用户的权限控制是十分必要的">
 <meta name="author" content="">
 <link rel="canonical" href="https://byteprince.com/posts/98968786/" />
-<link crossorigin="anonymous" href="/assets/css/stylesheet.min.958cca03466d194813628cfe285c53349da8d10a1ffa4cc386a93ac3d1b3ee04.css" integrity="sha256-lYzKA0ZtGUgTYoz&#43;KFxTNJ2o0Qof&#43;kzDhqk6w9Gz7gQ=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.aa8e4e7230cce184ee469b7c70c9f8a7e21877ae161623f4be96f0e493823abc.css" integrity="sha256-qo5OcjDM4YTuRpt8cMn4p&#43;IYd64WFiP0vpbw5JOCOrw=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
@@ -69,8 +69,8 @@
   "keywords": [
     "信息安全"
   ],
-  "articleBody": " Linux用户文件权限 chmod Linux chmod（英文全拼：change mode）命令是控制用户对文件的权限的命令\nLinux/Unix 的文件调用权限分为三级 : 文件所有者（Owner）、用户组（Group）、其它用户（Other Users）。\n只有文件所有者和超级用户可以修改文件或目录的权限。\n权限的三种表示方法    十进制 权限 rwx 二进制     7 读 + 写 + 执行 rwx 111   6 读 + 写 rw- 110   5 读 + 执行 r-x 101   4 只读 r– 100   3 写 + 执行 -wx 011   2 只写 -w- 010   1 只执行 –x 001   0 无 — 000    对应的示意图：\n语法 chmod [-cfvR] [--help] [--version] mode file... 参数说明 mode : 权限设定字串，格式如下 :\n[ugoa...][[+-=][rwxX]...][,...] 其中：\n u 表示该文件的拥有者，g 表示与该文件的拥有者属于同一个群体(group)者，o 表示其他以外的人，a 表示这三者皆是。 + 表示增加权限，- 表示取消权限，= 表示唯一设定权限。 r 表示可读取，w 表示可写入，x 表示可执行，X 表示只有当该文件是个子目录或者该文件已经被设定过为可执行。  其他参数说明：\n -c : 若该文件权限确实已经更改，才显示其更改动作 -f : 若该文件权限无法被更改也不要显示错误讯息 -v : 显示权限变更的详细资料 -R : 对目前目录下的所有文件与子目录进行相同的权限变更(即以递归的方式逐个变更) --help : 显示辅助说明 --version : 显示版本  实例 将文件 file1.txt 设为所有人可读取 : chmod ugo+r file1.txt 或\nchmod a+r file1.txt 将文件 file1.txt 与 file2.txt 设为该文件拥有者，与其所属同一个群体者可写入，但其他以外的人则不可写入 : chmod ug+w,o-w file1.txt file2.txt 将 ex1.py 设定为只有该文件拥有者可以执行 : chmod u+x ex1.py 将目前目录下的所有文件与子目录皆设为任何人可读取 : chmod -R a+r * 此外chmod也可以用数字来表示权限如 : chmod 777 file 用户组管理 chown -R git.git /var/www/blog/ #授予git.git为/var/www/blog/的管理者 查看当前目录下所有文件的用户组和权限 ls -al Git用户权限控制 赋予Git用户sudo权限 chmod 740 /etc/sudoersvim /etc/sudoers 可以看到以下内容：\n# User privilege specification root ALL=(ALL:ALL) ALL 在 root ALL=(ALL:ALL) ALL 这一行下面添加 {Git用户名} ALL=(ALL:ALL) ALL\n保存退出后，修改回文件权限：\nchmod 440 /etc/sudoers 关闭Git用户shell权限 vim /etc/passwd 将最后一行的 {git用户名}❌1001:1001:,,,:/home/git:/bin/bash 修改为 {git用户名}❌1001:1001:,,,:/home/git:/usr/bin/git-shell\n，也即将/home/git:/bin/bash改为/home/git:/usr/bin/git-shell\n使用密钥进行SSH登录（免密码） cd /home/{账户名称} //切换到需要修改的账户的用户目录 mkdir .ssh //创建.ssh目录 cd .ssh vim authorized_keys 然后将本地的公钥复制到服务器的 authorized_keys 文件里 (本地的公钥即本地执行 cat ~/.ssh/id_rsa.pub 查看的内容，若无法运行则需创建)。\n注意：收集所有需要登录的用户的公钥，就是他们自己的 id_rsa.pub 文件，把所有公钥导入到 /home/git/.ssh/authorized_keys 文件里，一行一个。\n配置好密钥后，就可以免密码直接用ssh登录账户了。\n如果有必要，还应该关闭所有用户的密码登录，选择密钥登录，并使用跳板机，fail2ban等工具来加强安全性，并定期检查账号登录日志，防患于未然。\n",
-  "wordCount" : "214",
+  "articleBody": " Linux用户文件权限 chmod Linux chmod（英文全拼：change mode）命令是控制用户对文件的权限的命令\nLinux/Unix 的文件调用权限分为三级 : 文件所有者（Owner）、用户组（Group）、其它用户（Other Users）。\n只有文件所有者和超级用户可以修改文件或目录的权限。\n权限的三种表示方法    十进制 权限 rwx 二进制     7 读 + 写 + 执行 rwx 111   6 读 + 写 rw- 110   5 读 + 执行 r-x 101   4 只读 r– 100   3 写 + 执行 -wx 011   2 只写 -w- 010   1 只执行 –x 001   0 无 — 000    对应的示意图：\n语法 1  chmod [-cfvR] [--help] [--version] mode file...   参数说明 mode : 权限设定字串，格式如下 :\n1  [ugoa...][[+-=][rwxX]...][,...]   其中：\n u 表示该文件的拥有者，g 表示与该文件的拥有者属于同一个群体(group)者，o 表示其他以外的人，a 表示这三者皆是。 + 表示增加权限，- 表示取消权限，= 表示唯一设定权限。 r 表示可读取，w 表示可写入，x 表示可执行，X 表示只有当该文件是个子目录或者该文件已经被设定过为可执行。  其他参数说明：\n -c : 若该文件权限确实已经更改，才显示其更改动作 -f : 若该文件权限无法被更改也不要显示错误讯息 -v : 显示权限变更的详细资料 -R : 对目前目录下的所有文件与子目录进行相同的权限变更(即以递归的方式逐个变更) --help : 显示辅助说明 --version : 显示版本  实例 将文件 file1.txt 设为所有人可读取 : 1  chmod ugo+r file1.txt   或\n1  chmod a+r file1.txt   将文件 file1.txt 与 file2.txt 设为该文件拥有者，与其所属同一个群体者可写入，但其他以外的人则不可写入 : 1  chmod ug+w,o-w file1.txt file2.txt   将 ex1.py 设定为只有该文件拥有者可以执行 : 1  chmod u+x ex1.py   将目前目录下的所有文件与子目录皆设为任何人可读取 : 1  chmod -R a+r *   此外chmod也可以用数字来表示权限如 : 1  chmod 777 file   用户组管理 1  chown -R git.git /var/www/blog/ #授予git.git为/var/www/blog/的管理者   查看当前目录下所有文件的用户组和权限 1  ls -al   Git用户权限控制 赋予Git用户sudo权限 1  chmod 740 /etc/sudoers  1  vim /etc/sudoers   可以看到以下内容：\n1 2  # User privilege specification root ALL=(ALL:ALL) ALL   在 root ALL=(ALL:ALL) ALL 这一行下面添加 {Git用户名} ALL=(ALL:ALL) ALL\n保存退出后，修改回文件权限：\n1  chmod 440 /etc/sudoers   关闭Git用户shell权限 1  vim /etc/passwd   将最后一行的 {git用户名}❌1001:1001:,,,:/home/git:/bin/bash 修改为 {git用户名}❌1001:1001:,,,:/home/git:/usr/bin/git-shell\n，也即将/home/git:/bin/bash改为/home/git:/usr/bin/git-shell\n使用密钥进行SSH登录（免密码） 1 2 3 4  cd /home/{账户名称} //切换到需要修改的账户的用户目录 mkdir .ssh //创建.ssh目录 cd .ssh vim authorized_keys   然后将本地的公钥复制到服务器的 authorized_keys 文件里 (本地的公钥即本地执行 cat ~/.ssh/id_rsa.pub 查看的内容，若无法运行则需创建)。\n注意：收集所有需要登录的用户的公钥，就是他们自己的 id_rsa.pub 文件，把所有公钥导入到 /home/git/.ssh/authorized_keys 文件里，一行一个。\n配置好密钥后，就可以免密码直接用ssh登录账户了。\n如果有必要，还应该关闭所有用户的密码登录，选择密钥登录，并使用跳板机，fail2ban等工具来加强安全性，并定期检查账号登录日志，防患于未然。\n",
+  "wordCount" : "235",
   "inLanguage": "en",
   "datePublished": "2020-09-20T13:07:15+08:00",
   "dateModified": "2020-09-20T13:07:15+08:00",
@@ -87,7 +87,11 @@
     }
   }
 }
-</script>
+</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
 </head>
 
 <body class="" id="top">
@@ -361,11 +365,25 @@
 <p><img src="https://img.xiehestudio.com/pic_go/20210507131406.png#center" alt="" /></p>
 
 <h4 id="语法">语法<a hidden class="anchor" aria-hidden="true" href="#语法">#</a></h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chmod <span style="color:#f92672">[</span>-cfvR<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--help<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--version<span style="color:#f92672">]</span> mode file...</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chmod <span style="color:#f92672">[</span>-cfvR<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--help<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--version<span style="color:#f92672">]</span> mode file...</code></pre></td></tr></table>
+</div>
+</div>
 <h4 id="参数说明">参数说明<a hidden class="anchor" aria-hidden="true" href="#参数说明">#</a></h4>
 
 <p>mode : 权限设定字串，格式如下 :</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>ugoa...<span style="color:#f92672">][[</span>+-<span style="color:#f92672">=][</span>rwxX<span style="color:#f92672">]</span>...<span style="color:#f92672">][</span>,...<span style="color:#f92672">]</span></code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>ugoa...<span style="color:#f92672">][[</span>+-<span style="color:#f92672">=][</span>rwxX<span style="color:#f92672">]</span>...<span style="color:#f92672">][</span>,...<span style="color:#f92672">]</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>其中：</p>
 
 <ul>
@@ -388,43 +406,145 @@
 <h4 id="实例">实例<a hidden class="anchor" aria-hidden="true" href="#实例">#</a></h4>
 
 <h5 id="将文件-file1-txt-设为-所有人可读取">将文件 <code>file1.txt</code> 设为<strong>所有人可读取</strong> :<a hidden class="anchor" aria-hidden="true" href="#将文件-file1-txt-设为-所有人可读取">#</a></h5>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chmod ugo+r file1.txt</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chmod ugo+r file1.txt</code></pre></td></tr></table>
+</div>
+</div>
 <p>或</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chmod a+r file1.txt</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chmod a+r file1.txt</code></pre></td></tr></table>
+</div>
+</div>
 <h5 id="将文件-file1-txt-与-file2-txt-设为该文件拥有者-与其所属同一个群体者可写入-但其他以外的人则不可写入">将文件 <code>file1.txt</code> 与 <code>file2.txt</code> 设为该文件拥有者，与其所属同一个群体者可写入，但其他以外的人则不可写入 :<a hidden class="anchor" aria-hidden="true" href="#将文件-file1-txt-与-file2-txt-设为该文件拥有者-与其所属同一个群体者可写入-但其他以外的人则不可写入">#</a></h5>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chmod ug+w,o-w file1.txt file2.txt</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chmod ug+w,o-w file1.txt file2.txt</code></pre></td></tr></table>
+</div>
+</div>
 <h5 id="将-ex1-py-设定为只有该文件拥有者可以执行">将 <code>ex1.py</code> 设定为只有该文件拥有者可以执行 :<a hidden class="anchor" aria-hidden="true" href="#将-ex1-py-设定为只有该文件拥有者可以执行">#</a></h5>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chmod u+x ex1.py</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chmod u+x ex1.py</code></pre></td></tr></table>
+</div>
+</div>
 <h5 id="将目前目录下的所有文件与子目录皆设为任何人可读取">将目前目录下的所有文件与子目录皆设为任何人可读取 :<a hidden class="anchor" aria-hidden="true" href="#将目前目录下的所有文件与子目录皆设为任何人可读取">#</a></h5>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chmod -R a+r *</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chmod -R a+r *</code></pre></td></tr></table>
+</div>
+</div>
 <h5 id="此外chmod也可以用数字来表示权限如">此外chmod也可以用数字来表示权限如 :<a hidden class="anchor" aria-hidden="true" href="#此外chmod也可以用数字来表示权限如">#</a></h5>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chmod <span style="color:#ae81ff">777</span> file</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chmod <span style="color:#ae81ff">777</span> file</code></pre></td></tr></table>
+</div>
+</div>
 <h4 id="用户组管理">用户组管理<a hidden class="anchor" aria-hidden="true" href="#用户组管理">#</a></h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chown -R git.git /var/www/blog/   <span style="color:#75715e">#授予git.git为/var/www/blog/的管理者</span></code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chown -R git.git /var/www/blog/   <span style="color:#75715e">#授予git.git为/var/www/blog/的管理者</span></code></pre></td></tr></table>
+</div>
+</div>
 <h4 id="查看当前目录下所有文件的用户组和权限">查看当前目录下所有文件的用户组和权限<a hidden class="anchor" aria-hidden="true" href="#查看当前目录下所有文件的用户组和权限">#</a></h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ls -al</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ls -al</code></pre></td></tr></table>
+</div>
+</div>
 <h3 id="git用户权限控制">Git用户权限控制<a hidden class="anchor" aria-hidden="true" href="#git用户权限控制">#</a></h3>
 
 <h4 id="赋予git用户sudo权限">赋予Git用户sudo权限<a hidden class="anchor" aria-hidden="true" href="#赋予git用户sudo权限">#</a></h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chmod <span style="color:#ae81ff">740</span> /etc/sudoers</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">vim /etc/sudoers</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chmod <span style="color:#ae81ff">740</span> /etc/sudoers</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">vim /etc/sudoers</code></pre></td></tr></table>
+</div>
+</div>
 <p>可以看到以下内容：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># User privilege specification</span>
-root    ALL<span style="color:#f92672">=(</span>ALL:ALL<span style="color:#f92672">)</span> ALL</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># User privilege specification</span>
+root    ALL<span style="color:#f92672">=(</span>ALL:ALL<span style="color:#f92672">)</span> ALL</code></pre></td></tr></table>
+</div>
+</div>
 <p>在 <code>root ALL=(ALL:ALL) ALL</code> 这一行下面添加 <code>{Git用户名} ALL=(ALL:ALL) ALL</code></p>
 
 <p>保存退出后，修改回文件权限：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chmod <span style="color:#ae81ff">440</span> /etc/sudoers</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chmod <span style="color:#ae81ff">440</span> /etc/sudoers</code></pre></td></tr></table>
+</div>
+</div>
 <h4 id="关闭git用户shell权限">关闭Git用户shell权限<a hidden class="anchor" aria-hidden="true" href="#关闭git用户shell权限">#</a></h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">vim /etc/passwd</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">vim /etc/passwd</code></pre></td></tr></table>
+</div>
+</div>
 <p>将最后一行的 <code>{git用户名}❌1001:1001:,,,:/home/git:/bin/bash</code> 修改为 <code>{git用户名}❌1001:1001:,,,:/home/git:/usr/bin/git-shell</code></p>
 
 <p>，也即将<code>/home/git:/bin/bash</code>改为<code>/home/git:/usr/bin/git-shell</code></p>
 
 <h3 id="使用密钥进行ssh登录-免密码">使用密钥进行SSH登录（免密码）<a hidden class="anchor" aria-hidden="true" href="#使用密钥进行ssh登录-免密码">#</a></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd /home/<span style="color:#f92672">{</span>账户名称<span style="color:#f92672">}</span>               //切换到需要修改的账户的用户目录
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd /home/<span style="color:#f92672">{</span>账户名称<span style="color:#f92672">}</span>               //切换到需要修改的账户的用户目录
 mkdir .ssh                      //创建.ssh目录
 cd .ssh
-vim authorized_keys</code></pre></div>
+vim authorized_keys</code></pre></td></tr></table>
+</div>
+</div>
 <p>然后将<code>本地的公钥</code>复制到服务器的 <code>authorized_keys</code> 文件里 (<code>本地的公钥</code>即本地执行 <code>cat ~/.ssh/id_rsa.pub</code> 查看的内容，若无法运行则需创建)。</p>
 
 <p>注意：收集所有需要登录的用户的公钥，就是他们自己的 <code>id_rsa.pub</code> 文件，把所有公钥导入到 <code>/home/git/.ssh/authorized_keys</code> 文件里，一行一个。</p>

@@ -53,14 +53,28 @@
 <p><img src="https://img.xiehestudio.com/pic_go/20201222202439.png" style="zoom: 67%;" /></p>
 
 <h4 id="存储结构定义">存储结构定义：</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#define MaxVertexNum 100
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#define MaxVertexNum 100
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">char</span> VertexType;
 <span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">int</span> EdgeType;
 <span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span>{
     VertexType Vex[MaxVertexNum];<span style="color:#75715e">///顶点表（一维表）
 </span><span style="color:#75715e"></span>    EdgeType Edge[MaxVertexNum][MaxVertexNum];<span style="color:#75715e">///顶点关系表（二维表）
 </span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> vexnum,arcnum;     
-}MGraph;</code></pre></div>
+}MGraph;</code></pre></td></tr></table>
+</div>
+</div>
 <h3 id="邻接表法">👉🏻邻接表法</h3>
 
 <p><code>邻接表</code>是在稀疏图的情况下对<code>邻接矩阵</code>的一种改进，<strong>是实际中广泛采用的一种存储结构</strong>。</p>
@@ -76,7 +90,28 @@
 <p><img src="https://img.xiehestudio.com/pic_go/20201222202341.png" alt="无向图" style="zoom:80%;" /></p>
 
 <h4 id="存储结构定义-1">存储结构定义</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#define  MAX_VERTEX_NUM 20</span><span style="color:#75715e">//最大顶点个数
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#define  MAX_VERTEX_NUM 20</span><span style="color:#75715e">//最大顶点个数
 </span><span style="color:#75715e"></span><span style="color:#75715e">#define  VertexType int</span><span style="color:#75715e">//顶点数据的类型
 </span><span style="color:#75715e"></span><span style="color:#75715e">#define  InfoType int</span><span style="color:#75715e">//图中弧或者边包含的信息的类型
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ArcNode</span>{
@@ -92,7 +127,9 @@
     AdjList vertices;<span style="color:#75715e">//图中顶点的数组
 </span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> vexnum,arcnum;<span style="color:#75715e">//记录图中顶点数和边或弧数
 </span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> kind;<span style="color:#75715e">//记录图的种类
-</span><span style="color:#75715e"></span>}ALGraph</code></pre></div>
+</span><span style="color:#75715e"></span>}ALGraph</code></pre></td></tr></table>
+</div>
+</div>
 <h3 id="十字链表">👉🏻十字链表</h3>
 
 <p><code>有向图</code>的另一种链式存储结构。可看是将<code>有向图</code>的<strong>邻接表</strong>和<strong>逆邻接表</strong>结合得到的一种存储方法。对应于有向图中的每一条弧有一个结点，对应于每个顶点也有一个结点。图的十字链表不唯一，但是一个十字链表确定一个图。</p>
@@ -106,7 +143,30 @@
 <p><img src="https://img.xiehestudio.com/pic_go/20201222202924.png" alt="顶点结点" style="zoom:80%;" /></p>
 
 <h4 id="存储结构定义-2">存储结构定义</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ArcNode</span>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ArcNode</span>
 {   
     <span style="color:#66d9ef">int</span> tailvex, headvex;      <span style="color:#75715e">//弧尾、弧头在表头数组中位置
 </span><span style="color:#75715e"></span>    <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ArcNode</span> <span style="color:#f92672">*</span>hlink;     <span style="color:#75715e">//指向弧头相同的下一条弧
@@ -124,7 +184,9 @@
 <span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span>  
 {   VerNode xlist[MAX_VERTEX_NUM ] ;  <span style="color:#75715e">//表头向量
 </span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> vexnum, arcnum<span style="color:#960050;background-color:#1e0010">；</span>
-}OLGraph;</code></pre></div>
+}OLGraph;</code></pre></td></tr></table>
+</div>
+</div>
 <h4 id="图示">图示</h4>
 
 <p><img src="https://img.xiehestudio.com/pic_go/20201222210303.gif" alt="十字链表" /></p>

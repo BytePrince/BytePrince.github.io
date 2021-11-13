@@ -15,7 +15,7 @@
 <meta name="description" content="将Hexo博客部署到阿里云ECS">
 <meta name="author" content="">
 <link rel="canonical" href="https://byteprince.com/posts/934eaeda/" />
-<link crossorigin="anonymous" href="/assets/css/stylesheet.min.958cca03466d194813628cfe285c53349da8d10a1ffa4cc386a93ac3d1b3ee04.css" integrity="sha256-lYzKA0ZtGUgTYoz&#43;KFxTNJ2o0Qof&#43;kzDhqk6w9Gz7gQ=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.aa8e4e7230cce184ee469b7c70c9f8a7e21877ae161623f4be96f0e493823abc.css" integrity="sha256-qo5OcjDM4YTuRpt8cMn4p&#43;IYd64WFiP0vpbw5JOCOrw=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
@@ -69,8 +69,8 @@
   "keywords": [
     "Hexo", "自动部署"
   ],
-  "articleBody": " Hexo 是一个便捷的静态博客系统，最方便快捷的方案就是部署到 GitPage 上。但是 GitPage 的服务器位于境外，如果没有加 CDN 的话，国内用户访问 GitPage 的速度普遍较慢，而且国内搜索引擎对基本不（能）抓取 GitPage 上的内容，影响网站的 SEO。\n环境  带Git环境的 ECS（以 CentOS 为例） 本地Hexo环境（Node.js等） 已备案域名等其他必要的东西  原理 示意图\n创建仓库 在 ECS 上，检查 Git 环境，创建 Git 仓库\nmkdir blog.git \u0026\u0026 cd blog.git git init --bare 其中git init --bare指令的作用是创建一个裸仓库。裸仓库与普通git仓库不同，普通git仓库包含所有可操作性的项目文件和.git目录，而裸仓库只包含commit的版本信息。简便起见，这里直接创建裸仓库。\nHexo配置 deploy: - type: git #git仓库路径 repo: root@xx.xxx.xxx.xxx:/www/blog.git #分支 branch: master 插件安装 npm install hexo-deployer-git --save 该插件的作用是执行deploy的时候，将 Hexo 生成的静态文件提交到 Hexo 的_config.yml配置的deploy.repo地址。如果已经成功部署到 GitPage 过，该插件一般都默认安装了，可以执行该命令检查、更新插件。\n自动部署 创建钩子 进入 Git 仓库/hooks目录，并创建钩子post-receive。\ncd /www/blog.git/hooks touch post-receive vim post-receive 然后输入以下内容\n#!/bin/bash -l GIT_REPO=/www/blog.git TMP_GIT_CLONE=/www/tmp/blog PUBLIC_WWW=/www/wwwroot/byteprince.com rm -rf ${TMP_GIT_CLONE} git clone $GIT_REPO $TMP_GIT_CLONE rm -rf ${PUBLIC_WWW}/* cp -rf ${TMP_GIT_CLONE}/* ${PUBLIC_WWW} 其中/www/blog.git为仓库路径，/www/wwwroot/byteprince.com为博客网站路径，/www/tmp/blog是临时目录。\ngit会先将文件拉到临时目录，然后再将所有文件拷贝到博客网站目录/www/wwwroot/byteprince.com。\n保存后退出。\n更改目录权限 更改网站目录权限\nchmod +x post-receive chmod 777 -R /www/wwwroot/byteprince.com 运行 每次写完博客，在本地博客目录下运行hexo g -d即可。可能需要输入远程访问服务器的密码。\n出现以下提示说明部署成功。\n... INFO Deploy done: git",
-  "wordCount" : "117",
+  "articleBody": " Hexo 是一个便捷的静态博客系统，最方便快捷的方案就是部署到 GitPage 上。但是 GitPage 的服务器位于境外，如果没有加 CDN 的话，国内用户访问 GitPage 的速度普遍较慢，而且国内搜索引擎对基本不（能）抓取 GitPage 上的内容，影响网站的 SEO。\n环境  带Git环境的 ECS（以 CentOS 为例） 本地Hexo环境（Node.js等） 已备案域名等其他必要的东西  原理 示意图\n创建仓库 在 ECS 上，检查 Git 环境，创建 Git 仓库\n1 2  mkdir blog.git \u0026\u0026 cd blog.git git init --bare   其中git init --bare指令的作用是创建一个裸仓库。裸仓库与普通git仓库不同，普通git仓库包含所有可操作性的项目文件和.git目录，而裸仓库只包含commit的版本信息。简便起见，这里直接创建裸仓库。\nHexo配置 1 2 3 4 5 6  deploy: - type: git #git仓库路径 repo: root@xx.xxx.xxx.xxx:/www/blog.git #分支 branch: master   插件安装 1  npm install hexo-deployer-git --save   该插件的作用是执行deploy的时候，将 Hexo 生成的静态文件提交到 Hexo 的_config.yml配置的deploy.repo地址。如果已经成功部署到 GitPage 过，该插件一般都默认安装了，可以执行该命令检查、更新插件。\n自动部署 创建钩子 进入 Git 仓库/hooks目录，并创建钩子post-receive。\n1 2 3  cd /www/blog.git/hooks touch post-receive vim post-receive   然后输入以下内容\n1 2 3 4 5 6 7 8  #!/bin/bash -l GIT_REPO=/www/blog.git TMP_GIT_CLONE=/www/tmp/blog PUBLIC_WWW=/www/wwwroot/byteprince.com rm -rf ${TMP_GIT_CLONE} git clone $GIT_REPO $TMP_GIT_CLONE rm -rf ${PUBLIC_WWW}/* cp -rf ${TMP_GIT_CLONE}/* ${PUBLIC_WWW}   其中/www/blog.git为仓库路径，/www/wwwroot/byteprince.com为博客网站路径，/www/tmp/blog是临时目录。\ngit会先将文件拉到临时目录，然后再将所有文件拷贝到博客网站目录/www/wwwroot/byteprince.com。\n保存后退出。\n更改目录权限 更改网站目录权限\n1 2  chmod +x post-receive chmod 777 -R /www/wwwroot/byteprince.com   运行 每次写完博客，在本地博客目录下运行hexo g -d即可。可能需要输入远程访问服务器的密码。\n出现以下提示说明部署成功。\n1 2  ... INFO Deploy done: git  ",
+  "wordCount" : "141",
   "inLanguage": "en",
   "datePublished": "2020-04-20T17:52:08+08:00",
   "dateModified": "2020-04-20T17:52:08+08:00",
@@ -87,7 +87,11 @@
     }
   }
 }
-</script>
+</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
 </head>
 
 <body class="" id="top">
@@ -274,21 +278,48 @@
 <h3 id="创建仓库">创建仓库<a hidden class="anchor" aria-hidden="true" href="#创建仓库">#</a></h3>
 
 <p>在 ECS 上，检查 Git 环境，创建 Git 仓库</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir blog.git <span style="color:#f92672">&amp;&amp;</span> cd blog.git
-git init --bare</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir blog.git <span style="color:#f92672">&amp;&amp;</span> cd blog.git
+git init --bare</code></pre></td></tr></table>
+</div>
+</div>
 <p><img src="https://img.xiehestudio.com/pic_go/20200420202426.png#center" alt="" /></p>
 
 <p>其中<code>git init --bare</code>指令的作用是创建一个裸仓库。裸仓库与普通git仓库不同，普通git仓库包含所有可操作性的项目文件和<code>.git</code>目录，而裸仓库只包含commit的版本信息。简便起见，这里直接创建裸仓库。</p>
 
 <h3 id="hexo配置">Hexo配置<a hidden class="anchor" aria-hidden="true" href="#hexo配置">#</a></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">deploy:
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">deploy:
 - type: git
   <span style="color:#75715e">#git仓库路径</span>
   repo: root@xx.xxx.xxx.xxx:/www/blog.git
   <span style="color:#75715e">#分支</span>
-  branch: master</code></pre></div>
+  branch: master</code></pre></td></tr></table>
+</div>
+</div>
 <h3 id="插件安装">插件安装<a hidden class="anchor" aria-hidden="true" href="#插件安装">#</a></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm install hexo-deployer-git --save</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm install hexo-deployer-git --save</code></pre></td></tr></table>
+</div>
+</div>
 <p>该插件的作用是执行<code>deploy</code>的时候，将 Hexo 生成的静态文件提交到 Hexo 的<code>_config.yml</code>配置的<code>deploy.repo</code>地址。如果已经成功部署到 GitPage 过，该插件一般都默认安装了，可以执行该命令检查、更新插件。</p>
 
 <p><img src="https://img.xiehestudio.com/pic_go/20200420204233.png#center" alt="" /></p>
@@ -298,18 +329,41 @@ git init --bare</code></pre></div>
 <h4 id="创建钩子">创建钩子<a hidden class="anchor" aria-hidden="true" href="#创建钩子">#</a></h4>
 
 <p>进入 Git 仓库<code>/hooks</code>目录，并创建钩子<code>post-receive</code>。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd /www/blog.git/hooks
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd /www/blog.git/hooks
 touch post-receive
-vim post-receive</code></pre></div>
+vim post-receive</code></pre></td></tr></table>
+</div>
+</div>
 <p>然后输入以下内容</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash -l
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash -l
 </span><span style="color:#75715e"></span>GIT_REPO<span style="color:#f92672">=</span>/www/blog.git
 TMP_GIT_CLONE<span style="color:#f92672">=</span>/www/tmp/blog
 PUBLIC_WWW<span style="color:#f92672">=</span>/www/wwwroot/byteprince.com
 rm -rf <span style="color:#e6db74">${</span>TMP_GIT_CLONE<span style="color:#e6db74">}</span>
 git clone $GIT_REPO $TMP_GIT_CLONE
 rm -rf <span style="color:#e6db74">${</span>PUBLIC_WWW<span style="color:#e6db74">}</span>/*
-cp -rf <span style="color:#e6db74">${</span>TMP_GIT_CLONE<span style="color:#e6db74">}</span>/* <span style="color:#e6db74">${</span>PUBLIC_WWW<span style="color:#e6db74">}</span></code></pre></div>
+cp -rf <span style="color:#e6db74">${</span>TMP_GIT_CLONE<span style="color:#e6db74">}</span>/* <span style="color:#e6db74">${</span>PUBLIC_WWW<span style="color:#e6db74">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>其中<code>/www/blog.git</code>为仓库路径，<code>/www/wwwroot/byteprince.com</code>为博客网站路径，<code>/www/tmp/blog</code>是临时目录。</p>
 
 <p>git会先将文件拉到临时目录，然后再将所有文件拷贝到博客网站目录<code>/www/wwwroot/byteprince.com</code>。</p>
@@ -319,15 +373,31 @@ cp -rf <span style="color:#e6db74">${</span>TMP_GIT_CLONE<span style="color:#e6d
 <h4 id="更改目录权限">更改目录权限<a hidden class="anchor" aria-hidden="true" href="#更改目录权限">#</a></h4>
 
 <p>更改网站目录权限</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chmod +x post-receive
-chmod <span style="color:#ae81ff">777</span> -R /www/wwwroot/byteprince.com</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chmod +x post-receive
+chmod <span style="color:#ae81ff">777</span> -R /www/wwwroot/byteprince.com</code></pre></td></tr></table>
+</div>
+</div>
 <h3 id="运行">运行<a hidden class="anchor" aria-hidden="true" href="#运行">#</a></h3>
 
 <p>每次写完博客，在本地博客目录下运行<code>hexo g -d</code>即可。可能需要输入远程访问服务器的密码。</p>
 
 <p>出现以下提示说明部署成功。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">...
-INFO  Deploy <span style="color:#66d9ef">done</span>: git</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">...
+INFO  Deploy <span style="color:#66d9ef">done</span>: git</code></pre></td></tr></table>
+</div>
+</div>
 </div>
   <footer class="post-footer">
     <ul class="post-tags">

@@ -15,7 +15,7 @@
 <meta name="description" content="Nginx 安装配置 - Byte Prince">
 <meta name="author" content="">
 <link rel="canonical" href="https://byteprince.com/posts/8d30ba6e/" />
-<link crossorigin="anonymous" href="/assets/css/stylesheet.min.958cca03466d194813628cfe285c53349da8d10a1ffa4cc386a93ac3d1b3ee04.css" integrity="sha256-lYzKA0ZtGUgTYoz&#43;KFxTNJ2o0Qof&#43;kzDhqk6w9Gz7gQ=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.aa8e4e7230cce184ee469b7c70c9f8a7e21877ae161623f4be96f0e493823abc.css" integrity="sha256-qo5OcjDM4YTuRpt8cMn4p&#43;IYd64WFiP0vpbw5JOCOrw=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
@@ -69,8 +69,8 @@
   "keywords": [
     "Nginx"
   ],
-  "articleBody": "环境配置 {% note warning %}\n此环境配置仅适用于非生产环境。 {% endnote %}\n环境简化  清除iptables规则\niptables -L #查看iptables规则 iptables -F #清除（filter表）中所有规则 iptables -t nat -L #查看nat规则 iptables -t nat -F #清除nat规则  注：清空iptables规则后会导致ping命令不可用\n 关闭selinux\ngetenforce #查看selinux状态，若为enable则关闭 setenforce #关闭selinux  环境配置 安装依赖库\num -y install gcc gcc-c++ autoconf pcre pcre-devel make automake 安装工具\nyum -y install wget httpd-tools vim 确认yum源可用\nyum list|grep gcc 安装 Nginx  官方文档：http://nginx.org/en/linux_packages.html\n 可以使用官方提供的yum源，也可以使用其他yum源.\n写入Nginx仓库配置信息（可选） 新建一个nginx源配置文件；\nvim /etc/yum.repos.d/nginx.repo  在nginx.repo中写入以下官方提供的源信息；\n# 文档：http://nginx.org/en/linux_packages.html#RHEL-CentOS [nginx-stable] name=nginx stable repo baseurl=http://nginx.org/packages/centos/$releasever/$basearch/ gpgcheck=1 enabled=1 gpgkey=https://nginx.org/keys/nginx_signing.key module_hotfixes=true 执行yum list |grep nginx测试。\n如果可以看到\n则说明nginx源配置已经生效。\n可以直接使用以下命令安装nginx\nyum install nginx",
-  "wordCount" : "86",
+  "articleBody": "环境配置 {% note warning %}\n此环境配置仅适用于非生产环境。 {% endnote %}\n环境简化  清除iptables规则\n1 2 3 4  iptables -L #查看iptables规则 iptables -F #清除（filter表）中所有规则 iptables -t nat -L #查看nat规则 iptables -t nat -F #清除nat规则    注：清空iptables规则后会导致ping命令不可用\n 关闭selinux\n1 2  getenforce #查看selinux状态，若为enable则关闭 setenforce #关闭selinux    环境配置 安装依赖库\n1  um -y install gcc gcc-c++ autoconf pcre pcre-devel make automake   安装工具\n1  yum -y install wget httpd-tools vim   确认yum源可用\n1  yum list|grep gcc   安装 Nginx  官方文档：http://nginx.org/en/linux_packages.html\n 可以使用官方提供的yum源，也可以使用其他yum源.\n写入Nginx仓库配置信息（可选） 新建一个nginx源配置文件；\n1  vim /etc/yum.repos.d/nginx.repo    在nginx.repo中写入以下官方提供的源信息；\n1 2 3 4 5 6 7 8  # 文档：http://nginx.org/en/linux_packages.html#RHEL-CentOS [nginx-stable] name=nginx stable repo baseurl=http://nginx.org/packages/centos/$releasever/$basearch/ gpgcheck=1 enabled=1 gpgkey=https://nginx.org/keys/nginx_signing.key module_hotfixes=true   执行yum list |grep nginx测试。\n如果可以看到\n则说明nginx源配置已经生效。\n可以直接使用以下命令安装nginx\n1  yum install nginx  ",
+  "wordCount" : "105",
   "inLanguage": "en",
   "datePublished": "2021-01-14T16:38:02+08:00",
   "dateModified": "2021-01-14T16:38:02+08:00",
@@ -87,7 +87,11 @@
     }
   }
 }
-</script>
+</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
 </head>
 
 <body class="" id="top">
@@ -260,28 +264,67 @@
 
 <ol>
 <li><p><strong>清除iptables规则</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">iptables -L   <span style="color:#75715e">#查看iptables规则</span>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">iptables -L   <span style="color:#75715e">#查看iptables规则</span>
 iptables -F   <span style="color:#75715e">#清除（filter表）中所有规则</span>
 iptables -t nat  -L  <span style="color:#75715e">#查看nat规则</span>
-iptables -t nat  -F  <span style="color:#75715e">#清除nat规则</span></code></pre></div></li>
+iptables -t nat  -F  <span style="color:#75715e">#清除nat规则</span></code></pre></td></tr></table>
+</div>
+</div></li>
 </ol>
 
 <p>注：清空<code>iptables</code>规则后会导致<code>ping</code>命令不可用</p>
 
 <ol>
 <li><p><strong>关闭selinux</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">getenforce  <span style="color:#75715e">#查看selinux状态，若为enable则关闭</span>
-setenforce  <span style="color:#75715e">#关闭selinux</span></code></pre></div></li>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">getenforce  <span style="color:#75715e">#查看selinux状态，若为enable则关闭</span>
+setenforce  <span style="color:#75715e">#关闭selinux</span></code></pre></td></tr></table>
+</div>
+</div></li>
 </ol>
 
 <h3 id="环境配置-1">环境配置<a hidden class="anchor" aria-hidden="true" href="#环境配置-1">#</a></h3>
 
 <p>安装依赖库</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">um -y install gcc gcc-c++ autoconf pcre pcre-devel make automake</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">um -y install gcc gcc-c++ autoconf pcre pcre-devel make automake</code></pre></td></tr></table>
+</div>
+</div>
 <p>安装工具</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">yum -y install wget httpd-tools vim</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">yum -y install wget httpd-tools vim</code></pre></td></tr></table>
+</div>
+</div>
 <p>确认<code>yum</code>源可用</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">yum list|grep gcc</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">yum list|grep gcc</code></pre></td></tr></table>
+</div>
+</div>
 <h3 id="安装-nginx">安装 Nginx<a hidden class="anchor" aria-hidden="true" href="#安装-nginx">#</a></h3>
 
 <blockquote>
@@ -295,16 +338,37 @@ setenforce  <span style="color:#75715e">#关闭selinux</span></code></pre></div>
 <h4 id="写入nginx仓库配置信息-可选">写入Nginx仓库配置信息（可选）<a hidden class="anchor" aria-hidden="true" href="#写入nginx仓库配置信息-可选">#</a></h4>
 
 <p>新建一个nginx源配置文件；</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">vim /etc/yum.repos.d/nginx.repo  </code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">vim /etc/yum.repos.d/nginx.repo  </code></pre></td></tr></table>
+</div>
+</div>
 <p>在nginx.repo中写入以下官方提供的源信息；</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 文档：http://nginx.org/en/linux_packages.html#RHEL-CentOS</span>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 文档：http://nginx.org/en/linux_packages.html#RHEL-CentOS</span>
 <span style="color:#f92672">[</span>nginx-stable<span style="color:#f92672">]</span>
 name<span style="color:#f92672">=</span>nginx stable repo
 baseurl<span style="color:#f92672">=</span>http://nginx.org/packages/centos/$releasever/$basearch/
 gpgcheck<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
 enabled<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
 gpgkey<span style="color:#f92672">=</span>https://nginx.org/keys/nginx_signing.key
-module_hotfixes<span style="color:#f92672">=</span>true</code></pre></div>
+module_hotfixes<span style="color:#f92672">=</span>true</code></pre></td></tr></table>
+</div>
+</div>
 <p>执行<code>yum list |grep nginx</code>测试。</p>
 
 <p>如果可以看到</p>
@@ -314,7 +378,14 @@ module_hotfixes<span style="color:#f92672">=</span>true</code></pre></div>
 <p>则说明<code>nginx</code>源配置已经生效。</p>
 
 <p>可以直接使用以下命令安装<code>nginx</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">yum install nginx</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">yum install nginx</code></pre></td></tr></table>
+</div>
+</div>
 </div>
   <footer class="post-footer">
     <ul class="post-tags">

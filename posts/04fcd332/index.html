@@ -15,7 +15,7 @@
 <meta name="description" content="CentOS 常用命令和问题解决 - Byte Prince">
 <meta name="author" content="">
 <link rel="canonical" href="https://byteprince.com/posts/04fcd332/" />
-<link crossorigin="anonymous" href="/assets/css/stylesheet.min.958cca03466d194813628cfe285c53349da8d10a1ffa4cc386a93ac3d1b3ee04.css" integrity="sha256-lYzKA0ZtGUgTYoz&#43;KFxTNJ2o0Qof&#43;kzDhqk6w9Gz7gQ=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.aa8e4e7230cce184ee469b7c70c9f8a7e21877ae161623f4be96f0e493823abc.css" integrity="sha256-qo5OcjDM4YTuRpt8cMn4p&#43;IYd64WFiP0vpbw5JOCOrw=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
@@ -69,8 +69,8 @@
   "keywords": [
     "CentOS"
   ],
-  "articleBody": "查看系统版本 cat /etc/redhat-release 查看内核版本 uname -r 查看 Linux 系统信息（内核信息\u0026GCC Version） cat /proc/version 修改主机名 vi /etc/hostname 修改后重启即可。\n修改用户名 第一步：登出要修改用户名的用户（没有注销登录的用户无法修改） 第二步：以 root 身份登录终端，进行如下操作： vim /etc/passwd # 修改用户名 和 用户根目录 找到要修改用户的配置行，将这行出现的centos 全部改为 laizili（根据自己实际情况改变）\nvim /etc/shadow # 做法同上vim /etc/group # 修改用户组，将用户组名改为新用户名，操作类似上步.mv /home/centos /home/BytePrince # 最后，修改用户根目录名 切换 Linux 源 切换 yum 源可以提高 yum 包下载速度，如果使用云服务器，可以考虑将 yum 源改成内网源。\n下方以切换成阿里云公网源为例。\n备份原 repo cd /etc/yum.repos.d/mkdir repo_bakmv *.repo repo_bak/ 下载新的 CentOS-Base.repo 到 /etc/yum.repos.d/ wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo  如果下载失败，可能需要修改DNS/etc/resolv.conf文件\nnameserver 8.8.8.8 #google域名服务器\nnameserver 8.8.4.4 #google域名服务器\n 清除缓存，生成新的缓存 yum clean all yum makecache  安装 Nginx sudo apt install nginx 确认：查看端口 netstat -anp |grep 80 或\nsudo lsof -i:80 确认：查看 nginx 服务 安装 PHP sudo apt install php php-fpmsudo apt-get install php7.2 php7.2-fpm 查看 php 版本 php -v 确认：查看进程 ps -ef |grep php",
-  "wordCount" : "119",
+  "articleBody": "查看系统版本 1  cat /etc/redhat-release   查看内核版本 1  uname -r   查看 Linux 系统信息（内核信息\u0026GCC Version） cat /proc/version 修改主机名 vi /etc/hostname 修改后重启即可。\n修改用户名 第一步：登出要修改用户名的用户（没有注销登录的用户无法修改） 第二步：以 root 身份登录终端，进行如下操作： 1  vim /etc/passwd # 修改用户名 和 用户根目录   找到要修改用户的配置行，将这行出现的centos 全部改为 laizili（根据自己实际情况改变）\n1  vim /etc/shadow # 做法同上  1  vim /etc/group # 修改用户组，将用户组名改为新用户名，操作类似上步.  1  mv /home/centos /home/BytePrince # 最后，修改用户根目录名   切换 Linux 源 切换 yum 源可以提高 yum 包下载速度，如果使用云服务器，可以考虑将 yum 源改成内网源。\n下方以切换成阿里云公网源为例。\n备份原 repo 1  cd /etc/yum.repos.d/  1  mkdir repo_bak  1  mv *.repo repo_bak/   下载新的 CentOS-Base.repo 到 /etc/yum.repos.d/ 1  wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo    如果下载失败，可能需要修改DNS/etc/resolv.conf文件\nnameserver 8.8.8.8 #google域名服务器\nnameserver 8.8.4.4 #google域名服务器\n 清除缓存，生成新的缓存 1  yum clean all   1  yum makecache    安装 Nginx sudo apt install nginx 确认：查看端口 netstat -anp |grep 80 或\nsudo lsof -i:80 确认：查看 nginx 服务 安装 PHP sudo apt install php php-fpmsudo apt-get install php7.2 php7.2-fpm 查看 php 版本 php -v 确认：查看进程 ps -ef |grep php",
+  "wordCount" : "135",
   "inLanguage": "en",
   "datePublished": "2019-08-10T11:23:16+08:00",
   "dateModified": "2019-08-10T11:23:16+08:00",
@@ -87,7 +87,11 @@
     }
   }
 }
-</script>
+</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
 </head>
 
 <body class="" id="top">
@@ -281,9 +285,23 @@
 </div>
 
   <div class="post-content"><h3 id="查看系统版本">查看系统版本<a hidden class="anchor" aria-hidden="true" href="#查看系统版本">#</a></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat /etc/redhat-release</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat /etc/redhat-release</code></pre></td></tr></table>
+</div>
+</div>
 <h3 id="查看内核版本">查看内核版本<a hidden class="anchor" aria-hidden="true" href="#查看内核版本">#</a></h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">uname -r</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">uname -r</code></pre></td></tr></table>
+</div>
+</div>
 <h3 id="查看-linux-系统信息-内核信息-gcc-version">查看 Linux 系统信息（内核信息&amp;GCC Version）<a hidden class="anchor" aria-hidden="true" href="#查看-linux-系统信息-内核信息-gcc-version">#</a></h3>
 <pre tabindex="0"><code>cat /proc/version</code></pre>
 <h3 id="修改主机名">修改主机名<a hidden class="anchor" aria-hidden="true" href="#修改主机名">#</a></h3>
@@ -295,9 +313,37 @@
 <h4 id="第一步-登出要修改用户名的用户-没有注销登录的用户无法修改">第一步：登出要修改用户名的用户（没有注销登录的用户无法修改）<a hidden class="anchor" aria-hidden="true" href="#第一步-登出要修改用户名的用户-没有注销登录的用户无法修改">#</a></h4>
 
 <h4 id="第二步-以-root-身份登录终端-进行如下操作">第二步：以 root 身份登录终端，进行如下操作：<a hidden class="anchor" aria-hidden="true" href="#第二步-以-root-身份登录终端-进行如下操作">#</a></h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">vim /etc/passwd                       <span style="color:#75715e"># 修改用户名 和 用户根目录</span></code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">vim /etc/passwd                       <span style="color:#75715e"># 修改用户名 和 用户根目录</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>找到要修改用户的配置行，将这行出现的centos 全部改为 laizili（根据自己实际情况改变）</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">vim /etc/shadow                       <span style="color:#75715e"># 做法同上</span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">vim /etc/group                        <span style="color:#75715e"># 修改用户组，将用户组名改为新用户名，操作类似上步.</span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mv /home/centos /home/BytePrince         <span style="color:#75715e"># 最后，修改用户根目录名</span></code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">vim /etc/shadow                       <span style="color:#75715e"># 做法同上</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">vim /etc/group                        <span style="color:#75715e"># 修改用户组，将用户组名改为新用户名，操作类似上步.</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mv /home/centos /home/BytePrince         <span style="color:#75715e"># 最后，修改用户根目录名</span></code></pre></td></tr></table>
+</div>
+</div>
 <h3 id="切换-linux-源">切换 Linux 源<a hidden class="anchor" aria-hidden="true" href="#切换-linux-源">#</a></h3>
 
 <p>切换 yum 源可以提高 yum 包下载速度，如果使用云服务器，可以考虑将 yum 源改成内网源。</p>
@@ -305,9 +351,37 @@
 <p>下方以切换成阿里云公网源为例。</p>
 
 <h4 id="备份原-repo">备份原 repo<a hidden class="anchor" aria-hidden="true" href="#备份原-repo">#</a></h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd /etc/yum.repos.d/</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir repo_bak</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mv *.repo repo_bak/</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd /etc/yum.repos.d/</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir repo_bak</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mv *.repo repo_bak/</code></pre></td></tr></table>
+</div>
+</div>
 <h4 id="下载新的-centos-base-repo-到-etc-yum-repos-d">下载新的 CentOS-Base.repo 到 /etc/yum.repos.d/<a hidden class="anchor" aria-hidden="true" href="#下载新的-centos-base-repo-到-etc-yum-repos-d">#</a></h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</code></pre></td></tr></table>
+</div>
+</div>
 <blockquote>
 <p>如果下载失败，可能需要修改DNS<code>/etc/resolv.conf</code>文件</p>
 
@@ -317,7 +391,21 @@
 </blockquote>
 
 <h4 id="清除缓存-生成新的缓存">清除缓存，生成新的缓存<a hidden class="anchor" aria-hidden="true" href="#清除缓存-生成新的缓存">#</a></h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yum clean all  </code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yum makecache </code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yum clean all  </code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yum makecache </code></pre></td></tr></table>
+</div>
+</div>
 <h3 id="安装-nginx">安装 Nginx<a hidden class="anchor" aria-hidden="true" href="#安装-nginx">#</a></h3>
 <pre tabindex="0"><code>sudo apt install nginx</code></pre>
 <h5 id="确认-查看端口">确认：查看端口<a hidden class="anchor" aria-hidden="true" href="#确认-查看端口">#</a></h5>
