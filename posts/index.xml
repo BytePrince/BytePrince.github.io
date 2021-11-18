@@ -188,11 +188,11 @@ yum update</code></pre></td></tr></table>
 
 <p><figure><center><figcaption>腾讯大厦边上的一个报刊亭</figcaption></center><figure></p>
 
-<p><img src="https://static01.imgkr.com/temp/f6d23e1b72694117b7b1e0adc7fce4b0.jpeg" alt="" /></p>
+<p><img src="https://pic.imgdb.cn/item/619666682ab3f51d9152f9f9.jpg" alt="" /></p>
 
 <p><figure><center><figcaption>深圳大学门口</figcaption></center><figure></p>
 
-<p><img src="https://static01.imgkr.com/temp/c9bf82f6550441619ccee8ce05474c3d.jpeg" alt="" /></p>
+<p><img src="https://pic.imgdb.cn/item/619666682ab3f51d9152f9fd.jpg" alt="" /></p>
 
 <p><figure><center><figcaption>深圳大学边上的公交站</figcaption></center><figure></p>
 ]]></content:encoded>
@@ -659,9 +659,7 @@ ForOtherPet6=&#34;${MyPet1}@${MyPet2}@${MyPet3}@${MyPet4}@${MyPet5}@${MyPet6}&#3
 }</code></pre></td></tr></table>
 </div>
 </div>
-<p><img src="https://img.xiehestudio.com/pic_go/20211001154709.png" alt="" /></p>
-
-<p><img src="https://img.xiehestudio.com/pic_go/20211001155120.png" alt="image-20211001155120488" /></p>
+<p><img src="https://img.xiehestudio.com/uPic/enHOgn.png" alt="" /></p>
 
 <h2 id="总结">总结</h2>
 
@@ -675,7 +673,14 @@ ForOtherPet6=&#34;${MyPet1}@${MyPet2}@${MyPet3}@${MyPet4}@${MyPet5}@${MyPet6}&#3
 </div>
 </div>
 <p>也有人魔改了<code>shortcode</code>配置，使用以下的语法：</p>
-<pre tabindex="0"><code>{{ &lt; figure &#34;https://lmm.elizen.me/images/2021/08/obsidian-start-1.jpeg&#34; &#34;起始页 By Dataview&#34; &gt; }}</code></pre>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-HTML" data-lang="HTML">{{ &lt; <span style="color:#f92672">figure</span> <span style="color:#960050;background-color:#1e0010">&#34;</span><span style="color:#a6e22e">https:</span><span style="color:#960050;background-color:#1e0010">//</span><span style="color:#a6e22e">lmm</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">elizen</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">me</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#a6e22e">images</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#a6e22e">2021</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#a6e22e">08</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#a6e22e">obsidian-start-1</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">jpeg</span><span style="color:#960050;background-color:#1e0010">&#34;</span> <span style="color:#960050;background-color:#1e0010">&#34;</span><span style="color:#a6e22e">起始页</span> <span style="color:#a6e22e">By</span> <span style="color:#a6e22e">Dataview</span><span style="color:#960050;background-color:#1e0010">&#34;</span> &gt; }}</code></pre></td></tr></table>
+</div>
+</div>
 <p>后者比前者要简洁一些，但是还是存在缺点：在 Markdown 文档中书写的时候不能直接预览图片。</p>
 
 <p>所以我还是采用 Markdown 的<code>![]()</code>语法来添加图片，使用<code>&lt;figure&gt;&lt;center&gt;&lt;figcaption&gt;图片标题&lt;/figcaption&gt;&lt;/center&gt;&lt;figure&gt;</code>来为图片添加标题，以同时获得较好的预览体验和标题显示效果。</p>
@@ -1870,47 +1875,7 @@ mysqld <span style="color:#f92672">--</span>verbose <span style="color:#f92672">
 <li><p>选项的长形式和短形式：</p></li>
 </ul>
 
-<table>
-<thead>
-<tr>
-<th align="left">长形式</th>
-<th>短形式</th>
-<th>含义</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td align="left">&ndash;host</td>
-<td>-h</td>
-<td>主机名</td>
-</tr>
-
-<tr>
-<td align="left">&ndash;user</td>
-<td>-u</td>
-<td>用户名</td>
-</tr>
-
-<tr>
-<td align="left">&ndash;password</td>
-<td>-p</td>
-<td>密码</td>
-</tr>
-
-<tr>
-<td align="left">&ndash;port</td>
-<td>-P</td>
-<td>端口</td>
-</tr>
-
-<tr>
-<td align="left">&ndash;version</td>
-<td>-V</td>
-<td>版本信息</td>
-</tr>
-</tbody>
-</table>
+<p><center><img  src="https://pic.imgdb.cn/item/6193a56c2ab3f51d91a8cc5c.jpg" style="zoom:50%;" /></center></p>
 
 <p>短形式只需要添加一个短划线前缀</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">

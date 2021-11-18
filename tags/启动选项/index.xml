@@ -118,47 +118,7 @@ mysqld <span style="color:#f92672">--</span>verbose <span style="color:#f92672">
 <li><p>选项的长形式和短形式：</p></li>
 </ul>
 
-<table>
-<thead>
-<tr>
-<th align="left">长形式</th>
-<th>短形式</th>
-<th>含义</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td align="left">&ndash;host</td>
-<td>-h</td>
-<td>主机名</td>
-</tr>
-
-<tr>
-<td align="left">&ndash;user</td>
-<td>-u</td>
-<td>用户名</td>
-</tr>
-
-<tr>
-<td align="left">&ndash;password</td>
-<td>-p</td>
-<td>密码</td>
-</tr>
-
-<tr>
-<td align="left">&ndash;port</td>
-<td>-P</td>
-<td>端口</td>
-</tr>
-
-<tr>
-<td align="left">&ndash;version</td>
-<td>-V</td>
-<td>版本信息</td>
-</tr>
-</tbody>
-</table>
+<p><center><img  src="https://pic.imgdb.cn/item/6193a56c2ab3f51d91a8cc5c.jpg" style="zoom:50%;" /></center></p>
 
 <p>短形式只需要添加一个短划线前缀</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
