@@ -13,10 +13,8 @@
       <pubDate>Sun, 17 Oct 2021 22:17:03 +0800</pubDate>
       
       <guid>https://byteprince.com/posts/0142f245/</guid>
-      <description>使用root权限一定要小心</description>
-      <content:encoded><![CDATA[
-
-<h2 id="环境清理">环境清理</h2>
+      <description></description>
+      <content:encoded><![CDATA[<h2 id="环境清理">环境清理</h2>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1

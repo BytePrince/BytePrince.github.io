@@ -13,10 +13,8 @@
       <pubDate>Fri, 01 Oct 2021 15:18:19 +0800</pubDate>
       
       <guid>https://byteprince.com/posts/8903c78b/</guid>
-      <description>弃用普通的HTML标记作为图片标题</description>
-      <content:encoded><![CDATA[
-
-<h2 id="起因">起因</h2>
+      <description></description>
+      <content:encoded><![CDATA[<h2 id="起因">起因</h2>
 
 <p>昨晚心血来潮，看到某位博主的博客甚是眼馋——里面的相册和豆瓣内容展示页面。但是，不知道咋回事，打完几把吃鸡后头脑不在状态，折腾到很晚都没搞定。安睡一晚上，早上起床醒来，一下就搞定了。</p>
 
@@ -111,8 +109,7 @@
 </div>
 <p>后者比前者要简洁一些，但是还是存在缺点：在 Markdown 文档中书写的时候不能直接预览图片。</p>
 
-<p>所以我还是采用 Markdown 的<code>![]()</code>语法来添加图片，使用<code>&lt;figure&gt;&lt;center&gt;&lt;figcaption&gt;图片标题&lt;/figcaption&gt;&lt;/center&gt;&lt;figure&gt;</code>来为图片添加标题，以同时获得较好的预览体验和标题显示效果。</p>
-]]></content:encoded>
+<p>所以我还是采用 Markdown 的<code>![]()</code>语法来添加图片，使用<code>&lt;figure&gt;&lt;center&gt;&lt;figcaption&gt;图片标题&lt;/figcaption&gt;&lt;/center&gt;&lt;figure&gt;</code>来为图片添加标题，以同时获得较好的预览体验和标题显示效果。</p>]]></content:encoded>
     </item>
     
     <item>

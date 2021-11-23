@@ -13,10 +13,8 @@
       <pubDate>Sun, 17 Oct 2021 22:17:03 +0800</pubDate>
       
       <guid>https://byteprince.com/posts/0142f245/</guid>
-      <description>使用root权限一定要小心</description>
-      <content:encoded><![CDATA[
-
-<h2 id="环境清理">环境清理</h2>
+      <description></description>
+      <content:encoded><![CDATA[<h2 id="环境清理">环境清理</h2>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -171,7 +169,7 @@ yum update</code></pre></td></tr></table>
       <pubDate>Fri, 15 Oct 2021 21:49:15 +0800</pubDate>
       
       <guid>https://byteprince.com/posts/111d8d65/</guid>
-      <description>赴深圳参加培训</description>
+      <description></description>
       <content:encoded><![CDATA[<p><img src="https://pic.imgdb.cn/item/618a8dc82ab3f51d9195ce16.jpg" alt="" /></p>
 
 <p><figure><center><figcaption>深圳高新富悦酒店俯瞰</figcaption></center><figure></p>
@@ -194,8 +192,7 @@ yum update</code></pre></td></tr></table>
 
 <p><img src="https://pic.imgdb.cn/item/619666682ab3f51d9152f9fd.jpg" alt="" /></p>
 
-<p><figure><center><figcaption>深圳大学边上的公交站</figcaption></center><figure></p>
-]]></content:encoded>
+<p><figure><center><figcaption>深圳大学边上的公交站</figcaption></center><figure></p>]]></content:encoded>
     </item>
     
     <item>
@@ -585,10 +582,8 @@ ForOtherPet6=&#34;${MyPet1}@${MyPet2}@${MyPet3}@${MyPet4}@${MyPet5}@${MyPet6}&#3
       <pubDate>Fri, 01 Oct 2021 15:18:19 +0800</pubDate>
       
       <guid>https://byteprince.com/posts/8903c78b/</guid>
-      <description>弃用普通的HTML标记作为图片标题</description>
-      <content:encoded><![CDATA[
-
-<h2 id="起因">起因</h2>
+      <description></description>
+      <content:encoded><![CDATA[<h2 id="起因">起因</h2>
 
 <p>昨晚心血来潮，看到某位博主的博客甚是眼馋——里面的相册和豆瓣内容展示页面。但是，不知道咋回事，打完几把吃鸡后头脑不在状态，折腾到很晚都没搞定。安睡一晚上，早上起床醒来，一下就搞定了。</p>
 
@@ -683,8 +678,7 @@ ForOtherPet6=&#34;${MyPet1}@${MyPet2}@${MyPet3}@${MyPet4}@${MyPet5}@${MyPet6}&#3
 </div>
 <p>后者比前者要简洁一些，但是还是存在缺点：在 Markdown 文档中书写的时候不能直接预览图片。</p>
 
-<p>所以我还是采用 Markdown 的<code>![]()</code>语法来添加图片，使用<code>&lt;figure&gt;&lt;center&gt;&lt;figcaption&gt;图片标题&lt;/figcaption&gt;&lt;/center&gt;&lt;figure&gt;</code>来为图片添加标题，以同时获得较好的预览体验和标题显示效果。</p>
-]]></content:encoded>
+<p>所以我还是采用 Markdown 的<code>![]()</code>语法来添加图片，使用<code>&lt;figure&gt;&lt;center&gt;&lt;figcaption&gt;图片标题&lt;/figcaption&gt;&lt;/center&gt;&lt;figure&gt;</code>来为图片添加标题，以同时获得较好的预览体验和标题显示效果。</p>]]></content:encoded>
     </item>
     
     <item>
@@ -693,15 +687,14 @@ ForOtherPet6=&#34;${MyPet1}@${MyPet2}@${MyPet3}@${MyPet4}@${MyPet5}@${MyPet6}&#3
       <pubDate>Wed, 22 Sep 2021 20:42:19 +0800</pubDate>
       
       <guid>https://byteprince.com/posts/8c300a8c/</guid>
-      <description>🌕</description>
+      <description></description>
       <content:encoded><![CDATA[<p><img src="https://img.xiehestudio.com/pic_go/20210922204337.jpeg" alt="" /></p>
 
 <p><figure><center><figcaption>Lumix GX85 + 12-60mm</figcaption></center><figure></p>
 
 <p><img src="https://img.xiehestudio.com/pic_go/20210922204723.jpeg" alt="" /></p>
 
-<p><figure><center><figcaption>Lumix GX85 + 12-60mm</figcaption></center><figure></p>
-]]></content:encoded>
+<p><figure><center><figcaption>Lumix GX85 + 12-60mm</figcaption></center><figure></p>]]></content:encoded>
     </item>
     
     <item>
@@ -1116,10 +1109,8 @@ Internet
       <pubDate>Thu, 02 Sep 2021 20:54:07 +0800</pubDate>
       
       <guid>https://byteprince.com/posts/3d9fc8bc/</guid>
-      <description>前期的所有准备都是为了消除信息不对等</description>
-      <content:encoded><![CDATA[
-
-<h3 id="必备信息">⼀、必备信息</h3>
+      <description></description>
+      <content:encoded><![CDATA[<h3 id="必备信息">⼀、必备信息</h3>
 
 <ol>
 <li>对行业的了解。行业的主要玩家、发展前景、行业里每个龙头公司的产品和受众人群、行业特点。自己要面的公司有哪些产品、优劣势、竞争对手及彼此产品的优劣势。</li>
@@ -1200,8 +1191,7 @@ Internet
 <li>面试尽量要如实回答，有时候越真实越动人。</li>
 <li>对目标公司的业务和知识是赢得信任最重要的问题，在短期内把产品知识啃下来，也是说明自己非常有学习能力。</li>
 </ul>
-</blockquote>
-]]></content:encoded>
+</blockquote>]]></content:encoded>
     </item>
     
     <item>
@@ -7433,19 +7423,11 @@ fff</code></pre>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://byteprince.com/about/</guid>
-      <description>曾在白马湖畔生活了六年，
-现在某银行从事开发工作。
- Email: zzzain46@gmail.com Github: https://github.com/BytePrince  </description>
-      <content:encoded><![CDATA[<p><img src="https://pic.imgdb.cn/item/6185518c2ab3f51d91d70bff.png" style="zoom: 20%;" /></p>
+      <description>曾在白马湖畔待了六年，
+现在从事数据开发工作。</description>
+      <content:encoded><![CDATA[<p>曾在白马湖畔待了六年，</p>
 
-<p>曾在白马湖畔生活了六年，</p>
-
-<p>现在某银行从事开发工作。</p>
-
-<ul>
-<li>Email: zzzain46@gmail.com</li>
-<li>Github: <a href="https://github.com/BytePrince">https://github.com/BytePrince</a></li>
-</ul>
+<p>现在从事数据开发工作。</p>
 ]]></content:encoded>
     </item>
     
