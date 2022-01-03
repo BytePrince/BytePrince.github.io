@@ -3,16 +3,25 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://byteprince.com/</loc>
-    <lastmod>2021-12-09T21:28:16+08:00</lastmod>
+    <lastmod>2022-01-03T11:58:22+08:00</lastmod>
+  </url><url>
+    <loc>https://byteprince.com/categories/</loc>
+    <lastmod>2022-01-03T11:58:22+08:00</lastmod>
+  </url><url>
+    <loc>https://byteprince.com/posts/9046a28b/</loc>
+    <lastmod>2022-01-03T11:58:22+08:00</lastmod>
   </url><url>
     <loc>https://byteprince.com/posts/</loc>
-    <lastmod>2021-12-09T21:28:16+08:00</lastmod>
+    <lastmod>2022-01-03T11:58:22+08:00</lastmod>
+  </url><url>
+    <loc>https://byteprince.com/categories/%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2022-01-03T11:58:22+08:00</lastmod>
+  </url><url>
+    <loc>https://byteprince.com/posts/502bcb7e/</loc>
+    <lastmod>2021-12-09T22:01:17+08:00</lastmod>
   </url><url>
     <loc>https://byteprince.com/posts/b634d46c/</loc>
     <lastmod>2021-12-09T21:28:16+08:00</lastmod>
-  </url><url>
-    <loc>https://byteprince.com/categories/</loc>
-    <lastmod>2021-10-17T22:17:03+08:00</lastmod>
   </url><url>
     <loc>https://byteprince.com/tags/centos/</loc>
     <lastmod>2021-10-17T22:17:03+08:00</lastmod>
@@ -24,9 +33,6 @@
     <lastmod>2021-10-17T22:17:03+08:00</lastmod>
   </url><url>
     <loc>https://byteprince.com/tags/yum/</loc>
-    <lastmod>2021-10-17T22:17:03+08:00</lastmod>
-  </url><url>
-    <loc>https://byteprince.com/categories/%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2021-10-17T22:17:03+08:00</lastmod>
   </url><url>
     <loc>https://byteprince.com/categories/%E6%97%A5%E8%AE%B0/</loc>
@@ -77,7 +83,7 @@
     <loc>https://byteprince.com/posts/626e9457/</loc>
     <lastmod>2021-09-12T16:48:35+08:00</lastmod>
   </url><url>
-    <loc>https://byteprince.com/posts/6143aa48/</loc>
+    <loc>https://byteprince.com/posts/856cdb31/</loc>
     <lastmod>2021-09-11T15:14:45+08:00</lastmod>
   </url><url>
     <loc>https://byteprince.com/tags/%E6%89%8B%E6%9C%BA/</loc>

@@ -6,7 +6,43 @@
     <description>Recent content in Posts on Byte Prince</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 09 Dec 2021 21:28:16 +0800</lastBuildDate><atom:link href="https://byteprince.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 03 Jan 2022 11:58:22 +0800</lastBuildDate><atom:link href="https://byteprince.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MacOS Cheasheet</title>
+      <link>https://byteprince.com/posts/9046a28b/</link>
+      <pubDate>Mon, 03 Jan 2022 11:58:22 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/9046a28b/</guid>
+      <description> 命令  打开当前路径文件夹：open .  快捷键  最小化当前窗口： cmd + m 切换已经被最小化的窗口：按Command+tab键，选中到那个应用之后，再松开tab键，按住option键，然后再松开Command键就可以显示窗口了 终端快速跳转到行首：ctrl + a 终端快速跳转到行尾：ctrl + e  </description>
+      <content:encoded><![CDATA[
+
+<h2 id="命令">命令</h2>
+
+<ul>
+<li>打开当前路径文件夹：<code>open .</code></li>
+</ul>
+
+<h2 id="快捷键">快捷键</h2>
+
+<ul>
+<li>最小化当前窗口： <code>cmd</code> + <code>m</code></li>
+<li>切换已经被最小化的窗口：按Command+tab键，选中到那个应用之后，再松开tab键，按住option键，然后再松开Command键就可以显示窗口了</li>
+<li>终端快速跳转到行首：<code>ctrl</code> + <code>a</code></li>
+<li>终端快速跳转到行尾：<code>ctrl</code> + <code>e</code></li>
+</ul>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>使用koa进行开发</title>
+      <link>https://byteprince.com/posts/502bcb7e/</link>
+      <pubDate>Thu, 09 Dec 2021 22:01:17 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/502bcb7e/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
     <item>
       <title>RESTful API的设计</title>
       <link>https://byteprince.com/posts/b634d46c/</link>
@@ -19,7 +55,7 @@
 <ul>
 <li>URI 使用名次，尽量使用复数，如 /users</li>
 <li>URI 使用嵌套表示关联关系，如  /users/12/repos/5</li>
-<li>使用正确的 HTTP 方法，，如 GET/POST/PUT/DELETE</li>
+<li>使用正确的 HTTP 方法，如 GET/POST/PUT/DELETE</li>
 <li>不符合 CRUD 的情况：POST/action/子资源</li>
 </ul>
 
@@ -723,23 +759,11 @@ Internet
     
     <item>
       <title>关于手机</title>
-      <link>https://byteprince.com/posts/6143aa48/</link>
+      <link>https://byteprince.com/posts/856cdb31/</link>
       <pubDate>Sat, 11 Sep 2021 15:14:45 +0800</pubDate>
       
-      <guid>https://byteprince.com/posts/6143aa48/</guid>
-      <description>2017年，高考结束后没几天，拥有了第一台属于自己的手机：华为P10。
-其实这台手机我在2017年的4月份就开始关注了，第一次看到这台手机是在《电脑报》（我在高中最常看的杂志之一）的某一期上，当时一个绿色和一个钻雕蓝着实吸引了我，为我在高考后购买手机埋下了种子。在高考后，经过一番考虑，还是决定买下这台手机，4+64GB的配置，在当时拿到手也花了3600元左右。
-拿到手机的那个暑假，P10的镜头和相机给了我很多惊喜。
-拍摄于2017年6月16日 由于时间久远，这张照片👆的原图好像已经找不到了。现在看来或许宽容度实在不算出色，但是当时看到这个直出的原图后，还是感觉非常惊艳！
-拍摄于2017年6月14日 散伙饭 P10相机的德味色彩在同期的安卓机型当中还是很能打的！
-后来，上了大学后，课余时间开始接触“科技美学”之类的数码自媒体，也开始渐渐关注手机的发展，每次一有新机发布都会第一时间去看相关的测评报告，也是在这一次次的观看中，逐渐了解手机核心的几个部件：CPU，屏幕，摄像头，扬声器，充电器（后来还多了无线充电方式），另外还有耳机孔规格，防水性能，手机中框后盖材质，解锁方式，前置/后置镜头设计方案等等等等。
-在我还在上大一和大二的时候，最关注的莫过于这些所谓的配置了（其实也可以说是最为关注参数了），甚至也有过一段时间追求“跑分”的时光。
-后来我买了一部新手机：荣耀magic2。当初是冲着全面屏以及高屏占比去的，后来在一段时间的使用后，除了44W的快充以及屏占比以外，综合体验可以说是非常一般了，包括但不限于：摄像头拉跨，素质低且对焦速度慢（扫共享单车的时候尤其明显），手机发热比较严重，为了隐藏前置镜头，屏幕滑盖的设计使得散热非常糟糕……
-当手机不再是我的娱乐工具（并非说不用来娱乐）时，我才意识到，手机仅仅是一个现代化的智能通讯工具，最贴身的体验，才是每个人衡量一部手机之于自己价值的标准——而不是说，屏幕越大，参数越好看，就是好手机。
-再后来，我在2020年6月，购入了人生中第一部iPhone，也是我现在使用的主力手机，小巧的机身，玻璃后盖和金属边框带来的精致的质感，LCD屏幕（尽管是720P），指哪打哪的对焦速度和home键的解锁速度，以及iOS系统对屏幕色彩管理以及内存管理的优异，在“五福一安”的反向加持下，也可以说是瑕不掩瑜。
-现在，我的生活中，偶尔会打打“吃鸡”手游，经常会掏出手机，用相机记录身边的美好瞬间，另外，如果有优秀的屏幕，优秀的手感，流畅稳定的通讯功能，合适的电池容量，那便是我心目中最适合我的机子了。这也是我选择iPhone SE 2020的最重要的理由（电池容量除外😶）。
-后来我知道安兔兔被称为“雷兔兔”后，也就不再那么纠结跑分相差250，实际性能到底会相差多少。当然，Benchmark以及DXOMARK在我心中也是同样的遭遇，现在也仅仅将其作为参考依据之一罢了。
-iPhone SE 2020的最强单摄现在我已经觉得不够用了，不说了，iPhone 13发布会听说马上要开了……</description>
+      <guid>https://byteprince.com/posts/856cdb31/</guid>
+      <description></description>
       <content:encoded><![CDATA[<p>2017年，高考结束后没几天，拥有了第一台属于自己的手机：华为P10。</p>
 
 <p>其实这台手机我在2017年的4月份就开始关注了，第一次看到这台手机是在《电脑报》（我在高中最常看的杂志之一）的某一期上，当时一个绿色和一个钻雕蓝着实吸引了我，为我在高考后购买手机埋下了种子。在高考后，经过一番考虑，还是决定买下这台手机，4+64GB的配置，在当时拿到手也花了3600元左右。</p>
@@ -772,8 +796,7 @@ iPhone SE 2020的最强单摄现在我已经觉得不够用了，不说了，iPh
 
 <p><em>后来我知道<code>安兔兔</code>被称为“雷兔兔”后，也就不再那么纠结跑分相差250，实际性能到底会相差多少。当然，<code>Benchmark</code>以及<code>DXOMARK</code>在我心中也是同样的遭遇，现在也仅仅将其作为参考依据之一罢了。</em></p>
 
-<p><em>iPhone SE 2020的最强单摄现在我已经觉得不够用了，不说了，iPhone 13发布会听说马上要开了……</em></p>
-]]></content:encoded>
+<p><em>iPhone SE 2020的最强单摄现在我已经觉得不够用了，不说了，iPhone 13发布会听说马上要开了……</em></p>]]></content:encoded>
     </item>
     
     <item>
