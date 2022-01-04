@@ -13,10 +13,8 @@
       <pubDate>Mon, 03 Jan 2022 11:58:22 +0800</pubDate>
       
       <guid>https://byteprince.com/posts/9046a28b/</guid>
-      <description> 命令  打开当前路径文件夹：open .  快捷键  最小化当前窗口： cmd + m 切换已经被最小化的窗口：按Command+tab键，选中到那个应用之后，再松开tab键，按住option键，然后再松开Command键就可以显示窗口了 终端快速跳转到行首：ctrl + a 终端快速跳转到行尾：ctrl + e  </description>
-      <content:encoded><![CDATA[
-
-<h2 id="命令">命令</h2>
+      <description></description>
+      <content:encoded><![CDATA[<h2 id="命令">命令</h2>
 
 <ul>
 <li>打开当前路径文件夹：<code>open .</code></li>
@@ -29,8 +27,7 @@
 <li>切换已经被最小化的窗口：按Command+tab键，选中到那个应用之后，再松开tab键，按住option键，然后再松开Command键就可以显示窗口了</li>
 <li>终端快速跳转到行首：<code>ctrl</code> + <code>a</code></li>
 <li>终端快速跳转到行尾：<code>ctrl</code> + <code>e</code></li>
-</ul>
-]]></content:encoded>
+</ul>]]></content:encoded>
     </item>
     
     <item>
