@@ -40,10 +40,10 @@
       <content:encoded><![CDATA[<h2 id="请求设计规范">请求设计规范</h2>
 
 <ul>
-<li>URI 使用名次，尽量使用复数，如 /users</li>
-<li>URI 使用嵌套表示关联关系，如  /users/12/repos/5</li>
-<li>使用正确的 HTTP 方法，如 GET/POST/PUT/DELETE</li>
-<li>不符合 CRUD 的情况：POST/action/子资源</li>
+<li>URI 使用名次，尽量使用复数，如 <code>/users</code></li>
+<li>URI 使用嵌套表示关联关系，如  <code>/users/12/repos/5</code></li>
+<li>使用正确的 HTTP 方法，如 <code>GET/POST/PUT/DELETE</code></li>
+<li>不符合 CRUD 的情况：<code>POST/action/子资源</code></li>
 </ul>
 
 <h2 id="相应设计规范">相应设计规范</h2>
