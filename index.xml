@@ -27,6 +27,7 @@
 <li>切换已经被最小化的窗口：按Command+tab键，选中到那个应用之后，再松开tab键，按住option键，然后再松开Command键就可以显示窗口了</li>
 <li>终端快速跳转到行首：<code>ctrl</code> + <code>a</code></li>
 <li>终端快速跳转到行尾：<code>ctrl</code> + <code>e</code></li>
+<li>显示隐藏文件 <code>shift</code> + <code>cmd</code> + <code>.</code></li>
 </ul>]]></content:encoded>
     </item>
     
