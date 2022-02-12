@@ -6,7 +6,258 @@
     <description>Recent content in 笔记 on Byte Prince</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 03 Jan 2022 11:58:22 +0800</lastBuildDate><atom:link href="https://byteprince.com/categories/%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 12 Feb 2022 20:40:27 +0800</lastBuildDate><atom:link href="https://byteprince.com/categories/%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MacOS环境下rar的使用方法</title>
+      <link>https://byteprince.com/posts/3957732e/</link>
+      <pubDate>Sat, 12 Feb 2022 20:40:27 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/3957732e/</guid>
+      <description></description>
+      <content:encoded><![CDATA[<p>最近在整理本地文件的时候不可避免地要归纳一下日常的照片。根据以往的习惯，我通常会在<strong>移动硬盘</strong>和<strong>云盘</strong>进行双重备份，以我能够接受的成本尽可能提高照片的数据安全，避免归档丢失。</p>
+
+<p>我通常选用百度网盘和 OneDrive 进行备份，最近几年阿里云盘横空出世，也给我多了一个选择。由于我不希望自己的照片被云服务商挪作他用，也尽可能避免云端数据泄露的风险，我通常会将重要的照片打成加密压缩包再上传到云端。最近我意识到云端的压缩包存在数据损坏的风险，学习了相关的经验以后还是决定使用 rar 压缩包 + 恢复记录的形式对上传云端的数据进行打包处理。</p>
+
+<p>近期，主力设备从 Windows 系统切换到 macOS 系统没多久，对 macOS 下 rar 压缩的使用方法还没有使用过，特此记录，备查。</p>
+
+<h2 id="安装-rar">安装 rar</h2>
+
+<p>我本地已经安装了 <code>homebrew</code>，所以直接安装 rar 也非常方便。</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">brew install rar</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="使用-rar">使用 rar</h2>
+
+<p>由于在 macOS 下没有官方的 rar GUI 客户端，所以直接使用命令行形式来进行日常的压缩和解压缩。</p>
+
+<h3 id="基本语法">基本语法</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rar &lt;command&gt; -&lt;switch 1&gt; -&lt;switch N&gt; &lt;archive&gt; &lt;files...&gt;
+    &lt;@listfiles...&gt; &lt;path_to_extract<span style="color:#ae81ff">\&gt;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="常用参数">常用参数</h3>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>a</td>
+<td>添加文件到压缩文件</td>
+</tr>
+
+<tr>
+<td>d</td>
+<td>删除压缩文件中的文件</td>
+</tr>
+
+<tr>
+<td>e</td>
+<td>解压一个压缩包</td>
+</tr>
+
+<tr>
+<td>u</td>
+<td>往压缩包内新增文件</td>
+</tr>
+
+<tr>
+<td>r</td>
+<td>修复压缩包</td>
+</tr>
+
+<tr>
+<td>l</td>
+<td>查看压缩包内文件</td>
+</tr>
+
+<tr>
+<td>t</td>
+<td>测试压缩包是否完整</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>-c</td>
+<td>添加压缩包注释</td>
+</tr>
+
+<tr>
+<td>-m[0-5]</td>
+<td>设置高级压缩参数[0-5],0为存储，3为默认，5为最佳</td>
+</tr>
+
+<tr>
+<td>-p[password]</td>
+<td>设置压缩包密码，仅加密文件名</td>
+</tr>
+
+<tr>
+<td>-hp[password]</td>
+<td>设置压缩包密码，包括文件名与文件头</td>
+</tr>
+
+<tr>
+<td>-rr</td>
+<td>添加恢复记录，以百分比为单位</td>
+</tr>
+
+<tr>
+<td>-v [M|k|b|f]</td>
+<td>设置压缩分卷并制定分卷大小</td>
+</tr>
+
+<tr>
+<td>-z</td>
+<td>从文本文件中读取文本并添加为注释</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="用法实例">用法实例</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 1. 添加一个文件到压缩包</span>
+ 
+rar a compress.rar file.mp4
+ 
+<span style="color:#75715e"># 2. 添加一个文件到压缩包，压缩率设置为存储</span>
+ 
+rar a compress.rar file.mp4 -m0
+ 
+<span style="color:#75715e"># 3. 添加一个文件到压缩包，添加3%的恢复记录</span>
+ 
+rar a compress.rar file.mp4 -rr3%
+ 
+<span style="color:#75715e"># 4. 添加一个文件到压缩包，同时加载注释文本“zs.txt”并将文本内容写入压缩包中</span>
+ 
+rar a compress.rar file.mp4 -rr3% -zzs.txt
+ 
+<span style="color:#75715e"># 5. 添加一个文件到压缩包，并设置密码为aptx4869</span>
+ 
+rar a compress.rar file.mp4 -paptx4869
+ 
+<span style="color:#75715e"># 6. 添加一个文件到压缩包，并设置密码为aptx4869,同时加密文件与文件头[不输入密码无法看到文件内容]</span>
+ 
+rar a compress.rar file.mp4 -hpaptx4869
+ 
+<span style="color:#75715e"># 7. 添加一个文件到压缩包，并设置压缩分卷，最大分卷为100M，分卷单位为[M|k|b|f],压缩后会产生文件名.part1.rar、part2.rar......</span>
+ 
+rar a compress.rar file.mp4 -v100M 
+ 
+<span style="color:#75715e"># 8. 解压一个压缩包到当前目录</span>
+ 
+rar e compress.rar ./
+ 
+<span style="color:#75715e"># 9. 往压缩包中添加文件file.mkv</span>
+ 
+rar u compress.rar file.mkv
+ 
+<span style="color:#75715e"># 10. 往压缩包中删除文件file.mkv</span>
+ 
+rar d compress.rar file.mkv
+ 
+<span style="color:#75715e"># 11. 修复损坏到压缩包，mac中修复后会存在一个rebulid.开头的文件</span>
+ 
+rar r compress.rar
+ 
+<span style="color:#75715e"># 12. 查看压缩包中的文件</span>
+ 
+rar l compress.rar
+ 
+<span style="color:#75715e"># 13. 检查压缩包是否完整</span>
+ 
+rar t compress.rar</code></pre></td></tr></table>
+</div>
+</div>
+<p>参考：</p>
+
+<blockquote>
+<p><a href="https://www.xuebuyuan.com/3245960.html">https://www.xuebuyuan.com/3245960.html</a></p>
+
+<p><a href="https://ss64.com/bash/rar.html">https://ss64.com/bash/rar.html</a></p>
+</blockquote>]]></content:encoded>
+    </item>
+    
     <item>
       <title>MacOS Cheasheet</title>
       <link>https://byteprince.com/posts/9046a28b/</link>
