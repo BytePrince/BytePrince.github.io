@@ -6,9 +6,22 @@
     <description>Recent content on Byte Prince</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 12 Feb 2022 20:40:27 +0800</lastBuildDate><atom:link href="https://byteprince.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 19 Feb 2022 11:12:17 +0800</lastBuildDate><atom:link href="https://byteprince.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>MacOS环境下rar的使用方法</title>
+      <title>Koa学习笔记</title>
+      <link>https://byteprince.com/posts/9c4ac6c7/</link>
+      <pubDate>Sat, 19 Feb 2022 11:12:17 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/9c4ac6c7/</guid>
+      <description>一个新的Web框架</description>
+      <content:encoded><![CDATA[<blockquote>
+<p>Koa 是一个新的 Web 框架，由 Express 幕后的原班人马打造， 致力于成为 web 应用和 API 开发领域中的一个更小、更富有表现力、更健壮的基石。 通过利用 async 函数，Koa 帮你丢弃回调函数，并有力地增强错误处理。 Koa 并没有捆绑任何中间件， 而是提供了一套优雅的方法，帮助您快速而愉快地编写服务端应用程序。</p>
+</blockquote>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>MacOS 环境下 rar 的使用方法</title>
       <link>https://byteprince.com/posts/3957732e/</link>
       <pubDate>Sat, 12 Feb 2022 20:40:27 +0800</pubDate>
       
@@ -16,7 +29,7 @@
       <description></description>
       <content:encoded><![CDATA[<p>最近在整理本地文件的时候不可避免地要归纳一下日常的照片。根据以往的习惯，我通常会在<strong>移动硬盘</strong>和<strong>云盘</strong>进行双重备份，以我能够接受的成本尽可能提高照片的数据安全，避免归档丢失。</p>
 
-<p>我通常选用百度网盘和 OneDrive 进行备份，最近几年阿里云盘横空出世，也给我多了一个选择。由于我不希望自己的照片被云服务商挪作他用，也尽可能避免云端数据泄露的风险，我通常会将重要的照片打成加密压缩包再上传到云端。最近我意识到云端的压缩包存在数据损坏的风险，学习了相关的经验以后还是决定使用 rar 压缩包 + 恢复记录的形式对上传云端的数据进行打包处理。</p>
+<p>我通常选用百度网盘和 OneDrive 进行备份，最近几年阿里云盘横空出世，也给我多了一个选择。由于我不希望自己的照片被云服务商挪作他用，也尽可能避免云端数据泄露的风险，我通常会将重要的照片打成加密压缩包再上传到云端。最近我意识到云端的压缩包存在数据损坏的风险，学习了相关的经验以后还是决定使用 <strong>rar 压缩包 + 恢复记录</strong>的形式对上传云端的数据进行打包处理。</p>
 
 <p>近期，主力设备从 Windows 系统切换到 macOS 系统没多久，对 macOS 下 rar 压缩的使用方法还没有使用过，特此记录，备查。</p>
 
@@ -33,7 +46,7 @@
 </div>
 <h2 id="使用-rar">使用 rar</h2>
 
-<p>由于在 macOS 下没有官方的 rar GUI 客户端，所以直接使用命令行形式来进行日常的压缩和解压缩。</p>
+<p>由于在 macOS 下没有官方的 rar GUI 客户端，所以直接使用<strong>命令行</strong>形式来进行日常的压缩和解压缩。</p>
 
 <h3 id="基本语法">基本语法</h3>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
@@ -7679,6 +7692,16 @@ ilovepdf   二维码工具 QRBTF 参数化二维码生成器   临时邮箱 临�
 </tbody>
 </table>
 ]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Photos</title>
+      <link>https://byteprince.com/album/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://byteprince.com/album/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
     </item>
     
     
