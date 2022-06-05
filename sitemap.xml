@@ -3,28 +3,10 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://byteprince.com/</loc>
-    <lastmod>2022-02-19T11:12:17+08:00</lastmod>
+    <lastmod>2022-02-12T20:40:27+08:00</lastmod>
   </url><url>
     <loc>https://byteprince.com/categories/</loc>
-    <lastmod>2022-02-19T11:12:17+08:00</lastmod>
-  </url><url>
-    <loc>https://byteprince.com/tags/koa/</loc>
-    <lastmod>2022-02-19T11:12:17+08:00</lastmod>
-  </url><url>
-    <loc>https://byteprince.com/posts/9c4ac6c7/</loc>
-    <lastmod>2022-02-19T11:12:17+08:00</lastmod>
-  </url><url>
-    <loc>https://byteprince.com/tags/nodejs/</loc>
-    <lastmod>2022-02-19T11:12:17+08:00</lastmod>
-  </url><url>
-    <loc>https://byteprince.com/posts/</loc>
-    <lastmod>2022-02-19T11:12:17+08:00</lastmod>
-  </url><url>
-    <loc>https://byteprince.com/tags/</loc>
-    <lastmod>2022-02-19T11:12:17+08:00</lastmod>
-  </url><url>
-    <loc>https://byteprince.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2022-02-19T11:12:17+08:00</lastmod>
+    <lastmod>2022-02-12T20:40:27+08:00</lastmod>
   </url><url>
     <loc>https://byteprince.com/tags/macos/</loc>
     <lastmod>2022-02-12T20:40:27+08:00</lastmod>
@@ -32,7 +14,13 @@
     <loc>https://byteprince.com/posts/3957732e/</loc>
     <lastmod>2022-02-12T20:40:27+08:00</lastmod>
   </url><url>
+    <loc>https://byteprince.com/posts/</loc>
+    <lastmod>2022-02-12T20:40:27+08:00</lastmod>
+  </url><url>
     <loc>https://byteprince.com/tags/rar/</loc>
+    <lastmod>2022-02-12T20:40:27+08:00</lastmod>
+  </url><url>
+    <loc>https://byteprince.com/tags/</loc>
     <lastmod>2022-02-12T20:40:27+08:00</lastmod>
   </url><url>
     <loc>https://byteprince.com/categories/%E7%AC%94%E8%AE%B0/</loc>
@@ -218,6 +206,9 @@
     <loc>https://byteprince.com/categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</loc>
     <lastmod>2021-04-02T14:19:28+08:00</lastmod>
   </url><url>
+    <loc>https://byteprince.com/tags/nodejs/</loc>
+    <lastmod>2021-03-25T13:47:54+08:00</lastmod>
+  </url><url>
     <loc>https://byteprince.com/categories/nodejs/</loc>
     <lastmod>2021-03-25T13:47:54+08:00</lastmod>
   </url><url>
@@ -394,6 +385,8 @@
     <loc>https://byteprince.com/collection/</loc>
   </url><url>
     <loc>https://byteprince.com/album/</loc>
+  </url><url>
+    <loc>https://byteprince.com/cookbook/</loc>
   </url><url>
     <loc>https://byteprince.com/search/</loc>
   </url><url>
