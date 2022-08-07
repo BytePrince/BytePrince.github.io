@@ -10,11 +10,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>Byte Prince</title>
-<meta name="keywords" content="byteprince, pwner, Blog" />
+<title>行为 | Byte Prince</title>
+<meta name="keywords" content="" />
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="canonical" href="https://byteprince.com/" />
+<link rel="canonical" href="https://byteprince.com/tags/%E8%A1%8C%E4%B8%BA/" />
 <link crossorigin="anonymous" href="/assets/css/stylesheet.min.ac644624f0efdbd32cd4c18ca1c46c5fa1e075a3f996f3645445fdfdf0d4b0fd.css" integrity="sha256-rGRGJPDv29Ms1MGMocRsX6HgdaP5lvNkVEX9/fDUsP0=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
 <link rel="icon" type="image/png" sizes="16x16" href="https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png">
@@ -24,31 +24,17 @@
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
 <meta name="generator" content="Hugo 0.91.2" />
-<link rel="alternate" type="application/rss+xml" href="https://byteprince.com/index.xml">
-<link rel="alternate" type="application/json" href="https://byteprince.com/index.json">
+<link rel="alternate" type="application/rss+xml" href="https://byteprince.com/tags/%E8%A1%8C%E4%B8%BA/index.xml">
 
-<meta property="og:title" content="Byte Prince" />
+<meta property="og:title" content="行为" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://byteprince.com/" />
+<meta property="og:url" content="https://byteprince.com/tags/%E8%A1%8C%E4%B8%BA/" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Byte Prince"/>
+<meta name="twitter:title" content="行为"/>
 <meta name="twitter:description" content=""/>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Byte Prince",
-  "url": "https://byteprince.com/",
-  "description": "",
-  "thumbnailUrl": "https://img.xiehestudio.com/2021/05/06/e0fb9c2c4d681.png",
-  "sameAs": [
-      "https://github.com/BytePrince", "http://byteprince.com/index.xml", "mailto:zzzain46@gmail.com"
-  ]
-}
-</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
 <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
@@ -156,122 +142,24 @@
     </nav>
 </header>
 <main class="main"> 
+<header class="page-header">
+  <h1>行为</h1>
+</header>
 
-<article class="post-entry"> 
+<article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2>一次 Git 的失败记录</h2>
+    <h2>一个有意思的SQL问题</h2>
   </header>
   <section class="entry-content">
-    <p></p>
+    <p>前阵子，在工作中收到一个业务部门发起的取数工单，取数口径比较有意思。前阵子，因为其他事情比较忙，现在抽空记录一下问题。
+部分业务背景已省略，简化问题如下：
+ …筛选连续三个月及以上有交易流水的用户…
+ 这个问题看起来很简单，最笨蛋的方法无非就是筛选1,2,3,4,5,6,7,8,9,10,11,12月每个月有交易的用户，形成12个临时表，然后再暴力遍历。
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33  with tmp_1 as ( select cust_id from trx_act where trx_date between &#39;2022-01-01&#39; and &#39;2022-01-31&#39; group by cust_id ),tmp_2 as ( select cust_id from trx_act where trx_date between &#39;2022-02-01&#39; and &#39;2022-02-29&#39; group by cust_id ), .</p>
   </section>
-  <footer class="entry-footer">June 10, 2021</footer>
-  <a class="entry-link" aria-label="post link to 一次 Git 的失败记录" href="https://byteprince.com/posts/b61c3883/"></a>
+  <footer class="entry-footer">July 17, 2022</footer>
+  <a class="entry-link" aria-label="post link to 一个有意思的SQL问题" href="https://byteprince.com/posts/e44d6495/"></a>
 </article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>装机软件清单</h2>
-  </header>
-  <section class="entry-content">
-    <p></p>
-  </section>
-  <footer class="entry-footer">June 10, 2021</footer>
-  <a class="entry-link" aria-label="post link to 装机软件清单" href="https://byteprince.com/posts/f85819fb/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>MySQL进阶：启动选项和系统变量</h2>
-  </header>
-  <section class="entry-content">
-    <p></p>
-  </section>
-  <footer class="entry-footer">May 30, 2021</footer>
-  <a class="entry-link" aria-label="post link to MySQL进阶：启动选项和系统变量" href="https://byteprince.com/posts/e50d7dqi/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>[转载]关于各类开源协议的区别</h2>
-  </header>
-  <section class="entry-content">
-    <p></p>
-  </section>
-  <footer class="entry-footer">May 20, 2021</footer>
-  <a class="entry-link" aria-label="post link to [转载]关于各类开源协议的区别" href="https://byteprince.com/posts/e6d1bba4/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>删除 Windows 下被占用的文件</h2>
-  </header>
-  <section class="entry-content">
-    <p></p>
-  </section>
-  <footer class="entry-footer">May 15, 2021</footer>
-  <a class="entry-link" aria-label="post link to 删除 Windows 下被占用的文件" href="https://byteprince.com/posts/40fef465/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>CentOS 7 防火墙配置</h2>
-  </header>
-  <section class="entry-content">
-    <p>firewall常用命令</p>
-  </section>
-  <footer class="entry-footer">May 11, 2021</footer>
-  <a class="entry-link" aria-label="post link to CentOS 7 防火墙配置" href="https://byteprince.com/posts/ecd7a7b7/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>MySQL进阶：关于MySQL</h2>
-  </header>
-  <section class="entry-content">
-    <p></p>
-  </section>
-  <footer class="entry-footer">April 27, 2021</footer>
-  <a class="entry-link" aria-label="post link to MySQL进阶：关于MySQL" href="https://byteprince.com/posts/cdbe8ab7/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Python 基础知识提纲</h2>
-  </header>
-  <section class="entry-content">
-    <p>关于Python基础的种种</p>
-  </section>
-  <footer class="entry-footer">April 2, 2021</footer>
-  <a class="entry-link" aria-label="post link to Python 基础知识提纲" href="https://byteprince.com/posts/a5648380/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Nodejs 多版本环境管理</h2>
-  </header>
-  <section class="entry-content">
-    <p>当然采用Docker可能是另一种思路</p>
-  </section>
-  <footer class="entry-footer">March 25, 2021</footer>
-  <a class="entry-link" aria-label="post link to Nodejs 多版本环境管理" href="https://byteprince.com/posts/88e6ba2a/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>今日校园自动打卡</h2>
-  </header>
-  <section class="entry-content">
-    <p>懒人懒办法</p>
-  </section>
-  <footer class="entry-footer">January 24, 2021</footer>
-  <a class="entry-link" aria-label="post link to 今日校园自动打卡" href="https://byteprince.com/posts/b530bd3e/"></a>
-</article>
-<footer class="page-footer">
-  <nav class="pagination">
-    <a class="prev" href="https://byteprince.com/page/2/">« Prev Page</a>
-    <a class="next" href="https://byteprince.com/page/4/">Next Page »</a>
-  </nav>
-</footer>
     </main>
     <footer class="footer">
     
