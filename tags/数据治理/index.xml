@@ -81,7 +81,48 @@
 
 <p>通过表效率，筛选出无效表，确认后进行删除。无效表删除时尽量避免并行执行，以免使得平台高负载。</p>
 
-<h3 id="小文件">小文件</h3>]]></content:encoded>
+<h3 id="小文件">小文件</h3>
+
+<h4 id="表文件合并">表文件合并</h4>
+
+<ul>
+<li>方式一：备份源表，使用 insert overwrite table A select *  from A</li>
+<li>方式二：备份源表，建新表，将新表重命名为 A 表</li>
+</ul>
+
+<h4 id="非分区表">非分区表</h4>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- 备份表
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> <span style="color:#f92672">&lt;</span>db_name<span style="color:#f92672">&gt;</span>.A_bak <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> <span style="color:#f92672">&lt;</span>db_name<span style="color:#f92672">&gt;</span>.A;
+
+<span style="color:#75715e">-- 新建表B，并为B表添加注释
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">external</span> <span style="color:#66d9ef">table</span> <span style="color:#f92672">&lt;</span>db_name<span style="color:#f92672">&gt;</span>.B <span style="color:#66d9ef">like</span> <span style="color:#f92672">&lt;</span>db_name<span style="color:#f92672">&gt;</span>.A
+stored <span style="color:#66d9ef">as</span> orc tblproperttes(<span style="color:#e6db74">&#39;TRANSLATED_TO_EXTERNAL&#39;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;TRUE&#39;</span>);
+<span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#f92672">&lt;</span>db_name<span style="color:#f92672">&gt;</span>.B <span style="color:#66d9ef">SET</span> tblproperties(<span style="color:#e6db74">&#39;comment&#39;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;表中文名&#39;</span>) 
+
+<span style="color:#75715e">-- 将表A的数据插入表B
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">insert</span> overwrite <span style="color:#f92672">&lt;</span>db_name<span style="color:#f92672">&gt;</span>.B <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> <span style="color:#f92672">&lt;</span>db_name<span style="color:#f92672">&gt;</span>.A;
+
+<span style="color:#75715e">-- 重命名B表
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">alter</span> <span style="color:#66d9ef">table</span> <span style="color:#f92672">&lt;</span>db_name<span style="color:#f92672">&gt;</span>.A </code></pre></td></tr></table>
+</div>
+</div>]]></content:encoded>
     </item>
     
   </channel>
