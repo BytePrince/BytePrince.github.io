@@ -163,14 +163,21 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2>数据仓库优化之 Hive 数据治理</h2>
+  </header>
+  <section class="entry-content">
+    <p></p>
+  </section>
+  <footer class="entry-footer">August 21, 2022</footer>
+  <a class="entry-link" aria-label="post link to 数据仓库优化之 Hive 数据治理" href="https://byteprince.com/posts/3c46d643/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2>一个有意思的SQL问题</h2>
   </header>
   <section class="entry-content">
-    <p>前阵子，在工作中收到一个业务部门发起的取数工单，取数口径比较有意思。前阵子，因为其他事情比较忙，现在抽空记录一下问题。
-部分业务背景已省略，简化问题如下：
- …筛选连续三个月及以上有交易流水的用户…
- 这个问题看起来很简单，最笨蛋的方法无非就是筛选1,2,3,4,5,6,7,8,9,10,11,12月每个月有交易的用户，形成12个临时表，然后再暴力遍历。
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33  with tmp_1 as ( select cust_id from trx_act where trx_date between &#39;2022-01-01&#39; and &#39;2022-01-31&#39; group by cust_id ),tmp_2 as ( select cust_id from trx_act where trx_date between &#39;2022-02-01&#39; and &#39;2022-02-29&#39; group by cust_id ), .</p>
+    <p>如何对连续行为进行分析</p>
   </section>
   <footer class="entry-footer">July 17, 2022</footer>
   <a class="entry-link" aria-label="post link to 一个有意思的SQL问题" href="https://byteprince.com/posts/e44d6495/"></a>
@@ -262,17 +269,6 @@
   </section>
   <footer class="entry-footer">September 22, 2021</footer>
   <a class="entry-link" aria-label="post link to 辛丑年中秋之月" href="https://byteprince.com/posts/8c300a8c/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>穷玩摄影之装备证件照</h2>
-  </header>
-  <section class="entry-content">
-    <p></p>
-  </section>
-  <footer class="entry-footer">September 15, 2021</footer>
-  <a class="entry-link" aria-label="post link to 穷玩摄影之装备证件照" href="https://byteprince.com/posts/86b5abd4/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

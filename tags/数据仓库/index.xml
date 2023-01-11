@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>数据仓库 on Byte Prince</title>
+    <link>https://byteprince.com/tags/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/</link>
+    <description>Recent content in 数据仓库 on Byte Prince</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 21 Aug 2022 13:23:48 +0800</lastBuildDate><atom:link href="https://byteprince.com/tags/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>数据仓库优化之 Hive 数据治理</title>
+      <link>https://byteprince.com/posts/3c46d643/</link>
+      <pubDate>Sun, 21 Aug 2022 13:23:48 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/3c46d643/</guid>
+      <description></description>
+      <content:encoded><![CDATA[<h2 id="数据治理的背景">数据治理的背景</h2>
+
+<ul>
+<li>Hive  SQL 查询速度慢</li>
+<li>同步队列排队多，同步速度慢</li>
+<li>跑批报 Code 1错误</li>
+<li>任务一直停在 Scheduled</li>
+<li>资源池 100% 占用</li>
+</ul>
+
+<h2 id="数据治理入手点">数据治理入手点</h2>
+
+<ol>
+<li><strong>无效表</strong>
+
+<ul>
+<li>近三月，有被 1 个及以上的下游任务应用，且任务执行成功次数为 0，或无下游任务引用</li>
+<li>近三月，有被 API 调用，且 API 调用次数为 0，或没被 API 调用过</li>
+<li>同步至 BI 分析平台，且在 BI 分析平台上被标识为无效表或没有成功同步至 BI 分析平台</li>
+<li>近三月即席查询次数为 0</li>
+</ul></li>
+<li><strong>小文件</strong>
+
+<ul>
+<li>Hadoop 默认一个 block 块的大小是 128 M 。如果一个 HDFS 文件大小远远小于 128 M，则认为该文件为小文件。（HDFS 以 block 块的形式存储在集群上，HDFS 中小于一个块大小的文件不会占满整个块的空间，文件有多大占多大空间。）实际上，通常会对 1M 以下的小文件进行治理。</li>
+</ul></li>
+<li><strong>多分区</strong>
+
+<ul>
+<li>重点治理分区数较多的表。实际上，通常会对分区数超过 1500 的表进行治理。</li>
+</ul></li>
+</ol>
+
+<h2 id="数据治理方法">数据治理方法</h2>
+
+<p><img src="https://img.xiehestudio.com/uPic/rp0h1E.png" alt="byteprince.com 数据治理方法" /></p>
+
+<h2 id="数据治理的好处">数据治理的好处</h2>
+
+<ul>
+<li><strong>查询速度提升</strong></li>
+</ul>
+
+<p>小文件治理后，可以大大减少查询时扫描的文件数量，提高查询速度。</p>
+
+<ul>
+<li><p><strong>消耗存储资源减少</strong></p></li>
+
+<li><p><strong>消耗计算资源减少</strong></p></li>
+</ul>
+
+<p>小文件合并后，减少 Namenode 的压力，减少启动的 Container 的个数，节约计算资源</p>
+
+<ul>
+<li><strong>成本下降</strong></li>
+</ul>
+
+<h2 id="建立治理清单">建立治理清单</h2>
+
+<p><img src="https://img.xiehestudio.com/uPic/image-20220821141558207.png" alt="byteprince.com 数据治理清单" style="zoom:200%;" /></p>
+
+<h2 id="治理方法详解">治理方法详解</h2>
+
+<h3 id="无效表">无效表</h3>
+
+<p>通过表效率，筛选出无效表，确认后进行删除。无效表删除时尽量避免并行执行，以免使得平台高负载。</p>
+
+<h3 id="小文件">小文件</h3>]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>
