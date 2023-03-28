@@ -13,7 +13,7 @@
       <pubDate>Tue, 28 Mar 2023 20:44:10 +0800</pubDate>
       
       <guid>https://byteprince.com/posts/bd268055/</guid>
-      <description></description>
+      <description>三步更新一个容器应用</description>
       <content:encoded><![CDATA[<p>之前一直用 Docker 部署一些开源的应用，例如青龙面板等。后来发现用 Docker 部署的应用后期进行版本更新的时候比较麻烦，需要找到确定容器名称，找到容器映射的本地目录，备份数据，拉取最新的镜像然后重新创建容器。</p>
 
 <p>详见 <a href="https://cloud.tencent.com/developer/article/2086860">Docker更新容器镜像的三种方法</a>。本懒狗果断改用 Docker-compose 来维护自己的容器。</p>
