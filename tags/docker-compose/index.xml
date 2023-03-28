@@ -1,115 +1,87 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Docker Compose on Byte Prince</title>
+    <title>Docker-compose on Byte Prince</title>
     <link>https://byteprince.com/tags/docker-compose/</link>
-    <description>Recent content in Docker Compose on Byte Prince</description>
+    <description>Recent content in Docker-compose on Byte Prince</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 09 Aug 2021 21:22:19 +0800</lastBuildDate><atom:link href="https://byteprince.com/tags/docker-compose/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 28 Mar 2023 20:44:10 +0800</lastBuildDate><atom:link href="https://byteprince.com/tags/docker-compose/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Docker笔记</title>
-      <link>https://byteprince.com/posts/1540722a/</link>
-      <pubDate>Mon, 09 Aug 2021 21:22:19 +0800</pubDate>
+      <title>Docker-Compose 常用命令</title>
+      <link>https://byteprince.com/posts/bd268055/</link>
+      <pubDate>Tue, 28 Mar 2023 20:44:10 +0800</pubDate>
       
-      <guid>https://byteprince.com/posts/1540722a/</guid>
-      <description>一些常用的使用方法</description>
-      <content:encoded><![CDATA[
+      <guid>https://byteprince.com/posts/bd268055/</guid>
+      <description></description>
+      <content:encoded><![CDATA[<p>之前一直用 Docker 部署一些开源的应用，例如青龙面板等。后来发现用 Docker 部署的应用后期进行版本更新的时候比较麻烦，需要找到确定容器名称，找到容器映射的本地目录，备份数据，拉取最新的镜像然后重新创建容器。</p>
 
-<h2 id="docker安装">🐋Docker安装</h2>
+<p>详见 <a href="https://cloud.tencent.com/developer/article/2086860">Docker更新容器镜像的三种方法</a>。本懒狗果断改用 Docker-compose 来维护自己的容器。</p>
 
-<h3 id="使用官方脚本自动安装命令">🔨使用官方脚本自动安装命令</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">curl -fsSL https://get.docker.com | bash -s docker --mirror aliyun</code></pre></div>
-<h3 id="手动安装">🔨手动安装</h3>
-
-<h4 id="1-卸载旧版本">1 卸载旧版本</h4>
-<pre><code>sudo yum remove docker \
-                docker-client \
-                docker-client-latest \
-                docker-common \
-                docker-latest \
-                docker-latest-logrotate \
-                docker-logrotate \
-                docker-engine</code></pre>
-<h4 id="2-安装-docker-engine-community">2 安装 Docker Engine-Community</h4>
-
-<blockquote>
-<p>使用 Docker 仓库进行安装</p>
-</blockquote>
-
-<p>在新主机上首次安装 <code>Docker Engine-Community</code> 之前，需要<strong>设置 Docker 仓库</strong>。之后，您可以从仓库安装和更新 Docker。</p>
-
-<h5 id="2-1-设置仓库">2.1 设置仓库</h5>
-
-<p><strong>2.1.1 安装所需的软件包</strong></p>
-
-<p><code>yum-utils</code> 提供了 <code>yum-config-manager</code> ，并且 <code>device mapper</code> 存储驱动程序需要 <code>device-mapper-persistent-data</code> 和 <code>lvm2</code>。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo yum install -y yum-utils <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span> device-mapper-persistent-data <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span> lvm2</code></pre></div>
-<p><strong>2.1.2 设定仓库地址（使用官方源地址）</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo yum-config-manager <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --add-repo <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    https://download.docker.com/linux/centos/docker-ce.repo</code></pre></div>
-<blockquote>
-<p>👇也可选用国内源，速度较快</p>
-
-<p>http:<strong>//</strong>mirrors.aliyun.com<strong>/</strong>docker-ce<strong>/</strong>linux<strong>/</strong>centos<strong>/</strong>docker-ce.repo</p>
-
-<p>https:<strong>//</strong>mirrors.tuna.tsinghua.edu.cn<strong>/</strong>docker-ce<strong>/</strong>linux<strong>/</strong>centos<strong>/</strong>docker-ce.repo</p>
-</blockquote>
-
-<h5 id="2-2-安装-docker-engine-community">2.2 安装 Docker Engine-Community</h5>
-
-<blockquote>
-<p>以下命令默认安装最高版本的 Docker</p>
-</blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo yum install docker-ce docker-ce-cli containerd.io</code></pre></div>
-<p>若提示接受GPG密钥，选择是。</p>
-
-<blockquote>
-<p>安装指定版本的 Docker</p>
-</blockquote>
-
-<p><strong>2.2.1 列出并排序您存储库中可用的版本。此示例按版本号（从高到低）对结果进行排序。</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ yum list docker-ce --showduplicates | sort -r
-
-docker-ce.x86_64  3:18.09.1-3.el7                     docker-ce-stable
-docker-ce.x86_64  3:18.09.0-3.el7                     docker-ce-stable
-docker-ce.x86_64  18.06.1.ce-3.el7                    docker-ce-stable
-docker-ce.x86_64  18.06.0.ce-3.el7                    docker-ce-stable</code></pre></div>
-<p><strong>2.2.2 通过其完整的软件包名称安装特定版本，该软件包名称是软件包名称（docker-ce）加上版本字符串（第二列），从第一个冒号（:）一直到第一个连字符，并用连字符（-）分隔。例如：docker-ce-18.09.1。</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo yum install docker-ce-&lt;VERSION_STRING&gt; docker-ce-cli-&lt;VERSION_STRING&gt; containerd.io</code></pre></div>
-<h2 id="docker启动">🐋Docker启动</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo systemctl start docker</code></pre></div>
-<p>运行 <code>hello-world</code> 映像来验证是否正确安装了 <code>Docker Engine-Community</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">docker run hello-world</code></pre></div>
-<h2 id="docker卸载">🐋Docker卸载</h2>
-
-<p>删除安装包</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">yum remove docker-ce</code></pre></div>
-<p>删除镜像、容器、配置文件等内容</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">rm -rf /var/lib/docker</code></pre></div>
-<h2 id="docker容器的操作">🐋Docker容器的操作</h2>
-
-<h3 id="查看正在运行的容器">查看正在运行的容器</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo docker ps -a </code></pre></div>
-<h3 id="停用容器">停用容器</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo docker stop <span style="color:#f92672">[</span>CONTAINER ID <span style="color:#f92672">]</span> </code></pre></div>
-<h3 id="删除容器">删除容器</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"> sudo docker rm <span style="color:#f92672">[</span>CONTAINER ID <span style="color:#f92672">]</span> </code></pre></div>
-<h2 id="docker镜像的操作">🐋Docker镜像的操作</h2>
-
-<h3 id="拉取镜像">拉取镜像</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">docker pull supermanito/helloworld</code></pre></div>
-<h3 id="查看本地镜像">查看本地镜像</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo docker images</code></pre></div>
-<h3 id="删除镜像">删除镜像</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo docker rmi <span style="color:#f92672">[</span>Image ID<span style="color:#f92672">]</span></code></pre></div>
-<h2 id="docker-compose">🐋Docker Compose</h2>
-
-<p>官方文档：<a href="https://docs.docker.com/compose/install/">https://docs.docker.com/compose/install/</a></p>
-]]></content:encoded>
+<p>以 <code>Alist</code> 的 Docker-compose.yml 文件为例，</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;3.3&#39;</span>
+<span style="color:#f92672">services</span>:
+    <span style="color:#f92672">alist</span>:
+        <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">always</span>
+        <span style="color:#f92672">volumes</span>:
+            - <span style="color:#e6db74">&#39;/etc/alist:/opt/alist/data&#39;</span>
+        <span style="color:#f92672">ports</span>:
+            - <span style="color:#e6db74">&#39;5244:5244&#39;</span>
+        <span style="color:#f92672">environment</span>:
+            - <span style="color:#ae81ff">PUID=0</span>
+            - <span style="color:#ae81ff">PGID=0</span>
+            - <span style="color:#ae81ff">UMASK=022</span>
+        <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">alist</span>
+        <span style="color:#f92672">image</span>: <span style="color:#e6db74">&#39;xhofe/alist:latest&#39;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>更新应用只需要如下三步：</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#进入到你docker-compose所在的文件夹下，执行</span>
+docker-compose pull</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#重启你的容器</span>
+docker-compose up -d --remove-orphans</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#删除掉旧的镜像（可选）</span>
+docker image prune </code></pre></td></tr></table>
+</div>
+</div>]]></content:encoded>
     </item>
     
   </channel>

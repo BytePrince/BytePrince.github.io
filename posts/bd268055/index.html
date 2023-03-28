@@ -10,11 +10,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>Hive优化思路 | Byte Prince</title>
-<meta name="keywords" content="Hive, 性能优化" />
-<meta name="description" content="Hive优化思路 - Byte Prince">
+<title>Docker-Compose 常用命令 | Byte Prince</title>
+<meta name="keywords" content="Docker, Docker-compose, Docker更新" />
+<meta name="description" content="Docker-Compose 常用命令 - Byte Prince">
 <meta name="author" content="">
-<link rel="canonical" href="https://byteprince.com/posts/1e500a28/" />
+<link rel="canonical" href="https://byteprince.com/posts/bd268055/" />
 <link crossorigin="anonymous" href="/assets/css/stylesheet.min.ac644624f0efdbd32cd4c18ca1c46c5fa1e075a3f996f3645445fdfdf0d4b0fd.css" integrity="sha256-rGRGJPDv29Ms1MGMocRsX6HgdaP5lvNkVEX9/fDUsP0=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
     onload="hljs.initHighlightingOnLoad();"></script>
@@ -27,15 +27,20 @@
 <meta name="msapplication-TileColor" content="#2e2e33">
 <meta name="generator" content="Hugo 0.91.2" />
 
-<meta property="og:title" content="Hive优化思路" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+<meta property="og:title" content="Docker-Compose 常用命令" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://byteprince.com/posts/1e500a28/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-01-11T19:40:24&#43;08:00" />
-<meta property="article:modified_time" content="2023-01-11T19:40:24&#43;08:00" />
+<meta property="og:url" content="https://byteprince.com/posts/bd268055/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-28T20:44:10&#43;08:00" />
+<meta property="article:modified_time" content="2023-03-28T20:44:10&#43;08:00" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Hive优化思路"/>
+<meta name="twitter:title" content="Docker-Compose 常用命令"/>
 <meta name="twitter:description" content=""/>
 
 
@@ -53,8 +58,8 @@
     {
       "@type": "ListItem",
       "position":  2 ,
-      "name": "Hive优化思路",
-      "item": "https://byteprince.com/posts/1e500a28/"
+      "name": "Docker-Compose 常用命令",
+      "item": "https://byteprince.com/posts/bd268055/"
     }
   ]
 }
@@ -63,20 +68,20 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "Hive优化思路",
-  "name": "Hive优化思路",
+  "headline": "Docker-Compose 常用命令",
+  "name": "Docker-Compose 常用命令",
   "description": "",
   "keywords": [
-    "Hive", "性能优化"
+    "Docker", "Docker-compose", "Docker更新"
   ],
-  "articleBody": "",
-  "wordCount" : "0",
+  "articleBody": "之前一直用 Docker 部署一些开源的应用，例如青龙面板等。后来发现用 Docker 部署的应用后期进行版本更新的时候比较麻烦，需要找到确定容器名称，找到容器映射的本地目录，备份数据，拉取最新的镜像然后重新创建容器。\n详见 Docker更新容器镜像的三种方法。本懒狗果断改用 Docker-compose 来维护自己的容器。\n以 Alist 的 Docker-compose.yml 文件为例，\n1 2 3 4 5 6 7 8 9 10 11 12 13 14  version: '3.3' services: alist: restart: always volumes: - '/etc/alist:/opt/alist/data' ports: - '5244:5244' environment: - PUID=0 - PGID=0 - UMASK=022 container_name: alist image: 'xhofe/alist:latest'   更新应用只需要如下三步：\n1 2  #进入到你docker-compose所在的文件夹下，执行 docker-compose pull  1 2  #重启你的容器 docker-compose up -d --remove-orphans  1 2  #删除掉旧的镜像（可选） docker image prune   ",
+  "wordCount" : "70",
   "inLanguage": "en",
-  "datePublished": "2023-01-11T19:40:24+08:00",
-  "dateModified": "2023-01-11T19:40:24+08:00",
+  "datePublished": "2023-03-28T20:44:10+08:00",
+  "dateModified": "2023-03-28T20:44:10+08:00",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://byteprince.com/posts/1e500a28/"
+    "@id": "https://byteprince.com/posts/bd268055/"
   },
   "publisher": {
     "@type": "Organization",
@@ -216,9 +221,9 @@
   <header class="post-header">
     
     <h1 class="post-title">
-      Hive优化思路
+      Docker-Compose 常用命令
     </h1>
-    <div class="post-meta">January 11, 2023
+    <div class="post-meta">March 28, 2023
 </div>
   </header> <div class="toc">
     <details >
@@ -230,23 +235,86 @@
     </details>
 </div>
 
-  <div class="post-content"><p><img src="https://img.xiehestudio.com/uPic/CkeiAF.png" alt="" /></p>
+  <div class="post-content"><p>之前一直用 Docker 部署一些开源的应用，例如青龙面板等。后来发现用 Docker 部署的应用后期进行版本更新的时候比较麻烦，需要找到确定容器名称，找到容器映射的本地目录，备份数据，拉取最新的镜像然后重新创建容器。</p>
+
+<p>详见 <a href="https://cloud.tencent.com/developer/article/2086860">Docker更新容器镜像的三种方法</a>。本懒狗果断改用 Docker-compose 来维护自己的容器。</p>
+
+<p>以 <code>Alist</code> 的 Docker-compose.yml 文件为例，</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;3.3&#39;</span>
+<span style="color:#f92672">services</span>:
+    <span style="color:#f92672">alist</span>:
+        <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">always</span>
+        <span style="color:#f92672">volumes</span>:
+            - <span style="color:#e6db74">&#39;/etc/alist:/opt/alist/data&#39;</span>
+        <span style="color:#f92672">ports</span>:
+            - <span style="color:#e6db74">&#39;5244:5244&#39;</span>
+        <span style="color:#f92672">environment</span>:
+            - <span style="color:#ae81ff">PUID=0</span>
+            - <span style="color:#ae81ff">PGID=0</span>
+            - <span style="color:#ae81ff">UMASK=022</span>
+        <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">alist</span>
+        <span style="color:#f92672">image</span>: <span style="color:#e6db74">&#39;xhofe/alist:latest&#39;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>更新应用只需要如下三步：</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#进入到你docker-compose所在的文件夹下，执行</span>
+docker-compose pull</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#重启你的容器</span>
+docker-compose up -d --remove-orphans</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#删除掉旧的镜像（可选）</span>
+docker image prune </code></pre></td></tr></table>
+</div>
+</div>
 </div>
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="https://byteprince.com/tags/hive/">Hive</a></li>
-      <li><a href="https://byteprince.com/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a></li>
+      <li><a href="https://byteprince.com/tags/docker/">Docker</a></li>
+      <li><a href="https://byteprince.com/tags/docker-compose/">Docker-compose</a></li>
+      <li><a href="https://byteprince.com/tags/docker%E6%9B%B4%E6%96%B0/">Docker更新</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="https://byteprince.com/posts/bd268055/">
-    <span class="title">« Prev Page</span>
-    <br>
-    <span>Docker-Compose 常用命令</span>
-  </a>
-  <a class="next" href="https://byteprince.com/posts/3c46d643/">
+  <a class="next" href="https://byteprince.com/posts/1e500a28/">
     <span class="title">Next Page »</span>
     <br>
-    <span>数据仓库优化之 Hive 数据治理</span>
+    <span>Hive优化思路</span>
   </a>
 </nav>
 
