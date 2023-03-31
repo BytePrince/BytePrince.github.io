@@ -151,7 +151,7 @@
     <h2>Hive优化之数据倾斜</h2>
   </header>
   <section class="entry-content">
-    <p>数据倾斜常见场景  表表关联  大小表关联 大表间关联（转化为大小表关联问题） 关联键含大量空值 关联键数据类型不一致  Group by逻辑 count(distinct)：set hive.cbo.enable = true  1.大小表关联-mapjoin参数 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28  create table DB_NAME.TB_NAME as with tmp_xxx as( select xxx.xxx ,xxx.yyy ,... ,row_number()over(partition by ... desc) as xxx from DB_NAME.xxx as xxx ) select a.</p>
+    <p></p>
   </section>
   <footer class="entry-footer">March 29, 2023</footer>
   <a class="entry-link" aria-label="post link to Hive优化之数据倾斜" href="https://byteprince.com/posts/5fd5c870/"></a>

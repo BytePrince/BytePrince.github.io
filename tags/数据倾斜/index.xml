@@ -13,10 +13,8 @@
       <pubDate>Wed, 29 Mar 2023 20:31:32 +0800</pubDate>
       
       <guid>https://byteprince.com/posts/5fd5c870/</guid>
-      <description>数据倾斜常见场景  表表关联  大小表关联 大表间关联（转化为大小表关联问题） 关联键含大量空值 关联键数据类型不一致  Group by逻辑 count(distinct)：set hive.cbo.enable = true  1.大小表关联-mapjoin参数 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28  create table DB_NAME.TB_NAME as with tmp_xxx as( select xxx.xxx ,xxx.yyy ,... ,row_number()over(partition by ... desc) as xxx from DB_NAME.xxx as xxx ) select a.</description>
-      <content:encoded><![CDATA[
-
-<h3 id="数据倾斜常见场景">数据倾斜常见场景</h3>
+      <description></description>
+      <content:encoded><![CDATA[<h3 id="数据倾斜常见场景">数据倾斜常见场景</h3>
 
 <ul>
 <li>表表关联
@@ -232,8 +230,7 @@ a
 
 <p><img src="https://img.xiehestudio.com/uPic/image-20230329213600568.png" alt="image-20230329213600568" style="zoom:67%;" /></p>
 
-<p>在平时任务优化过程中方法下，再执行速度上平均可以提升 80% 左右。</p>
-]]></content:encoded>
+<p>在平时任务优化过程中方法下，再执行速度上平均可以提升 80% 左右。</p>]]></content:encoded>
     </item>
     
   </channel>
