@@ -100,7 +100,7 @@
 
 <h5 id="数据探源">数据探源</h5>
 
-<p>探查响应表信息 <code>DESC formatted 项目名.表名</code></p>
+<p>探查相应表信息 <code>DESC formatted 项目名.表名</code></p>
 
 <p>发现表a数据量达30亿以上且为分区表，子查询结果b的数据量大10w+，表c为300+。</p>
 
@@ -230,7 +230,7 @@ a
 
 <p><img src="https://img.xiehestudio.com/uPic/image-20230329213600568.png" alt="image-20230329213600568" style="zoom:67%;" /></p>
 
-<p>在平时任务优化过程中方法下，再执行速度上平均可以提升 80% 左右。</p>]]></content:encoded>
+<p>在平时任务优化过程中发现，在执行速度上平均可以提升 80% 左右。</p>]]></content:encoded>
     </item>
     
     <item>
