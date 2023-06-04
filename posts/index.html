@@ -163,6 +163,19 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2>ffmpeg的常用命令</h2>
+  </header>
+  <section class="entry-content">
+    <p>通过 ffmpeg 的 volumedetect 来查看视频的音量信息：
+1  ffmpeg -i input.mp3 -af &#34;volumedetect&#34; -vn -sn -dn -f null null   基于分贝值对视频的音量进行提高50db处理。
+1  ffmpeg -i input.mp4 -af volume=50dB -y output.mp4  </p>
+  </section>
+  <footer class="entry-footer">June 4, 2023</footer>
+  <a class="entry-link" aria-label="post link to ffmpeg的常用命令" href="https://byteprince.com/posts/6892c655/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2>Hive优化之数据倾斜</h2>
   </header>
   <section class="entry-content">
@@ -258,17 +271,6 @@
   </section>
   <footer class="entry-footer">December 9, 2021&nbsp;·&nbsp;BytePrince</footer>
   <a class="entry-link" aria-label="post link to RESTful API的设计" href="https://byteprince.com/posts/b634d46c/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>CentOS 同时误删 yum 和 Python2 的解决办法</h2>
-  </header>
-  <section class="entry-content">
-    <p></p>
-  </section>
-  <footer class="entry-footer">October 17, 2021</footer>
-  <a class="entry-link" aria-label="post link to CentOS 同时误删 yum 和 Python2 的解决办法" href="https://byteprince.com/posts/0142f245/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

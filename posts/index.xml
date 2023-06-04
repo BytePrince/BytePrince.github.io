@@ -6,7 +6,36 @@
     <description>Recent content in Posts on Byte Prince</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 29 Mar 2023 20:31:32 +0800</lastBuildDate><atom:link href="https://byteprince.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 04 Jun 2023 17:02:31 +0800</lastBuildDate><atom:link href="https://byteprince.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ffmpeg的常用命令</title>
+      <link>https://byteprince.com/posts/6892c655/</link>
+      <pubDate>Sun, 04 Jun 2023 17:02:31 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/6892c655/</guid>
+      <description>通过 ffmpeg 的 volumedetect 来查看视频的音量信息：
+1  ffmpeg -i input.mp3 -af &amp;#34;volumedetect&amp;#34; -vn -sn -dn -f null null   基于分贝值对视频的音量进行提高50db处理。
+1  ffmpeg -i input.mp4 -af volume=50dB -y output.mp4  </description>
+      <content:encoded><![CDATA[<p>通过 ffmpeg 的 volumedetect 来查看视频的音量信息：</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ffmpeg -i input.mp3 -af <span style="color:#e6db74">&#34;volumedetect&#34;</span> -vn -sn -dn -f null null</code></pre></td></tr></table>
+</div>
+</div>
+<p>基于分贝值对视频的音量进行提高50db处理。</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ffmpeg -i input.mp4  -af volume<span style="color:#f92672">=</span>50dB -y output.mp4</code></pre></td></tr></table>
+</div>
+</div>]]></content:encoded>
+    </item>
+    
     <item>
       <title>Hive优化之数据倾斜</title>
       <link>https://byteprince.com/posts/5fd5c870/</link>

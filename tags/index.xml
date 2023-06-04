@@ -6,7 +6,17 @@
     <description>Recent content in Tags on Byte Prince</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 29 Mar 2023 20:31:32 +0800</lastBuildDate><atom:link href="https://byteprince.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 04 Jun 2023 17:02:31 +0800</lastBuildDate><atom:link href="https://byteprince.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ffmpeg</title>
+      <link>https://byteprince.com/tags/ffmpeg/</link>
+      <pubDate>Sun, 04 Jun 2023 17:02:31 +0800</pubDate>
+      
+      <guid>https://byteprince.com/tags/ffmpeg/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
     <item>
       <title>Hive优化</title>
       <link>https://byteprince.com/tags/hive%E4%BC%98%E5%8C%96/</link>
