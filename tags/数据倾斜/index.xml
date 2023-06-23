@@ -8,7 +8,7 @@
     <language>en-us</language>
     <lastBuildDate>Wed, 29 Mar 2023 20:31:32 +0800</lastBuildDate><atom:link href="https://byteprince.com/tags/%E6%95%B0%E6%8D%AE%E5%80%BE%E6%96%9C/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Hive优化之数据倾斜</title>
+      <title>Hive 优化之数据倾斜</title>
       <link>https://byteprince.com/posts/5fd5c870/</link>
       <pubDate>Wed, 29 Mar 2023 20:31:32 +0800</pubDate>
       
@@ -25,7 +25,7 @@
 <li>关联键含大量空值</li>
 <li>关联键数据类型不一致</li>
 </ul></li>
-<li>Group by逻辑</li>
+<li><code>Group by</code>逻辑</li>
 <li>count(distinct)：<code>set hive.cbo.enable = true</code></li>
 </ul>
 

@@ -279,7 +279,20 @@ rar t compress.rar</code></pre></td></tr></table>
 <li>终端快速跳转到行首：<code>ctrl</code> + <code>a</code></li>
 <li>终端快速跳转到行尾：<code>ctrl</code> + <code>e</code></li>
 <li>显示隐藏文件 <code>shift</code> + <code>cmd</code> + <code>.</code></li>
-</ul>]]></content:encoded>
+</ul>
+
+<h2 id="查看磁盘信息">查看磁盘信息</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">smartctl -a disk0</code></pre></td></tr></table>
+</div>
+</div>
+<p>2023.06.23查得的磁盘信息如下：</p>
+
+<p><img src="https://img.xiehestudio.com/uPic/kicp7w.png" style="zoom:67%;" /></p>]]></content:encoded>
     </item>
     
     <item>

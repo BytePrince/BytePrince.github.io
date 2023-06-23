@@ -10,11 +10,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>数据仓库优化之 Hive 数据治理 | Byte Prince</title>
-<meta name="keywords" content="数据仓库, Hive, 数据优化, 数据治理" />
-<meta name="description" content="数据仓库优化之 Hive 数据治理 - Byte Prince">
-<meta name="author" content="">
-<link rel="canonical" href="https://byteprince.com/posts/3c46d643/" />
+<title>统计某个文件夹下所有视频的总时长 | Byte Prince</title>
+<meta name="keywords" content="macOS, 视频长度" />
+<meta name="description" content="利用ffprobe命令">
+<meta name="author" content="BytePrince">
+<link rel="canonical" href="https://byteprince.com/posts/6ab4f1fb/" />
 <link crossorigin="anonymous" href="/assets/css/stylesheet.min.ac644624f0efdbd32cd4c18ca1c46c5fa1e075a3f996f3645445fdfdf0d4b0fd.css" integrity="sha256-rGRGJPDv29Ms1MGMocRsX6HgdaP5lvNkVEX9/fDUsP0=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
     onload="hljs.initHighlightingOnLoad();"></script>
@@ -32,16 +32,16 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
     onload="renderMathInElement(document.body);"></script>
 
-<meta property="og:title" content="数据仓库优化之 Hive 数据治理" />
-<meta property="og:description" content="" />
+<meta property="og:title" content="统计某个文件夹下所有视频的总时长" />
+<meta property="og:description" content="利用ffprobe命令" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://byteprince.com/posts/3c46d643/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-08-21T13:23:48&#43;08:00" />
-<meta property="article:modified_time" content="2022-08-21T13:23:48&#43;08:00" />
+<meta property="og:url" content="https://byteprince.com/posts/6ab4f1fb/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-06-23T17:17:24&#43;08:00" />
+<meta property="article:modified_time" content="2023-06-23T17:17:24&#43;08:00" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="数据仓库优化之 Hive 数据治理"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:title" content="统计某个文件夹下所有视频的总时长"/>
+<meta name="twitter:description" content="利用ffprobe命令"/>
 
 
 <script type="application/ld+json">
@@ -58,8 +58,8 @@
     {
       "@type": "ListItem",
       "position":  2 ,
-      "name": "数据仓库优化之 Hive 数据治理",
-      "item": "https://byteprince.com/posts/3c46d643/"
+      "name": "统计某个文件夹下所有视频的总时长",
+      "item": "https://byteprince.com/posts/6ab4f1fb/"
     }
   ]
 }
@@ -68,20 +68,24 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "数据仓库优化之 Hive 数据治理",
-  "name": "数据仓库优化之 Hive 数据治理",
-  "description": "",
+  "headline": "统计某个文件夹下所有视频的总时长",
+  "name": "统计某个文件夹下所有视频的总时长",
+  "description": "利用ffprobe命令",
   "keywords": [
-    "数据仓库", "Hive", "数据优化", "数据治理"
+    "macOS", "视频长度"
   ],
-  "articleBody": "数据治理的背景  Hive SQL 查询速度慢 同步队列排队多，同步速度慢 跑批报 Code 1错误 任务一直停在 Scheduled 资源池 100% 占用  数据治理入手点  无效表  近三月，有被 1 个及以上的下游任务应用，且任务执行成功次数为 0，或无下游任务引用 近三月，有被 API 调用，且 API 调用次数为 0，或没被 API 调用过 同步至 BI 分析平台，且在 BI 分析平台上被标识为无效表或没有成功同步至 BI 分析平台 近三月即席查询次数为 0  小文件  Hadoop 默认一个 block 块的大小是 128 M 。如果一个 HDFS 文件大小远远小于 128 M，则认为该文件为小文件。（HDFS 以 block 块的形式存储在集群上，HDFS 中小于一个块大小的文件不会占满整个块的空间，文件有多大占多大空间。）实际上，通常会对 1M 以下的小文件进行治理。  多分区  重点治理分区数较多的表。实际上，通常会对分区数超过 1500 的表进行治理。   数据治理方法 数据治理的好处  查询速度提升  小文件治理后，可以大大减少查询时扫描的文件数量，提高查询速度。\n 消耗存储资源减少\n 消耗计算资源减少\n  小文件合并后，减少 Namenode 的压力，减少启动的 Container 的个数，节约计算资源\n 成本下降  建立治理清单 治理方法详解 无效表 通过表效率，筛选出无效表，确认后进行删除。无效表删除时尽量避免并行执行，以免使得平台高负载。\n小文件 表文件合并  方式一：备份源表，使用 insert overwrite table A select * from A 方式二：备份源表，建新表，将新表重命名为 A 表  非分区表 1 2 3 4 5 6 7 8 9 10 11 12 13  -- 备份表 create table db_name.A_bak as select * from db_name.A; -- 新建表B，并为B表添加注释 create external table db_name.B like db_name.A stored as orc tblproperttes('TRANSLATED_TO_EXTERNAL' = 'TRUE'); ALTER TABLE db_name.B SET tblproperties('comment' = '表中文名') -- 将表A的数据插入表B insert overwrite db_name.B select * from db_name.A; -- 重命名B表 alter table db_name.A   ",
-  "wordCount" : "147",
+  "articleBody": " 查找所有的视频文件 以.mp4为例，使用命令查找所有视频文件，其中 -xtype f 选项为可选，MacOS 环境下可能需要使用! -type l替代-xtype f\n1  find . -type f -name \"*.mp4\" -xtype f     -xtype f 选项的作用 表示只匹配实际上是文件的路径，而不匹配符号链接（symbolic link）。 在Unix/Linux系统中，文件类型有很多种，包括普通文件（regular file）、目录（directory）、符号链接（symbolic link）、管道（FIFO）、字符设备（character special file）和块设备（block special file）等等。`-xtype f`选项可以让`find`命令只匹配实际上是普通文件的路径，排除掉符号链接等其他文件类型的路径。  获取视频文件的时长信息 使用xargs命令将查找到的所有视频文件传递给ffprobe命令\n1  find . -type f -name \"*.mp4\" -xtype f | xargs -I{} ffprobe -i {} -show_entries format=duration -v quiet -of csv=\"p=0\"   对视频总时长求和 使用awk命令将获取到的所有视频文件的时长信息相加，得到总时长，例如：\n1  find . -type f -name \"*.mp4\" -xtype f | xargs -I{} ffprobe -i {} -show_entries format=duration -v quiet -of csv=\"p=0\" | awk '{s+=$1} END {print \"Total duration: \"s\" seconds\"}'   如果需要将输出的时长以小时为单位，那么简单进行计算：\n1  find . -type f -name \"*.mp4\" -xtype f | xargs -I{} ffprobe -i {} -show_entries format=duration -v quiet -of csv=\"p=0\" | awk '{s+=$1} END {printf \"Total duration: %.2f hours\\n\", s/3600}'  ",
+  "wordCount" : "118",
   "inLanguage": "en",
-  "datePublished": "2022-08-21T13:23:48+08:00",
-  "dateModified": "2022-08-21T13:23:48+08:00",
+  "datePublished": "2023-06-23T17:17:24+08:00",
+  "dateModified": "2023-06-23T17:17:24+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "BytePrince"
+  },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://byteprince.com/posts/3c46d643/"
+    "@id": "https://byteprince.com/posts/6ab4f1fb/"
   },
   "publisher": {
     "@type": "Organization",
@@ -221,9 +225,9 @@
   <header class="post-header">
     
     <h1 class="post-title">
-      数据仓库优化之 Hive 数据治理
+      统计某个文件夹下所有视频的总时长
     </h1>
-    <div class="post-meta">August 21, 2022
+    <div class="post-meta">June 23, 2023&nbsp;·&nbsp;BytePrince
 </div>
   </header> <div class="toc">
     <details >
@@ -232,164 +236,77 @@
         </summary>
         <div class="inner"><ul>
                 <li>
-                    <a href="#%e6%95%b0%e6%8d%ae%e6%b2%bb%e7%90%86%e7%9a%84%e8%83%8c%e6%99%af" aria-label="数据治理的背景">数据治理的背景</a></li>
+                    <a href="#%e6%9f%a5%e6%89%be%e6%89%80%e6%9c%89%e7%9a%84%e8%a7%86%e9%a2%91%e6%96%87%e4%bb%b6" aria-label="查找所有的视频文件">查找所有的视频文件</a></li>
                 <li>
-                    <a href="#%e6%95%b0%e6%8d%ae%e6%b2%bb%e7%90%86%e5%85%a5%e6%89%8b%e7%82%b9" aria-label="数据治理入手点">数据治理入手点</a></li>
+                    <a href="#%e8%8e%b7%e5%8f%96%e8%a7%86%e9%a2%91%e6%96%87%e4%bb%b6%e7%9a%84%e6%97%b6%e9%95%bf%e4%bf%a1%e6%81%af" aria-label="获取视频文件的时长信息">获取视频文件的时长信息</a></li>
                 <li>
-                    <a href="#%e6%95%b0%e6%8d%ae%e6%b2%bb%e7%90%86%e6%96%b9%e6%b3%95" aria-label="数据治理方法">数据治理方法</a></li>
-                <li>
-                    <a href="#%e6%95%b0%e6%8d%ae%e6%b2%bb%e7%90%86%e7%9a%84%e5%a5%bd%e5%a4%84" aria-label="数据治理的好处">数据治理的好处</a></li>
-                <li>
-                    <a href="#%e5%bb%ba%e7%ab%8b%e6%b2%bb%e7%90%86%e6%b8%85%e5%8d%95" aria-label="建立治理清单">建立治理清单</a></li>
-                <li>
-                    <a href="#%e6%b2%bb%e7%90%86%e6%96%b9%e6%b3%95%e8%af%a6%e8%a7%a3" aria-label="治理方法详解">治理方法详解</a><ul>
-                        
-                <li>
-                    <a href="#%e6%97%a0%e6%95%88%e8%a1%a8" aria-label="无效表">无效表</a></li>
-                <li>
-                    <a href="#%e5%b0%8f%e6%96%87%e4%bb%b6" aria-label="小文件">小文件</a><ul>
-                        
-                <li>
-                    <a href="#%e8%a1%a8%e6%96%87%e4%bb%b6%e5%90%88%e5%b9%b6" aria-label="表文件合并">表文件合并</a></li>
-                <li>
-                    <a href="#%e9%9d%9e%e5%88%86%e5%8c%ba%e8%a1%a8" aria-label="非分区表">非分区表</a>
+                    <a href="#%e5%af%b9%e8%a7%86%e9%a2%91%e6%80%bb%e6%97%b6%e9%95%bf%e6%b1%82%e5%92%8c" aria-label="对视频总时长求和">对视频总时长求和</a>
                 </li>
-            </ul>
-            </li>
-            </ul>
-            </li>
             </ul>
         </div>
     </details>
 </div>
 
-  <div class="post-content"><h2 id="数据治理的背景">数据治理的背景<a hidden class="anchor" aria-hidden="true" href="#数据治理的背景">#</a></h2>
+  <div class="post-content">
 
-<ul>
-<li>Hive  SQL 查询速度慢</li>
-<li>同步队列排队多，同步速度慢</li>
-<li>跑批报 Code 1错误</li>
-<li>任务一直停在 Scheduled</li>
-<li>资源池 100% 占用</li>
-</ul>
+<h2 id="查找所有的视频文件">查找所有的视频文件<a hidden class="anchor" aria-hidden="true" href="#查找所有的视频文件">#</a></h2>
 
-<h2 id="数据治理入手点">数据治理入手点<a hidden class="anchor" aria-hidden="true" href="#数据治理入手点">#</a></h2>
-
-<ol>
-<li><strong>无效表</strong>
-
-<ul>
-<li>近三月，有被 1 个及以上的下游任务应用，且任务执行成功次数为 0，或无下游任务引用</li>
-<li>近三月，有被 API 调用，且 API 调用次数为 0，或没被 API 调用过</li>
-<li>同步至 BI 分析平台，且在 BI 分析平台上被标识为无效表或没有成功同步至 BI 分析平台</li>
-<li>近三月即席查询次数为 0</li>
-</ul></li>
-<li><strong>小文件</strong>
-
-<ul>
-<li>Hadoop 默认一个 block 块的大小是 128 M 。如果一个 HDFS 文件大小远远小于 128 M，则认为该文件为小文件。（HDFS 以 block 块的形式存储在集群上，HDFS 中小于一个块大小的文件不会占满整个块的空间，文件有多大占多大空间。）实际上，通常会对 1M 以下的小文件进行治理。</li>
-</ul></li>
-<li><strong>多分区</strong>
-
-<ul>
-<li>重点治理分区数较多的表。实际上，通常会对分区数超过 1500 的表进行治理。</li>
-</ul></li>
-</ol>
-
-<h2 id="数据治理方法">数据治理方法<a hidden class="anchor" aria-hidden="true" href="#数据治理方法">#</a></h2>
-
-<p><img src="https://img.xiehestudio.com/uPic/rp0h1E.png" alt="byteprince.com 数据治理方法" /></p>
-
-<h2 id="数据治理的好处">数据治理的好处<a hidden class="anchor" aria-hidden="true" href="#数据治理的好处">#</a></h2>
-
-<ul>
-<li><strong>查询速度提升</strong></li>
-</ul>
-
-<p>小文件治理后，可以大大减少查询时扫描的文件数量，提高查询速度。</p>
-
-<ul>
-<li><p><strong>消耗存储资源减少</strong></p></li>
-
-<li><p><strong>消耗计算资源减少</strong></p></li>
-</ul>
-
-<p>小文件合并后，减少 Namenode 的压力，减少启动的 Container 的个数，节约计算资源</p>
-
-<ul>
-<li><strong>成本下降</strong></li>
-</ul>
-
-<h2 id="建立治理清单">建立治理清单<a hidden class="anchor" aria-hidden="true" href="#建立治理清单">#</a></h2>
-
-<p><img src="https://img.xiehestudio.com/uPic/image-20220821141558207.png" alt="byteprince.com 数据治理清单" style="zoom:200%;" /></p>
-
-<h2 id="治理方法详解">治理方法详解<a hidden class="anchor" aria-hidden="true" href="#治理方法详解">#</a></h2>
-
-<h3 id="无效表">无效表<a hidden class="anchor" aria-hidden="true" href="#无效表">#</a></h3>
-
-<p>通过表效率，筛选出无效表，确认后进行删除。无效表删除时尽量避免并行执行，以免使得平台高负载。</p>
-
-<h3 id="小文件">小文件<a hidden class="anchor" aria-hidden="true" href="#小文件">#</a></h3>
-
-<h4 id="表文件合并">表文件合并<a hidden class="anchor" aria-hidden="true" href="#表文件合并">#</a></h4>
-
-<ul>
-<li>方式一：备份源表，使用 insert overwrite table A select *  from A</li>
-<li>方式二：备份源表，建新表，将新表重命名为 A 表</li>
-</ul>
-
-<h4 id="非分区表">非分区表<a hidden class="anchor" aria-hidden="true" href="#非分区表">#</a></h4>
+<p>以<code>.mp4</code>为例，使用命令查找所有视频文件，其中 <code>-xtype f</code> 选项为可选，MacOS 环境下可能需要使用<code>! -type l</code>替代<code>-xtype f</code></p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- 备份表
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> <span style="color:#f92672">&lt;</span>db_name<span style="color:#f92672">&gt;</span>.A_bak <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> <span style="color:#f92672">&lt;</span>db_name<span style="color:#f92672">&gt;</span>.A;
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find . -type f -name <span style="color:#e6db74">&#34;*.mp4&#34;</span> -xtype f</code></pre></td></tr></table>
+</div>
+</div>
+<details> <summary> -xtype f 选项的作用</summary>
+  表示只匹配实际上是文件的路径，而不匹配符号链接（symbolic link）。
+  在Unix/Linux系统中，文件类型有很多种，包括普通文件（regular file）、目录（directory）、符号链接（symbolic link）、管道（FIFO）、字符设备（character special file）和块设备（block special file）等等。`-xtype f`选项可以让`find`命令只匹配实际上是普通文件的路径，排除掉符号链接等其他文件类型的路径。
+</details>
 
-<span style="color:#75715e">-- 新建表B，并为B表添加注释
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">external</span> <span style="color:#66d9ef">table</span> <span style="color:#f92672">&lt;</span>db_name<span style="color:#f92672">&gt;</span>.B <span style="color:#66d9ef">like</span> <span style="color:#f92672">&lt;</span>db_name<span style="color:#f92672">&gt;</span>.A
-stored <span style="color:#66d9ef">as</span> orc tblproperttes(<span style="color:#e6db74">&#39;TRANSLATED_TO_EXTERNAL&#39;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;TRUE&#39;</span>);
-<span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#f92672">&lt;</span>db_name<span style="color:#f92672">&gt;</span>.B <span style="color:#66d9ef">SET</span> tblproperties(<span style="color:#e6db74">&#39;comment&#39;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;表中文名&#39;</span>) 
+<h2 id="获取视频文件的时长信息">获取视频文件的时长信息<a hidden class="anchor" aria-hidden="true" href="#获取视频文件的时长信息">#</a></h2>
 
-<span style="color:#75715e">-- 将表A的数据插入表B
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">insert</span> overwrite <span style="color:#f92672">&lt;</span>db_name<span style="color:#f92672">&gt;</span>.B <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> <span style="color:#f92672">&lt;</span>db_name<span style="color:#f92672">&gt;</span>.A;
+<p>使用<code>xargs</code>命令将查找到的所有视频文件传递给<code>ffprobe</code>命令</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find . -type f -name <span style="color:#e6db74">&#34;*.mp4&#34;</span> -xtype f | xargs -I<span style="color:#f92672">{}</span> ffprobe -i <span style="color:#f92672">{}</span> -show_entries format<span style="color:#f92672">=</span>duration -v quiet -of csv<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;p=0&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="对视频总时长求和">对视频总时长求和<a hidden class="anchor" aria-hidden="true" href="#对视频总时长求和">#</a></h2>
 
-<span style="color:#75715e">-- 重命名B表
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">alter</span> <span style="color:#66d9ef">table</span> <span style="color:#f92672">&lt;</span>db_name<span style="color:#f92672">&gt;</span>.A </code></pre></td></tr></table>
+<p>使用<code>awk</code>命令将获取到的所有视频文件的时长信息相加，得到总时长，例如：</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find . -type f -name <span style="color:#e6db74">&#34;*.mp4&#34;</span> -xtype f | xargs -I<span style="color:#f92672">{}</span> ffprobe -i <span style="color:#f92672">{}</span> -show_entries format<span style="color:#f92672">=</span>duration -v quiet -of csv<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;p=0&#34;</span> | awk <span style="color:#e6db74">&#39;{s+=$1} END {print &#34;Total duration: &#34;s&#34; seconds&#34;}&#39;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>如果需要将输出的时长以小时为单位，那么简单进行计算：</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find . -type f -name <span style="color:#e6db74">&#34;*.mp4&#34;</span> -xtype f | xargs -I<span style="color:#f92672">{}</span> ffprobe -i <span style="color:#f92672">{}</span> -show_entries format<span style="color:#f92672">=</span>duration -v quiet -of csv<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;p=0&#34;</span> | awk <span style="color:#e6db74">&#39;{s+=$1} END {printf &#34;Total duration: %.2f hours\n&#34;, s/3600}&#39;</span></code></pre></td></tr></table>
 </div>
 </div>
 </div>
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="https://byteprince.com/tags/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/">数据仓库</a></li>
-      <li><a href="https://byteprince.com/tags/hive/">Hive</a></li>
-      <li><a href="https://byteprince.com/tags/%E6%95%B0%E6%8D%AE%E4%BC%98%E5%8C%96/">数据优化</a></li>
-      <li><a href="https://byteprince.com/tags/%E6%95%B0%E6%8D%AE%E6%B2%BB%E7%90%86/">数据治理</a></li>
+      <li><a href="https://byteprince.com/tags/macos/">macOS</a></li>
+      <li><a href="https://byteprince.com/tags/%E8%A7%86%E9%A2%91%E9%95%BF%E5%BA%A6/">视频长度</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="https://byteprince.com/posts/1e500a28/">
-    <span class="title">« Prev Page</span>
-    <br>
-    <span>Hive 优化思路</span>
-  </a>
-  <a class="next" href="https://byteprince.com/posts/e44d6495/">
+  <a class="next" href="https://byteprince.com/posts/6892c655/">
     <span class="title">Next Page »</span>
     <br>
-    <span>一个有意思的SQL问题</span>
+    <span>ffmpeg 的常用命令</span>
   </a>
 </nav>
 

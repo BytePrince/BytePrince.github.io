@@ -6,9 +6,67 @@
     <description>Recent content on Byte Prince</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 04 Jun 2023 17:02:31 +0800</lastBuildDate><atom:link href="https://byteprince.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 23 Jun 2023 17:17:24 +0800</lastBuildDate><atom:link href="https://byteprince.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>ffmpeg的常用命令</title>
+      <title>统计某个文件夹下所有视频的总时长</title>
+      <link>https://byteprince.com/posts/6ab4f1fb/</link>
+      <pubDate>Fri, 23 Jun 2023 17:17:24 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/6ab4f1fb/</guid>
+      <description>利用ffprobe命令</description>
+      <content:encoded><![CDATA[
+
+<h2 id="查找所有的视频文件">查找所有的视频文件</h2>
+
+<p>以<code>.mp4</code>为例，使用命令查找所有视频文件，其中 <code>-xtype f</code> 选项为可选，MacOS 环境下可能需要使用<code>! -type l</code>替代<code>-xtype f</code></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find . -type f -name <span style="color:#e6db74">&#34;*.mp4&#34;</span> -xtype f</code></pre></td></tr></table>
+</div>
+</div>
+<details> <summary> -xtype f 选项的作用</summary>
+  表示只匹配实际上是文件的路径，而不匹配符号链接（symbolic link）。
+  在Unix/Linux系统中，文件类型有很多种，包括普通文件（regular file）、目录（directory）、符号链接（symbolic link）、管道（FIFO）、字符设备（character special file）和块设备（block special file）等等。`-xtype f`选项可以让`find`命令只匹配实际上是普通文件的路径，排除掉符号链接等其他文件类型的路径。
+</details>
+
+<h2 id="获取视频文件的时长信息">获取视频文件的时长信息</h2>
+
+<p>使用<code>xargs</code>命令将查找到的所有视频文件传递给<code>ffprobe</code>命令</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find . -type f -name <span style="color:#e6db74">&#34;*.mp4&#34;</span> -xtype f | xargs -I<span style="color:#f92672">{}</span> ffprobe -i <span style="color:#f92672">{}</span> -show_entries format<span style="color:#f92672">=</span>duration -v quiet -of csv<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;p=0&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="对视频总时长求和">对视频总时长求和</h2>
+
+<p>使用<code>awk</code>命令将获取到的所有视频文件的时长信息相加，得到总时长，例如：</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find . -type f -name <span style="color:#e6db74">&#34;*.mp4&#34;</span> -xtype f | xargs -I<span style="color:#f92672">{}</span> ffprobe -i <span style="color:#f92672">{}</span> -show_entries format<span style="color:#f92672">=</span>duration -v quiet -of csv<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;p=0&#34;</span> | awk <span style="color:#e6db74">&#39;{s+=$1} END {print &#34;Total duration: &#34;s&#34; seconds&#34;}&#39;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>如果需要将输出的时长以小时为单位，那么简单进行计算：</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find . -type f -name <span style="color:#e6db74">&#34;*.mp4&#34;</span> -xtype f | xargs -I<span style="color:#f92672">{}</span> ffprobe -i <span style="color:#f92672">{}</span> -show_entries format<span style="color:#f92672">=</span>duration -v quiet -of csv<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;p=0&#34;</span> | awk <span style="color:#e6db74">&#39;{s+=$1} END {printf &#34;Total duration: %.2f hours\n&#34;, s/3600}&#39;</span></code></pre></td></tr></table>
+</div>
+</div>]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>ffmpeg 的常用命令</title>
       <link>https://byteprince.com/posts/6892c655/</link>
       <pubDate>Sun, 04 Jun 2023 17:02:31 +0800</pubDate>
       
@@ -23,7 +81,7 @@
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ffmpeg -i input.mp3 -af <span style="color:#e6db74">&#34;volumedetect&#34;</span> -vn -sn -dn -f null null</code></pre></td></tr></table>
 </div>
 </div>
-<p>基于分贝值对视频的音量进行提高50db处理。</p>
+<p>基于分贝值对视频的音量进行提高 50db 处理。</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -35,7 +93,7 @@
     </item>
     
     <item>
-      <title>Hive优化之数据倾斜</title>
+      <title>Hive 优化之数据倾斜</title>
       <link>https://byteprince.com/posts/5fd5c870/</link>
       <pubDate>Wed, 29 Mar 2023 20:31:32 +0800</pubDate>
       
@@ -52,7 +110,7 @@
 <li>关联键含大量空值</li>
 <li>关联键数据类型不一致</li>
 </ul></li>
-<li>Group by逻辑</li>
+<li><code>Group by</code>逻辑</li>
 <li>count(distinct)：<code>set hive.cbo.enable = true</code></li>
 </ul>
 
@@ -338,7 +396,7 @@ docker image prune </code></pre></td></tr></table>
     </item>
     
     <item>
-      <title>Hive优化思路</title>
+      <title>Hive 优化思路</title>
       <link>https://byteprince.com/posts/1e500a28/</link>
       <pubDate>Wed, 11 Jan 2023 19:40:24 +0800</pubDate>
       
@@ -968,7 +1026,20 @@ rar t compress.rar</code></pre></td></tr></table>
 <li>终端快速跳转到行首：<code>ctrl</code> + <code>a</code></li>
 <li>终端快速跳转到行尾：<code>ctrl</code> + <code>e</code></li>
 <li>显示隐藏文件 <code>shift</code> + <code>cmd</code> + <code>.</code></li>
-</ul>]]></content:encoded>
+</ul>
+
+<h2 id="查看磁盘信息">查看磁盘信息</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">smartctl -a disk0</code></pre></td></tr></table>
+</div>
+</div>
+<p>2023.06.23查得的磁盘信息如下：</p>
+
+<p><img src="https://img.xiehestudio.com/uPic/kicp7w.png" style="zoom:67%;" /></p>]]></content:encoded>
     </item>
     
     <item>
