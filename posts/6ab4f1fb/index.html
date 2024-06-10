@@ -74,8 +74,8 @@
   "keywords": [
     "macOS", "视频长度"
   ],
-  "articleBody": " 查找所有的视频文件 以.mp4为例，使用命令查找所有视频文件，其中 -xtype f 选项为可选，MacOS 环境下可能需要使用! -type l替代-xtype f\n1  find . -type f -name \"*.mp4\" -xtype f     -xtype f 选项的作用 表示只匹配实际上是文件的路径，而不匹配符号链接（symbolic link）。 在Unix/Linux系统中，文件类型有很多种，包括普通文件（regular file）、目录（directory）、符号链接（symbolic link）、管道（FIFO）、字符设备（character special file）和块设备（block special file）等等。`-xtype f`选项可以让`find`命令只匹配实际上是普通文件的路径，排除掉符号链接等其他文件类型的路径。  获取视频文件的时长信息 使用xargs命令将查找到的所有视频文件传递给ffprobe命令\n1  find . -type f -name \"*.mp4\" -xtype f | xargs -I{} ffprobe -i {} -show_entries format=duration -v quiet -of csv=\"p=0\"   对视频总时长求和 使用awk命令将获取到的所有视频文件的时长信息相加，得到总时长，例如：\n1  find . -type f -name \"*.mp4\" -xtype f | xargs -I{} ffprobe -i {} -show_entries format=duration -v quiet -of csv=\"p=0\" | awk '{s+=$1} END {print \"Total duration: \"s\" seconds\"}'   如果需要将输出的时长以小时为单位，那么简单进行计算：\n1  find . -type f -name \"*.mp4\" -xtype f | xargs -I{} ffprobe -i {} -show_entries format=duration -v quiet -of csv=\"p=0\" | awk '{s+=$1} END {printf \"Total duration: %.2f hours\\n\", s/3600}'  ",
-  "wordCount" : "118",
+  "articleBody": " 查找所有的视频文件 以.mp4为例，使用命令查找所有视频文件，其中 -xtype f 选项为可选，MacOS 环境下可能需要使用! -type l替代-xtype f\n1  find . -type f -name \"*.mp4\"     -xtype f 选项的作用 表示只匹配实际上是文件的路径，而不匹配符号链接（symbolic link）。 在Unix/Linux系统中，文件类型有很多种，包括普通文件（regular file）、目录（directory）、符号链接（symbolic link）、管道（FIFO）、字符设备（character special file）和块设备（block special file）等等。`-xtype f`选项可以让`find`命令只匹配实际上是普通文件的路径，排除掉符号链接等其他文件类型的路径。  获取视频文件的时长信息 使用xargs命令将查找到的所有视频文件传递给ffprobe命令\n1  find . -type f -name \"*.mp4\" | xargs -I{} ffprobe -i {} -show_entries format=duration -v quiet -of csv=\"p=0\"   对视频总时长求和 使用awk命令将获取到的所有视频文件的时长信息相加，得到总时长，例如：\n1  find . -type f -name \"*.mp4\" | xargs -I{} ffprobe -i {} -show_entries format=duration -v quiet -of csv=\"p=0\" | awk '{s+=$1} END {print \"Total duration: \"s\" seconds\"}'   如果需要将输出的时长以小时为单位，那么简单进行计算：\n1  find . -type f -name \"*.mp4\" | xargs -I{} ffprobe -i {} -show_entries format=duration -v quiet -of csv=\"p=0\" | awk '{s+=$1} END {printf \"Total duration: %.2f hours\\n\", s/3600}'  ",
+  "wordCount" : "110",
   "inLanguage": "en",
   "datePublished": "2023-06-23T17:17:24+08:00",
   "dateModified": "2023-06-23T17:17:24+08:00",
@@ -257,7 +257,7 @@
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find . -type f -name <span style="color:#e6db74">&#34;*.mp4&#34;</span> -xtype f</code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find . -type f -name <span style="color:#e6db74">&#34;*.mp4&#34;</span></code></pre></td></tr></table>
 </div>
 </div>
 <details> <summary> -xtype f 选项的作用</summary>
@@ -273,7 +273,7 @@
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find . -type f -name <span style="color:#e6db74">&#34;*.mp4&#34;</span> -xtype f | xargs -I<span style="color:#f92672">{}</span> ffprobe -i <span style="color:#f92672">{}</span> -show_entries format<span style="color:#f92672">=</span>duration -v quiet -of csv<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;p=0&#34;</span></code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find . -type f -name <span style="color:#e6db74">&#34;*.mp4&#34;</span> | xargs -I<span style="color:#f92672">{}</span> ffprobe -i <span style="color:#f92672">{}</span> -show_entries format<span style="color:#f92672">=</span>duration -v quiet -of csv<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;p=0&#34;</span></code></pre></td></tr></table>
 </div>
 </div>
 <h2 id="对视频总时长求和">对视频总时长求和<a hidden class="anchor" aria-hidden="true" href="#对视频总时长求和">#</a></h2>
@@ -284,7 +284,7 @@
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find . -type f -name <span style="color:#e6db74">&#34;*.mp4&#34;</span> -xtype f | xargs -I<span style="color:#f92672">{}</span> ffprobe -i <span style="color:#f92672">{}</span> -show_entries format<span style="color:#f92672">=</span>duration -v quiet -of csv<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;p=0&#34;</span> | awk <span style="color:#e6db74">&#39;{s+=$1} END {print &#34;Total duration: &#34;s&#34; seconds&#34;}&#39;</span></code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find . -type f -name <span style="color:#e6db74">&#34;*.mp4&#34;</span> | xargs -I<span style="color:#f92672">{}</span> ffprobe -i <span style="color:#f92672">{}</span> -show_entries format<span style="color:#f92672">=</span>duration -v quiet -of csv<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;p=0&#34;</span> | awk <span style="color:#e6db74">&#39;{s+=$1} END {print &#34;Total duration: &#34;s&#34; seconds&#34;}&#39;</span></code></pre></td></tr></table>
 </div>
 </div>
 <p>如果需要将输出的时长以小时为单位，那么简单进行计算：</p>
@@ -293,7 +293,7 @@
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find . -type f -name <span style="color:#e6db74">&#34;*.mp4&#34;</span> -xtype f | xargs -I<span style="color:#f92672">{}</span> ffprobe -i <span style="color:#f92672">{}</span> -show_entries format<span style="color:#f92672">=</span>duration -v quiet -of csv<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;p=0&#34;</span> | awk <span style="color:#e6db74">&#39;{s+=$1} END {printf &#34;Total duration: %.2f hours\n&#34;, s/3600}&#39;</span></code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find . -type f -name <span style="color:#e6db74">&#34;*.mp4&#34;</span> | xargs -I<span style="color:#f92672">{}</span> ffprobe -i <span style="color:#f92672">{}</span> -show_entries format<span style="color:#f92672">=</span>duration -v quiet -of csv<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;p=0&#34;</span> | awk <span style="color:#e6db74">&#39;{s+=$1} END {printf &#34;Total duration: %.2f hours\n&#34;, s/3600}&#39;</span></code></pre></td></tr></table>
 </div>
 </div>
 </div>
@@ -303,6 +303,11 @@
       <li><a href="https://byteprince.com/tags/%E8%A7%86%E9%A2%91%E9%95%BF%E5%BA%A6/">视频长度</a></li>
     </ul>
 <nav class="paginav">
+  <a class="prev" href="https://byteprince.com/posts/1c3b17a3/">
+    <span class="title">« Prev Page</span>
+    <br>
+    <span>Yt-Dlp的一些常用参数</span>
+  </a>
   <a class="next" href="https://byteprince.com/posts/6892c655/">
     <span class="title">Next Page »</span>
     <br>
@@ -315,7 +320,7 @@
     </main>
     <footer class="footer">
     
-    <span>&copy; 2018-2023 Byte Prince.</a></span>
+    <span>&copy; 2018-2024 Byte Prince.</a></span>
     <span>
     All rights reserved.
     

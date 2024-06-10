@@ -6,7 +6,28 @@
     <description>Recent content on Byte Prince</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 23 Jun 2023 17:17:24 +0800</lastBuildDate><atom:link href="https://byteprince.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 10 Jun 2024 16:52:13 +0800</lastBuildDate><atom:link href="https://byteprince.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Yt-Dlp的一些常用参数</title>
+      <link>https://byteprince.com/posts/1c3b17a3/</link>
+      <pubDate>Mon, 10 Jun 2024 16:52:13 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/1c3b17a3/</guid>
+      <description></description>
+      <content:encoded><![CDATA[<p>yt-dlp 自动读取浏览器cookie下载视频</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yt-dlp xxx --cookies-from-browser edge
+yt-dlp xxx --cookies-from-browser chrome</code></pre></td></tr></table>
+</div>
+</div>
+<p>自动读取浏览器cookie下载视频</p>]]></content:encoded>
+    </item>
+    
     <item>
       <title>统计某个文件夹下所有视频的总时长</title>
       <link>https://byteprince.com/posts/6ab4f1fb/</link>
@@ -24,7 +45,7 @@
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find . -type f -name <span style="color:#e6db74">&#34;*.mp4&#34;</span> -xtype f</code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find . -type f -name <span style="color:#e6db74">&#34;*.mp4&#34;</span></code></pre></td></tr></table>
 </div>
 </div>
 <details> <summary> -xtype f 选项的作用</summary>
@@ -40,7 +61,7 @@
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find . -type f -name <span style="color:#e6db74">&#34;*.mp4&#34;</span> -xtype f | xargs -I<span style="color:#f92672">{}</span> ffprobe -i <span style="color:#f92672">{}</span> -show_entries format<span style="color:#f92672">=</span>duration -v quiet -of csv<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;p=0&#34;</span></code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find . -type f -name <span style="color:#e6db74">&#34;*.mp4&#34;</span> | xargs -I<span style="color:#f92672">{}</span> ffprobe -i <span style="color:#f92672">{}</span> -show_entries format<span style="color:#f92672">=</span>duration -v quiet -of csv<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;p=0&#34;</span></code></pre></td></tr></table>
 </div>
 </div>
 <h2 id="对视频总时长求和">对视频总时长求和</h2>
@@ -51,7 +72,7 @@
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find . -type f -name <span style="color:#e6db74">&#34;*.mp4&#34;</span> -xtype f | xargs -I<span style="color:#f92672">{}</span> ffprobe -i <span style="color:#f92672">{}</span> -show_entries format<span style="color:#f92672">=</span>duration -v quiet -of csv<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;p=0&#34;</span> | awk <span style="color:#e6db74">&#39;{s+=$1} END {print &#34;Total duration: &#34;s&#34; seconds&#34;}&#39;</span></code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find . -type f -name <span style="color:#e6db74">&#34;*.mp4&#34;</span> | xargs -I<span style="color:#f92672">{}</span> ffprobe -i <span style="color:#f92672">{}</span> -show_entries format<span style="color:#f92672">=</span>duration -v quiet -of csv<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;p=0&#34;</span> | awk <span style="color:#e6db74">&#39;{s+=$1} END {print &#34;Total duration: &#34;s&#34; seconds&#34;}&#39;</span></code></pre></td></tr></table>
 </div>
 </div>
 <p>如果需要将输出的时长以小时为单位，那么简单进行计算：</p>
@@ -60,7 +81,7 @@
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find . -type f -name <span style="color:#e6db74">&#34;*.mp4&#34;</span> -xtype f | xargs -I<span style="color:#f92672">{}</span> ffprobe -i <span style="color:#f92672">{}</span> -show_entries format<span style="color:#f92672">=</span>duration -v quiet -of csv<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;p=0&#34;</span> | awk <span style="color:#e6db74">&#39;{s+=$1} END {printf &#34;Total duration: %.2f hours\n&#34;, s/3600}&#39;</span></code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find . -type f -name <span style="color:#e6db74">&#34;*.mp4&#34;</span> | xargs -I<span style="color:#f92672">{}</span> ffprobe -i <span style="color:#f92672">{}</span> -show_entries format<span style="color:#f92672">=</span>duration -v quiet -of csv<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;p=0&#34;</span> | awk <span style="color:#e6db74">&#39;{s+=$1} END {printf &#34;Total duration: %.2f hours\n&#34;, s/3600}&#39;</span></code></pre></td></tr></table>
 </div>
 </div>]]></content:encoded>
     </item>
