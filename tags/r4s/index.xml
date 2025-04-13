@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>R4S on Byte Prince</title>
+    <link>https://byteprince.com/tags/r4s/</link>
+    <description>Recent content in R4S on Byte Prince</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 13 Apr 2025 17:29:11 +0800</lastBuildDate><atom:link href="https://byteprince.com/tags/r4s/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>R4S风扇控制脚本以及日志管理</title>
+      <link>https://byteprince.com/posts/8a9e7d3b/</link>
+      <pubDate>Sun, 13 Apr 2025 17:29:11 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/8a9e7d3b/</guid>
+      <description></description>
+      <content:encoded><![CDATA[<p>考虑到R4S的固件版本已经有点老旧了，遂进行了固件更新。固件更新后产生了一个问题——我使用的固件移除了默认的风扇控制功能，所以我得自己加上去。</p>
+
+<p>目前使用的风扇脚本内容如下：</p>
+
+<p><code>/etc/init.d/pwm-fan</code></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/sh /etc/rc.common
+</span><span style="color:#75715e"></span>START<span style="color:#f92672">=</span><span style="color:#ae81ff">99</span>
+start<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+       nohup /usr/bin/pwm-fan.sh &amp;
+<span style="color:#f92672">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>/usr/bin/pwm-fan.sh</code></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/sh
+</span><span style="color:#75715e"></span>   echo <span style="color:#e6db74">&#34;Starting pwm-fan script&#34;</span> &gt;&gt; /tmp/pwm-fan.log
+   echo <span style="color:#ae81ff">0</span> &gt; /sys/class/pwm/pwmchip1/export
+   echo <span style="color:#ae81ff">0</span> &gt; /sys/class/pwm/pwmchip1/pwm0/enable
+   echo <span style="color:#ae81ff">50000</span> &gt; /sys/class/pwm/pwmchip1/pwm0/period
+   echo <span style="color:#ae81ff">1</span> &gt; /sys/class/pwm/pwmchip1/pwm0/enable
+   echo <span style="color:#ae81ff">46990</span> &gt; /sys/class/pwm/pwmchip1/pwm0/duty_cycle
+   echo <span style="color:#e6db74">&#34;Initial fan speed set&#34;</span> &gt;&gt; /tmp/pwm-fan.log
+   sleep <span style="color:#ae81ff">5</span>
+   echo <span style="color:#ae81ff">49990</span> &gt; /sys/class/pwm/pwmchip1/pwm0/duty_cycle
+   echo <span style="color:#e6db74">&#34;Fan speed adjusted&#34;</span> &gt;&gt; /tmp/pwm-fan.log
+   <span style="color:#66d9ef">while</span> true
+   <span style="color:#66d9ef">do</span>
+       temp<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>cat /sys/class/thermal/thermal_zone0/temp<span style="color:#66d9ef">)</span>
+       echo <span style="color:#e6db74">&#34;Current temperature: </span>$temp<span style="color:#e6db74">&#34;</span> &gt;&gt; /tmp/pwm-fan.log
+       <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$temp<span style="color:#e6db74">&#34;</span> -gt <span style="color:#ae81ff">40000</span> <span style="color:#f92672">]</span> ; <span style="color:#66d9ef">then</span>
+           echo <span style="color:#ae81ff">30000</span> &gt; /sys/class/pwm/pwmchip1/pwm0/duty_cycle
+           echo <span style="color:#e6db74">&#34;Temperature high, fan speed increased&#34;</span> &gt;&gt; /tmp/pwm-fan.log
+       <span style="color:#66d9ef">fi</span>
+       sleep <span style="color:#ae81ff">10</span>
+   <span style="color:#66d9ef">done</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>为了避免生成的<code>/tmp/pwm-fan.log</code>越来越大，使用<code>logrotate</code>对日志进行管理。执行 <code>ls -l /tmp/pwm-fan.log*</code>后返回</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">-rw-r--r--    <span style="color:#ae81ff">1</span> root     root           <span style="color:#ae81ff">405</span> Apr <span style="color:#ae81ff">13</span> 17:25 /tmp/pwm-fan.log
+-rw-r--r--    <span style="color:#ae81ff">1</span> root     root            <span style="color:#ae81ff">50</span> Apr <span style="color:#ae81ff">13</span> 17:23 /tmp/pwm-fan.log.1.gz
+-rw-r--r--    <span style="color:#ae81ff">1</span> root     root           <span style="color:#ae81ff">306</span> Apr <span style="color:#ae81ff">13</span> 17:23 /tmp/pwm-fan.log.2.gz</code></pre></td></tr></table>
+</div>
+</div>
+<p><code>ogrotate</code> 已经成功地对 <code>/tmp/pwm-fan.log</code>进行了轮换。</p>
+
+<ol>
+<li>日志文件现状：
+○   <code>/tmp/pwm-fan.log</code>: 这是当前正在写入的日志文件，大小为 405 字节。
+○   <code>/tmp/pwm-fan.log.1.gz</code>: 这是最近一次被轮换出去并压缩的日志文件，大小为 50 字节。
+○   <code>/tmp/pwm-fan.log.2.gz</code>: 这是更早一次被轮换出去并压缩的日志文件，大小为 306 字节。</li>
+<li>日志轮换成功的迹象：
+○   日志文件名的变化（如 <code>.1.gz</code> 和 <code>.2.gz</code>）表明日志文件已经被轮换并压缩。
+○   当前日志文件 <code>/tmp/pwm-fan.log</code> 的大小小于轮换前的大小，说明 <code>logrotate</code> 已经对其进行了截断或重置。</li>
+<li>验证压缩：
+○   轮换后的日志文件都被压缩，这符合配置中的 <code>compress</code> 选项。</li>
+</ol>]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>
