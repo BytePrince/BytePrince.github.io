@@ -6,7 +6,23 @@
     <description>Recent content in Posts on Byte Prince</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 13 Apr 2025 17:29:11 +0800</lastBuildDate><atom:link href="https://byteprince.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 08 Oct 2025 17:13:33 +0800</lastBuildDate><atom:link href="https://byteprince.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>OpenClash访问Youtube异常问题的解决办法</title>
+      <link>https://byteprince.com/posts/93ed72ad/</link>
+      <pubDate>Wed, 08 Oct 2025 17:13:33 +0800</pubDate>
+      
+      <guid>https://byteprince.com/posts/93ed72ad/</guid>
+      <description></description>
+      <content:encoded><![CDATA[<p>前阵子配置完OpenClash后，发现家里Apple TV上的Youtube应用中，部分菜单icon图标无法显示，具体表现如下：</p>
+
+<p><img src="https://pic1.imgdb.cn/item/680e3bb258cb8da5c8d058d6.jpg" alt="异常" style="zoom: 33%;" /></p>
+
+<p>初步判断是OpenClash中某一项配置存在问题，经过一系列检查，排除了IPv6和代理节点的问题，发现是DNS存在问题，需要将<code>覆写设置</code>-<code>DNS设置</code>中，<code>Nameserver</code>处删除<code>114.114.114.114</code>这个DNS，保存并应用，待OpenClash重启完成后即可恢复正常。</p>
+
+<p><img src="https://private-user-images.githubusercontent.com/6113801/395597970-a0019171-85e1-4cbc-ac12-1e1ca4d8caa4.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NTk5MTU0OTcsIm5iZiI6MTc1OTkxNTE5NywicGF0aCI6Ii82MTEzODAxLzM5NTU5Nzk3MC1hMDAxOTE3MS04NWUxLTRjYmMtYWMxMi0xZTFjYTRkOGNhYTQucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI1MTAwOCUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNTEwMDhUMDkxOTU3WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9YTQ2NjNkM2IwMGYyMjc4MmRlNjBhYjJhOGJiYjdlZTExZTYxY2M3ZGVkY2UyMWU1NjMzMzAyZDQ2NzRmMjA1OSZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QifQ._1zoaIcTu9viHi0sQ2dHFeavvrw9ePOr-eBU4n3enMs" alt="最终设置" /></p>]]></content:encoded>
+    </item>
+    
     <item>
       <title>R4S风扇控制脚本以及日志管理</title>
       <link>https://byteprince.com/posts/8a9e7d3b/</link>
